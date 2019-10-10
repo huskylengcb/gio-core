@@ -1,0 +1,9 @@
+{
+  "name": "@gio-core/components",
+  "version": "0.0.0",
+  "description": "GrowingIO core components",
+  "main": "index.ts",
+  "author": "Zhang Yuxiang",
+  "license": "MIT",
+  "private": true
+}
