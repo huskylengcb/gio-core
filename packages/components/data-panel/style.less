@@ -2,13 +2,16 @@
   display: grid;
   grid-row-gap: 15px;
 
-  .form-row {
+  .form-field {
     display: grid;
     grid-template-columns: 1fr 4fr;
     align-items: center;
 
     &.description {
       align-items: baseline;
+    }
+    &.chart {
+      grid-template-columns: 1fr;
     }
   }
 
@@ -17,7 +20,7 @@
     padding-right: 25px;
     text-align: right;
   }
-  .chart {
+  .chart-area {
     min-height: 200px;
     border: 1px solid #eee;
   }

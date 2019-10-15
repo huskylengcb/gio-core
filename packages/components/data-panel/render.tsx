@@ -23,6 +23,12 @@ const render = (data: any, dataType: dataTypes = 'element') => {
   );
 }
 
+const FormField: React.FC<{ field: string}> = (props) => (
+  <div className={`form-field ${props.field}`}>
+    {props.children}
+  </div>
+)
+
 const renderFormFields = (data, dataType) => {
   return fieldsMap[dataType].map((key: string) => {
     switch (key) {
@@ -30,17 +36,21 @@ const renderFormFields = (data, dataType) => {
         return renderChart(data, dataType)
       case 'description':
         return (
-          <div className={`form-row ${key}`}>
-            <label>{keyMap[key]}</label>
-            <div>{data[key]}</div>
-          </div>
+          <FormField key={`form-field-${key}`} field={key}>
+            <React.Fragment>
+              <label>{keyMap[key]}</label>
+              <div>{data[key]}</div>
+            </React.Fragment>
+          </FormField>
         )
       default:
         return (
-          <div className='form-row'>
-            <label>{keyMap[key]}</label>
-            <Input value={data[key]} readOnly />
-          </div>
+          <FormField key={`form-field-${key}`} field={key}>
+            <React.Fragment>
+              <label>{keyMap[key]}</label>
+              <Input value={data[key]} readOnly />
+            </React.Fragment>
+          </FormField>
         )
     }
   });
@@ -48,12 +58,12 @@ const renderFormFields = (data, dataType) => {
 
 const renderChart = (data, dataType) => {
   return (
-    <div>
-      <label>统计趋势</label>
-      <div className='chart'>
-        Chart
-      </div>
-    </div>
+    <FormField key='form-field-chart' field={'chart'}>
+      <React.Fragment>
+        <label>统计趋势</label>
+        <div className='chart-area'>Chart</div>
+      </React.Fragment>
+    </FormField>
   )
 }
 
