@@ -11,6 +11,9 @@ interface Props {
 
 const DataPanel = (props: Props & SidePanelProps) => {
   const { data, dataType } = props;
+  if (!data || !dataType) {
+    return null;
+  }
   return (
     <SidePanel
       visible={props.visible}

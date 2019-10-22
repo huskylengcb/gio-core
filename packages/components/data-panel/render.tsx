@@ -1,13 +1,14 @@
 import React from 'react';
 import Button from '@gio-design/components/lib/button';
+import Chart from 'giochart';
+import { setRequsetHost } from 'giochart';
 import Input from '@gio-design/components/lib/input';
+
+setRequsetHost('chartdata', '/chartdata');
 
 export type dataTypes = 'element' | 'complex' | 'custom'
 
-const render = (data: any, dataType: dataTypes = 'element') => {
-  if (!data) {
-    return <div>Loading...</div>
-  }
+const render = (data: any, dataType: dataTypes) => {
   const formFields = renderFormFields(data, dataType);
   return (
     <form className='gio-core-data-panel'>
@@ -34,6 +35,8 @@ const renderFormFields = (data, dataType) => {
     switch (key) {
       case 'chart':
         return renderChart(data, dataType)
+      case 'platforms':
+      case 'example':
       case 'description':
         return (
           <FormField key={`form-field-${key}`} field={key}>
@@ -57,11 +60,19 @@ const renderFormFields = (data, dataType) => {
 }
 
 const renderChart = (data, dataType) => {
+  const gql = generateGQL(data);
   return (
     <FormField key='form-field-chart' field={'chart'}>
       <React.Fragment>
         <label>统计趋势</label>
-        <div className='chart-area'>Chart</div>
+        <div className='chart-area'>
+          <Chart
+            width={430}
+            height={250}
+            padding={0}
+            gql={gql}
+          />
+        </div>
       </React.Fragment>
     </FormField>
   )
@@ -79,7 +90,8 @@ const fieldsMap = {
   preparedDimension: [
     'name',
     'description',
-    'chart',
+    'platforms',
+    'example',
   ],
   userVariable: [
     'name',
@@ -94,7 +106,38 @@ const keyMap = {
   description: '描述',
   creatorName: '创建者',
   createdAt: '创建时间',
-  updatedAt: '更新时间'
+  updatedAt: '更新时间',
+  platofmrs: '平台',
+  example: '示例'
+}
+
+const generateGQL = (event: any) => {
+  return {
+    chartType: 'line',
+    attrs: {
+      metricType: 'none',
+      subChartType: 'seperate'
+    },
+    dimensions: ['tm'],
+    filter: null,
+    granularities: [
+      {
+        id: 'tm',
+        interval: 86400000,
+        trend: true
+      }
+    ],
+    limit: 20,
+    metrics: [{
+      id: event.id,
+      type: 'custom'
+    }],
+    orders: null,
+    timeRange: 'day:8,1',
+    targetUser: 'uv',
+    skip: 0,
+    expandedTimeOnColumns: true
+  }
 }
 
 export default render;
