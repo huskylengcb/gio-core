@@ -1,12 +1,12 @@
 {
   "name": "@gio-core/components",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "GrowingIO core components",
   "main": "index.ts",
   "author": "Zhang Yuxiang",
   "license": "MIT",
   "dependencies": {
-    "@gio-design/components": "^0.0.26",
+    "@gio-design/components": "^0.0.30",
     "giochart": "^1.1.0",
     "react": "^16.10.2"
   },

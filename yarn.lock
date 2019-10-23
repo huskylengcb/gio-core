@@ -350,12 +350,12 @@
     unique-filename "^1.1.1"
     which "^1.3.1"
 
-"@gio-design/components@^0.0.26":
-  version "0.0.26"
-  resolved "https://repo.growingio.com/repository/npm-group/@gio-design/components/-/components-0.0.26.tgz#69b5c3f785bfa1307718c0d468fb86b6450ff59b"
-  integrity sha512-4Xuw4aIe5iCQnPi4cln5ORRneyAEMsVv6usO9gWFntzNL73/oooZfmHnr40/QcyERjVNN9kX4la9JMX5Ubo/NQ==
+"@gio-design/components@^0.0.30":
+  version "0.0.30"
+  resolved "https://repo.growingio.com/repository/npm-group/@gio-design/components/-/components-0.0.30.tgz#8e509a0de56cc1097e03643592e0eebb73612aa9"
+  integrity sha512-asoV0DVFCiUSxI6s2TJcSCrcs3DLT2kbbxvN5F6rK4rmYgBbvciPIlUlxjXEm026aKydIqG+MPtBIF3CPrEyCg==
   dependencies:
-    "@gio-design/tokens" "^0.0.12"
+    "@gio-design/tokens" "^0.2.1"
     "@types/classnames" "^2.2.9"
     "@types/lodash" "^4.14.136"
     "@types/react" "^16.8.23"
@@ -370,12 +370,10 @@
     react "^16.8.6"
     react-dom "^16.8.6"
 
-"@gio-design/tokens@^0.0.12":
-  version "0.0.12"
-  resolved "https://repo.growingio.com/repository/npm-group/@gio-design/tokens/-/tokens-0.0.12.tgz#b81dccbfcdec1334fee4a539b3f45ab28ec35be0"
-  integrity sha512-94v9UpnPxclYxYK4zkj7zifvozzR9A+y2VY3PcUuXTZD0VEuSLVjX3PH7kk3JhpbT4Trt2YDRD0luHVDa2Rpnw==
-  dependencies:
-    handlebars "^4.1.2"
+"@gio-design/tokens@^0.2.1":
+  version "0.2.1"
+  resolved "https://repo.growingio.com/repository/npm-group/@gio-design/tokens/-/tokens-0.2.1.tgz#07b62a0fc9cf3d53e72da3c7f58c2efb979ed404"
+  integrity sha512-yDTAYpsaY3IWffIbwNuTeas3ZmGIkFlu0B0zYCLUmTA/3xWjR+zjgNKDANUr3RYzQqzjl4ZIxG/B3ThwNdQZGw==
 
 "@lerna/add@3.18.0":
   version "3.18.0"
@@ -3079,7 +3077,7 @@ hammerjs@^2.0.8:
   resolved "https://registry.yarnpkg.com/hammerjs/-/hammerjs-2.0.8.tgz#04ef77862cff2bb79d30f7692095930222bf60f1"
   integrity sha1-BO93hiz/K7edMPdpIJWTAiK/YPE=
 
-handlebars@^4.1.2, handlebars@^4.4.0:
+handlebars@^4.4.0:
   version "4.4.5"
   resolved "https://registry.yarnpkg.com/handlebars/-/handlebars-4.4.5.tgz#1b1f94f9bfe7379adda86a8b73fb570265a0dddd"
   integrity sha512-0Ce31oWVB7YidkaTq33ZxEbN+UDxMMgThvCe8ptgQViymL5DPis9uLdTA13MiRPhgvqyxIegugrP97iK3JeBHg==
