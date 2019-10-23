@@ -1,0 +1,66 @@
+.gio-select-option {
+  padding: 0 25px 0 15px;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.65);
+  height: 40px;
+  line-height: 40px;
+  transition: background-color 0.3s ease;
+
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  &:not(.group) {
+    cursor: pointer;
+
+    &:hover {
+      background-color: #f2f2f2;
+    }
+  }
+
+  &.selected {
+    background-color: #fef6f5;
+  }
+
+  &.disabled {
+    cursor: not-allowed;
+
+    &:not(.selected) {
+      opacity: 0.5;
+    }
+  }
+
+  .ant-checkbox-wrapper {
+    vertical-align: 1px;
+    margin-right: 10px;
+
+    .ant-checkbox-checked .ant-checkbox-inner, .ant-checkbox-indeterminate .ant-checkbox-inner {
+      background-color: #3a9afc;
+      border-color: #3a9afc;
+    }
+  }
+
+  [name^=gicon-check] {
+    position: absolute;
+    right: 15px;
+  }
+
+  &.group {
+    padding: 0 15px 0 10px;
+    .group-icon {
+      display: inline-block;
+      margin-right: 5px;
+      width: 22px;
+      height: 22px;
+      line-height: 22px;
+      background-color: #E3E7FC;
+      border-radius: 50%;
+      text-align: center;
+    }
+  }
+
+  &.indented {
+    padding-left: 43px;
+  }
+}

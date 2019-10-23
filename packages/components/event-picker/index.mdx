@@ -1,0 +1,67 @@
+---
+name: EventPicker
+route: /giocore/EventPicker
+menu: GIOCore
+---
+
+import { PropsTable, Playground } from 'docz'
+
+## EventPicker
+
+## 场景
+
+### 事件分析
+
+「预定义指标」与「事件」混合选择
+
+```
+import EventPicker from 'modules/core/components/EventPicker/containers/basicV3';
+import { getMeasurementName } from 'modules/core/components/EventPicker/helper';
+
+<EventPicker
+  value={this.props.dataSource}
+  isMultiple
+  expandAttributes
+  onSelect={(value, index, event) => {
+    this.props.onSelect(event);
+  }}
+  dataFilter={(measurement) => {}}
+>
+  <span>{getMeasurementName(measurement)}</span>
+</EventPicker>
+```
+
+### 通用场景
+
+事件（包含「任意事件」）选择
+
+```
+import EventPicker from 'modules/core/components/EventPicker/containers/basicV3';
+import MeasurementName from 'modules/core/components/EventPicker/components/MeasurementName';
+
+<EventPicker
+  value={measurement}
+  expandAttributes={true}
+  onSelect={handleSelect(onChange)}
+  dataFilter={eventSelectDataFilter}
+  exclusiveTypes={['merged', 'complex', 'average']}
+  showEventName={true}
+>
+  <div>
+    <MeasurementName measurement={measurement} showEventName={true} />
+  </div>
+</EventPicker>
+```
+
+Property|Type|Required|Default|Memo|
+|-|-|-|-|-|
+|value|Measurement or Measurement[]|true|| Measurement 即指标或事件
+|onChange|(selected) => void|false|noop|selected 为变化后的 value|
+|onSelect|(selected, index, value) => void|false|noop|多选时可以获得当前选中的选项
+|isMultiple|boolean|false|false|是否为多选|
+|expandAttributes|boolean|false|false|关联了数值型事件变量的埋点事件是否自动拆分为「求和」「求平均」指标|
+|showEventName|boolean|false|false|用于将『指标』转换为事件名称, 例如「用户量」-「活跃天数」|
+|exclusiveTypes|string[]|false|[]|用于常见的类型过滤，例如事件/指标类型：prepared/merged/complex，埋点事件类型 counter/number
+|dataFilter|(measurement) => boolean|false|noop|自定义过滤函数, 用于复杂情况的过滤
+|||||
+

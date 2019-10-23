@@ -1,0 +1,249 @@
+.event-preview {
+  &-panel {
+    span {
+      font-size: 12px;
+      color: #979797;
+
+      &.text {
+        margin-top: 3px;
+        color: #333;
+      }
+    }
+
+    & > * {
+      margin-top: 10px;
+    }
+
+    p {
+      color: #5C4E61;
+    }
+
+    .row {
+      margin: 10px 0;
+      display: flex;
+
+      label {
+        flex: 20%;
+        line-height: 24px;
+        color: #979797;
+
+        & + * {
+          flex: 80%;
+        }
+      }
+
+      input[disabled] {
+        color: #333333;
+        opacity: 0.8;
+      }
+
+      .switch-wrapper {
+        input {
+          width: 80%;
+        }
+
+        .ant-switch {
+          margin-left: 10px;
+        }
+      }
+    }
+
+    .event-fields {
+      position: relative;
+      min-height: 100px;
+    }
+
+    .event-fields input {
+      height: 24px;
+      font-size: 12px;
+    }
+
+    .gio-list {
+      margin: 10px 0;
+
+      thead span {
+        color: #5C4E61;
+      }
+
+      .ant-table-tbody tr:hover td {
+        background-color: white!important;
+      }
+    }
+
+    .btn-view-screenshot {
+      display: block;
+      margin: 0 auto;
+      span {
+        color: #fff;
+      }
+    }
+
+    .creatorInfo {
+      margin-top: 0px;
+      margin-bottom: 15px;
+      display: block;
+    }
+
+    .loading {
+      min-height: 100px;
+      position: relative;
+    }
+
+    .screenshotModal {
+      position: absolute;
+      top: calc(100% + 220px);
+      left: calc(50% - 51px);
+    }
+  }
+
+  &-header {
+    h1 {
+      font-size: 14px;
+      color: #333;
+      max-width: 90%;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+
+    span {
+      font-size: 12px;
+      color: #979797;
+    }
+  }
+
+  &-chart-wrapper {
+    position: relative;
+    overflow: hidden;
+    padding-top: 5px;
+    height: 200px;
+    border: 1px solid #EBEBEB;
+    background-color: #fafafa;
+    .g2-tooltip-value {
+      color: #ffffff;
+      line-height: 18px;
+    }
+  }
+
+  &-button-favor {
+    color: #5C4E61;
+    top: -24px;
+    color: #5C4E61;
+    float: right;
+    position: relative;
+  
+    svg {
+      fill: currentColor;
+    }
+  }
+
+  &-expression {
+    .child {
+      height: 32px;
+      line-height: 32px;
+      color: #5C4E61;
+      font-size: 12px;
+      padding-left: 10px;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+      background-color: #FAFAFA;
+      border-top: 1px solid #EBEBEB;
+    }
+    .child:first-child {
+      border-top: none;
+    }
+    .unit {
+      width: 280px;
+      height: 32px;
+      line-height: 32px;
+      color: #5C4E61;
+      font-size: 12px;
+      padding-left: 10px;
+      background-color: #FAFAFA;
+      border-top: 1px solid #EBEBEB;
+      position: relative;
+      display: flex;
+      .section {
+        display: inline-block;
+        color: #5C4E61;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+      }
+      .type.section {
+        margin-right: 3px;
+        min-width: 50px;
+      }
+      .name.section {
+        min-width: 120px;
+      }
+      .aggregator.section {
+        min-width: 34px;
+      }
+      .weight.section {
+        width: 50px;
+        flex-shrink: 0;
+        flex-grow: 1;
+        span {
+          color: #5C4E61;
+        }
+      }
+      .plus {
+        width: 12px;
+        height: 12px;
+        line-height: 12px;
+        text-align: center;
+        position: absolute;
+        background-color: #FAFAFA;
+        color: #716576;
+        border-radius: 1px;
+        right: -14px;
+        top: -6px;
+        font-size: 16px;
+        font-family: serif;
+      }
+    }
+    .unit:first-child {
+      border-top: none;
+    }
+    .row {
+      margin: 10px 0;
+      display: flex;
+  
+      label {
+        flex: 20%;
+        line-height: 24px;
+        color: #979797;
+  
+        & + * {
+          flex: 80%;
+        }
+      }
+  
+      input[disabled] {
+        color: #333333;
+        opacity: 0.8;
+      }
+  
+      .switch-wrapper {
+        input {
+          width: 80%;
+        }
+  
+        .ant-switch {
+          margin-left: 10px;
+        }
+      }
+    }
+    .middle {
+      width: 60px;
+      height: 20px;
+      background-color: #FAFAFA;
+      line-height: 20px;
+      text-align: center;
+      border-radius: 14px;
+      margin: 4px 0px 4px 104px;
+    }
+  }
+}

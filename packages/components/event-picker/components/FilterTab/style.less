@@ -1,0 +1,30 @@
+.filter-tab {
+  &-list {
+    display: inline-block;
+  }
+
+  &-list-item {
+    display: inline-block;
+    border-bottom: 2px solid transparent;
+    padding: 2px 5px;
+    margin: 0 5px 0 0;
+    color: #716576;
+    font-size: 12px;;
+    transition: all 0.3s ease;
+
+    &:not(.disabled):hover {
+      cursor: pointer;
+      color: #FC5F3A;
+    }
+
+    &.actived {
+      border-color: #FC5F3A;
+      color: #FC5F3A;
+    }
+
+    &.disabled {
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
+  }
+}

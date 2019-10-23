@@ -1,0 +1,153 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SelectCoreTab unit test SelectCoreTab snapshot  renders correctly 1`] = `
+<div
+  className="gio-select-core"
+>
+  <div
+    className="gio-select-core-header"
+  >
+    <SearchInput
+      allowRedundant={true}
+      autoFocus={false}
+      className=""
+      iconBefore={false}
+      inputStyle={Object {}}
+      keyword=""
+      onChange={[Function]}
+      onPressEnter={[Function]}
+      onSearch={[Function]}
+      placeholder="搜索事件"
+      quickMode={true}
+      seed="default"
+      source={Array []}
+      style={Object {}}
+      wait={250}
+      width="260px"
+    />
+  </div>
+  <withPure(Maybe)
+    of={true}
+  >
+    <styled.div
+      width={280}
+    >
+      <Tabs
+        activeKey="events"
+        hideAdd={false}
+        onChange={[Function]}
+        prefixCls="ant-tabs"
+      >
+        <TabPane
+          key="events"
+          placeholder={null}
+          tab="选择事件"
+        >
+          <withPure(Either)
+            left={
+              <div
+                style={
+                  Object {
+                    "height": 450,
+                    "position": "relative",
+                    "width": "100%",
+                  }
+                }
+              >
+                <div
+                  className="loading-gif"
+                />
+              </div>
+            }
+            of={true}
+          >
+            <withPure(Either)
+              left={
+                <Empty
+                  emptyPlaceholder="没有找到相关结果"
+                  height={450}
+                />
+              }
+              of={true}
+            >
+              <GroupedOptionsProvider(SelectList)
+                height={450}
+                isMultiple={true}
+                onChange={[Function]}
+                onSelect={[Function]}
+                options={
+                  Array [
+                    Object {
+                      "groupId": "events",
+                      "groupName": "选择事件",
+                      "id": "a",
+                      "name": "a",
+                    },
+                  ]
+                }
+                required={false}
+                valueKey="id"
+                width={280}
+              />
+            </withPure(Either)>
+          </withPure(Either)>
+        </TabPane>
+        <TabPane
+          key="variables"
+          placeholder={null}
+          tab="选择变量"
+        >
+          <withPure(Either)
+            left={
+              <div
+                style={
+                  Object {
+                    "height": 450,
+                    "position": "relative",
+                    "width": "100%",
+                  }
+                }
+              >
+                <div
+                  className="loading-gif"
+                />
+              </div>
+            }
+            of={true}
+          >
+            <withPure(Either)
+              left={
+                <Empty
+                  emptyPlaceholder="没有找到相关结果"
+                  height={450}
+                />
+              }
+              of={true}
+            >
+              <GroupedOptionsProvider(SelectList)
+                height={450}
+                isMultiple={true}
+                onChange={[Function]}
+                onSelect={[Function]}
+                options={
+                  Array [
+                    Object {
+                      "groupId": "variables",
+                      "groupName": "选择变量",
+                      "id": "a",
+                      "name": "a",
+                    },
+                  ]
+                }
+                required={false}
+                valueKey="id"
+                width={280}
+              />
+            </withPure(Either)>
+          </withPure(Either)>
+        </TabPane>
+      </Tabs>
+    </styled.div>
+  </withPure(Maybe)>
+</div>
+`;

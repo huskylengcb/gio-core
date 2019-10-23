@@ -1,0 +1,9 @@
+{
+  "name": "@gio-core/constants",
+  "version": "0.0.1",
+  "description": "GrowingIO frontend constants",
+  "main": "index.ts",
+  "author": "Zhang Yuxiang",
+  "license": "MIT",
+  "private": false
+}

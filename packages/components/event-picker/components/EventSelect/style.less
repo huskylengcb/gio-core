@@ -1,0 +1,73 @@
+.event-select {
+  &-label-wrapper {
+    padding: 10px 10px 0;
+
+    .gio-label.dark.nowrap {
+      margin-right: 8px;
+      padding: 0 20px 0 5px;
+      font-size: 12px;
+      height: 20px;
+      line-height: 20px;
+
+      svg {
+        position: absolute;
+        top: 3px;
+        right: 0;
+      }
+    }
+  }
+
+  &-loading-wrapper {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    background: rgba(255,255,255,0.5);
+    z-index: 10;
+  }
+
+  &-overlay {
+    width: 370px;
+    position: relative;
+
+    .c-search-input input {
+      max-width: 100%!important;
+    }
+    .btn-refresh {
+      width: 32px;
+      padding: 0;
+      height: 32px;
+      margin-left: 10px;
+    }
+
+    .gio-select-list {
+      overflow-y: scroll!important;
+    }
+
+    .gio-select-option.group:hover {
+      background-color: #f2f2f2;
+    }
+
+    .gio-select-option {
+      padding-left: 25px;
+    }
+  }
+
+  &-header {
+    padding: 10px 10px 0;
+    border-bottom: 1px solid #EBEBEB;
+  }
+
+  &-toolbar {
+    margin-top: 10px;
+  }
+
+  &-footer {
+    padding: 5px 10px;
+
+    button {
+      float: right;
+      margin-left: 15px;
+    }
+  }
+}

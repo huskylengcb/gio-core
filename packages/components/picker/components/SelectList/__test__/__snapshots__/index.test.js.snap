@@ -1,0 +1,95 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SelectGroup unit test renders correctly 1`] = `
+<span>
+  <SelectList
+    disabledOptions={Array []}
+    groups={
+      Array [
+        Object {
+          "groupId": "events",
+          "groupName": "选择事件",
+          "options": Array [
+            Object {
+              "groupId": "events",
+              "groupName": "选择事件",
+              "id": "a",
+              "name": "a",
+            },
+            Object {
+              "groupId": "events",
+              "groupName": "选择事件",
+              "id": "b",
+              "name": "b",
+            },
+            Object {
+              "groupId": "events",
+              "groupName": "选择事件",
+              "id": "c",
+              "name": "c",
+            },
+          ],
+        },
+      ]
+    }
+    handleChange={[Function]}
+    height={450}
+    isMultiple={true}
+    onChange={[Function]}
+    onSelect={[Function]}
+    options={
+      Array [
+        Object {
+          "group": undefined,
+          "id": "events",
+          "name": "选择事件",
+          "type": "groupName",
+        },
+        Object {
+          "groupId": "events",
+          "groupName": "选择事件",
+          "id": "a",
+          "name": "a",
+        },
+        Object {
+          "groupId": "events",
+          "groupName": "选择事件",
+          "id": "b",
+          "name": "b",
+        },
+        Object {
+          "groupId": "events",
+          "groupName": "选择事件",
+          "id": "c",
+          "name": "c",
+        },
+      ]
+    }
+    originalOptions={
+      Array [
+        Object {
+          "groupId": "events",
+          "groupName": "选择事件",
+          "id": "a",
+          "name": "a",
+        },
+        Object {
+          "groupId": "events",
+          "groupName": "选择事件",
+          "id": "b",
+          "name": "b",
+        },
+        Object {
+          "groupId": "events",
+          "groupName": "选择事件",
+          "id": "c",
+          "name": "c",
+        },
+      ]
+    }
+    value={Array []}
+    valueKey="id"
+    width={280}
+  />
+</span>
+`;

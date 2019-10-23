@@ -1,0 +1,15 @@
+{
+  "name": "@gio-core/utils",
+  "version": "0.0.1",
+  "description": "GrowingIO frontend utils",
+  "main": "index.ts",
+  "author": "Zhang Yuxiang",
+  "license": "MIT",
+  "private": false,
+  "dependencies": {
+    "isomorphic-fetch": "^2.2.1",
+    "lodash": "^4.17.15",
+    "pinyin-match": "^1.0.9",
+    "url": "^0.11.0"
+  }
+}

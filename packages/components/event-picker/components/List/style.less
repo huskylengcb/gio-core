@@ -1,0 +1,41 @@
+.gio-event-picker {
+  &-list {
+
+    &-option {
+      display: inline-block;
+      padding-left: 10px;
+      width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    &-group-option {
+      cursor: pointer;
+      user-select: none;
+
+      .icon-group-option {
+        vertical-align: -3px;
+        margin-right: 5px;
+      }
+
+      [name=gicon-down-o] {
+        float: right;
+
+        svg {
+          fill: currentColor;
+          transform: scale(1.5);
+          transition: transform 0.3s ease;
+        }
+      }
+
+      &.collapsed {
+        [name=gicon-down-o] {
+          svg {
+            transform: rotate(-90deg) scale(1.5);
+          }
+        }
+      }
+    }
+  }
+}

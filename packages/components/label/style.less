@@ -1,0 +1,68 @@
+.gio-label {
+  @font-color: #333;
+  @light-background-color: #FAFAFA;
+  @light-background-color-hover: #F2F2F2;
+
+  @dark-background-color: #F2F4FC;
+  @dark-background-color-hover: #eeeeff;
+
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  padding: 6px 10px;
+  border-radius: 2px;
+  vertical-align: baseline;
+  max-width: 100%;
+  font-size: 14px;
+  color: @font-color;
+  background-color: @light-background-color;
+  word-break: break-all;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-color: @light-background-color-hover;
+  }
+
+  &.dark {
+    background-color: @dark-background-color;
+
+    &:hover {
+      background-color: @dark-background-color-hover;
+    }
+  }
+
+  &.nowrap {
+    padding: 0 10px;
+    height: 30px;
+    line-height: 30px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  &.removable {
+    padding-right: 32px;
+  }
+
+  [class^=gio-icon] {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    color: @font-color;
+    transform: scale(0.95);
+    opacity: 0.75;
+    transition: inherit;
+
+    &:hover {
+      opacity: 1;
+    }
+
+    svg {
+      fill: currentColor!important;
+    }
+  }
+
+  &-inner {
+    display: inline-block;
+    height: 100%;
+  }
+}
