@@ -1,6 +1,6 @@
 {
   "name": "@gio-core/components",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "GrowingIO core components",
   "main": "index.ts",
   "author": "Zhang Yuxiang",
@@ -8,8 +8,8 @@
   "dependencies": {
     "@gio-design/components": "^0.0.30",
     "giochart": "^1.1.0",
-    "react": "^16.10.2",
-    "moment": "^2.19.3"
+    "moment": "^2.19.3",
+    "react": "^16.10.2"
   },
   "publishConfig": {
     "registry": "http://repo.growingio.com/repository/npm-hosted/"
