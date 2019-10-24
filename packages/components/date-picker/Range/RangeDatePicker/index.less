@@ -1,0 +1,70 @@
+.gio-datepicker-range-date {
+    display: flex;
+    padding-left: 5px;
+    .gio-datepicker-range-date-child {
+        padding: 4px 5px;
+        .ant-calendar {
+            background: #FAFAFA;
+            box-shadow: none;
+            &.ant-calendar-range {
+                overflow: inherit;
+                // .ant-calendar-header {
+                //     border-bottom: none;
+                // }
+                .ant-calendar-body {
+                    border-top: none;
+                }
+                .ant-calendar-input-wrap {
+                    position: absolute;
+                    height: 34px;
+                    top: -37px;
+                    border: none;
+                    .ant-calendar-date-input-wrap {
+                        .ant-calendar-input {
+                            border-radius: 2px;
+                            background-color: #FAFAFA;
+                            border: 1px solid #EBEBEB;
+                            width: 100px;
+                            &:focus {
+                                border: 1px solid #222F73;
+                                box-shadow: 0 2px 4px 0 rgba(102,102,102,0.3);
+                            }
+                            &.ant-calendar-input-invalid {
+                                border-color: #F55252;
+                            }
+                        }
+                    }
+                }
+                .ant-calendar-range-left {
+                    .ant-calendar-input-wrap {
+                        &::after {
+                            position: absolute;
+                            content: '—';
+                            top: 8px;
+                            right: -11px;
+                        }
+                    }
+                }
+                .ant-calendar-range-right .ant-calendar-date-input-wrap {
+                    margin-left: -110px;
+                }
+            }
+        }
+        .ant-calendar-tbody {
+            .ant-calendar-cell {
+                padding: 8px 0;
+            }
+            .ant-calendar-date:hover {
+                background: #F2F4FD;
+            }
+            .ant-calendar-selected-day .ant-calendar-date {
+                background: #3F4F9F;
+            }
+        }
+        .ant-calendar-in-range-cell{
+            &:before {
+                background: #F2F4FD;
+            }
+        }
+    }
+}

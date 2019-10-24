@@ -1,0 +1,53 @@
+
+.gio-datepicker-label {
+    margin: 0;
+    position: relative;
+    width: 240px;
+    height: 28px;
+    border: 1px solid #EBEBEB;
+    border-radius: 2px;
+    background-color: #FFFFFF;
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.25s ease-in-out;
+    user-select: none;
+    outline: none;
+    padding-left: 30px;
+    .text {
+        display: inline-block;
+        color: #7F7583;
+        font-size: 14px;
+        letter-spacing: 0.04px;
+        max-width: 90%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    .icon {
+        position: absolute;
+        top: 55%;
+        transform: translateY(-50%);
+    }
+    .arrow_down {
+        right: 10px;
+        text-align: center;
+        svg {
+            transition: transform 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+        }
+        &.focus {
+            svg {
+                transform: rotate(180deg);
+            }
+        }
+    }
+    .calendar {
+        left: 10px;
+    }
+    &.focus {
+        border: 1px solid #220968;
+        box-shadow: 0 0 4px 0 rgba(102,102,102,0.5);
+    }
+    &:hover {
+        border: 1px solid #220968;
+    }
+}

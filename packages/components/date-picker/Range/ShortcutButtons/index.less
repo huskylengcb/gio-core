@@ -1,0 +1,31 @@
+.gio-datepicker-shortcut-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    width: 160px;
+    padding: 0;
+    margin: 0;
+    .range {
+        display: inline-block;
+        text-align: center;
+        width: 70px;
+        background-color: #FAFAFA;
+        height: 30px;
+        line-height: 18px;
+        padding-top: 6px;
+        cursor: pointer;
+        color: #999;
+        margin: 0 10px 10px 0;
+        user-select: none;
+        &:hover {
+            color: #3F4F9F;
+        }
+        &.active {
+            background-color: #3F4F9F;
+            color: white;
+        }
+    }
+    .since {
+        display: inline-block;
+        position: relative;
+    }
+}
