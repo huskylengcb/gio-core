@@ -1,11 +1,9 @@
 import React from 'react';
-import { Moment } from 'moment';
+import moment, { Moment } from 'moment';
 import DatePicker from './common/DatePicker';
 import Label from './common/Label'
-import { format } from 'path';
 import './index.less';
 
-const moment = require('moment');
 interface HOCDatePickerProps {
     value: string,
     onChange: (value: string) => void,
