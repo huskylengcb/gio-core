@@ -9,7 +9,9 @@
     "@gio-design/components": "^0.0.30",
     "giochart": "^1.1.0",
     "moment": "^2.19.3",
-    "react": "^16.10.2"
+    "rc-calendar": "9.1.2",
+    "react": "^16.10.2",
+    "antd": "^3.20.5"
   },
   "publishConfig": {
     "registry": "http://repo.growingio.com/repository/npm-hosted/"

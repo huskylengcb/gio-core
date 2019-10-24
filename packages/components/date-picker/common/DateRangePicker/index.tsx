@@ -4,6 +4,7 @@ import moment from 'moment';
 import CalendarLocaleZh from 'rc-calendar/lib/locale/zh_CN';
 import CalendarLocaleEn from 'rc-calendar/lib/locale/en_US'
 import RangeCalendar from 'rc-calendar/lib/RangeCalendar';
+import 'antd/lib/date-picker/style/index.css';
 
 interface DatePickerProps {
   value: moment.Moment[],

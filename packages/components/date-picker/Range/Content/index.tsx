@@ -1,14 +1,15 @@
 import React from 'react';
 import moment from 'moment';
-import Button from '@gio-design/components/lib/button';
 import { getRangeFromKey, getMomentsFromRange } from '../util/shortcutRange'
 import RangeDatePicker from '../RangeDatePicker';
 import ShortcutButtons from '../ShortcutButtons';
-import './index.less';
-import InputLabel from '../InputLabel';
+import Button from '@gio-design/components/lib/button';
 import Gap from '@gio-design/components/lib/gap';
 import Icon from '@gio-design/components/lib/icon';
+import InputLabel from '../InputLabel';
 import bemClsFactor from '../../bemClsFactor';
+import './index.less';
+
 const cls = bemClsFactor('gio-datepicker-range')
 
 export interface DateRangeContentPickerProps {
@@ -33,19 +34,6 @@ interface DateRangeContentState {
 const defaultValue = getRangeFromKey('last_7_day')
 
 export default class DateRangeContent extends React.Component<DateRangeContentPickerProps, DateRangeContentState> {
-    // React 16.3+
-    // public static getDerivedStateFromProps(nextProps: DateRangeContentPickerProps, prevState: DateRangeContentState) {
-    //     if (!('value' in nextProps)) {
-    //         return null
-    //     }
-    //     const ranges = getRangeFromPropsValue(nextProps)
-    //     const nextState = {
-    //         value: nextProps.value,
-    //         start: ranges[0],
-    //         end: ranges[1]
-    //     }
-    //     return nextState
-    // }
     public static defaultProps: Partial<DateRangeContentPickerProps> = {
         // errorMessage: '已超出时间范围，对比的时间天数要相同',
         validate: (start, end) => ({ showError: false, errorMsg: '' })
@@ -137,16 +125,18 @@ export default class DateRangeContent extends React.Component<DateRangeContentPi
                     </div>
                     <div className={cls('footer-button-wrapper')}>
                         <Button
-                            type='gray'
+                            type='subtle'
                             onClick={this.handleCancel}
+                            size='middle'
                         >
                             取消
                         </Button>
                         <Gap width={10}/>
                         <Button
-                            type='default'
+                            type='secondary'
                             onClick={this.handleOk}
                             disabled={showError || !(start && end)}
+                            size='middle'
                         >
                             {this.props.locale === 'en' ? 'confirm' : '确定'}
                         </Button>

@@ -9,4 +9,4 @@ DatePicker.Range = Range
 DatePicker.CompareDatePicker = CompareDatePicker
 export default DatePicker
 
-// export { RangeDecoratorProps } from './Range'
+// export { RangeDecoratorProps } from './Range/RangeDecorator'
