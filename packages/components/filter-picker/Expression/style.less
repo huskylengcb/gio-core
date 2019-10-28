@@ -13,14 +13,21 @@
     vertical-align: top;
   }
 
-  [name='gicon-close'] {
+  svg {
     vertical-align: middle;
-    margin-left: 25px;
-    opacity: 0.6;
+    margin-left: 15px;
+    margin-right: 0!important;
+    opacity: 0.8;
     transition: opacity 0.3s ease;
+    cursor: pointer;
 
     &:hover {
       opacity: 1;
+    }
+
+    &[disabled] {
+      opacity: .4;
+      pointer-events: none;
     }
   }
 }

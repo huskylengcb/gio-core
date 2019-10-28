@@ -99,10 +99,12 @@ export default class Expression extends React.PureComponent<ExpressionProps, {}>
         {
           allowRemove && (
             <Icon
-              name='gicon-close'
-              size='small'
+              type='close'
+              width='16'
+              height='16'
               onClick={this.handleExpressionRemove}
               disabled={!index && !(property || value)}
+              className=''
             />
           )
         }

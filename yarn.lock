@@ -350,10 +350,10 @@
     unique-filename "^1.1.1"
     which "^1.3.1"
 
-"@gio-design/components@^0.1.0":
-  version "0.1.0"
-  resolved "https://repo.growingio.com/repository/npm-group/@gio-design/components/-/components-0.1.0.tgz#be701271013698a99f4952d3ca606f4e1aecdbd2"
-  integrity sha512-pghZlo61VXoU2XC6aWrE+EgSstXjioCK/O2EGzgwwGmLGdcelsmP8ZHg6valucnYGuSHNBUHbHY0qVQPArd4xQ==
+"@gio-design/components@^0.1.1":
+  version "0.1.1"
+  resolved "https://repo.growingio.com/repository/npm-group/@gio-design/components/-/components-0.1.1.tgz#9b27fa384ca2b8a0eaefeca865224f57c3fef62a"
+  integrity sha512-3RHAUHQUdDt4Ta93gYgDht1noduGNlLxvRHKc8Y9p8S+K+qsAconSey4sxTTwhpDwK9l78VOH1+k9YuMezVC+A==
   dependencies:
     "@gio-design/tokens" "^0.2.2"
     "@types/classnames" "^2.2.9"
