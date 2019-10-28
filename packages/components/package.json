@@ -1,6 +1,6 @@
 {
   "name": "@gio-core/components",
-  "version": "0.1.7",
+  "version": "0.2.0",
   "description": "GrowingIO core components",
   "main": "index.ts",
   "author": "Zhang Yuxiang",
@@ -9,6 +9,7 @@
     "@gio-design/components": "^0.1.0",
     "@gio-design/icon": "^0.0.18",
     "antd": "^3.20.5",
+    "classnames": "^2.2.6",
     "giochart": "^1.1.0",
     "moment": "^2.19.3",
     "rc-calendar": "9.1.2",

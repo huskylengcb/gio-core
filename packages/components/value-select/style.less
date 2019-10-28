@@ -1,0 +1,19 @@
+.gio-value-select-dropdown {
+  max-width: 360px;
+
+  &.ant-select-dropdown--multiple {
+    .ant-select-dropdown-menu > .ant-select-dropdown-menu-item {
+      display: none;
+
+      & + .ant-select-dropdown-menu-item-group {
+        .ant-select-dropdown-menu-item-group-title {
+          border: none;
+        }
+      }
+    }
+
+    .ant-select-dropdown-menu-item:not(.gio-select-dropdown-menu-item-multiple) {
+      display: none;
+    }
+  }
+}
