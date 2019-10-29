@@ -350,12 +350,12 @@
     unique-filename "^1.1.1"
     which "^1.3.1"
 
-"@gio-design/components@^0.1.1":
-  version "0.1.1"
-  resolved "https://repo.growingio.com/repository/npm-group/@gio-design/components/-/components-0.1.1.tgz#9b27fa384ca2b8a0eaefeca865224f57c3fef62a"
-  integrity sha512-3RHAUHQUdDt4Ta93gYgDht1noduGNlLxvRHKc8Y9p8S+K+qsAconSey4sxTTwhpDwK9l78VOH1+k9YuMezVC+A==
+"@gio-design/components@^0.1.3":
+  version "0.1.3"
+  resolved "https://repo.growingio.com/repository/npm-group/@gio-design/components/-/components-0.1.3.tgz#8daa06cc6fd6ae65d8a183e67545f652d0a85f2a"
+  integrity sha512-rpxZPeeWikj4ozwjHY1uOG4e3yP2yVMLP8HJ0HAJbkU546go4Hyy99774hKA+ailrsnlhcUV15Cr2kIe3UoFIw==
   dependencies:
-    "@gio-design/tokens" "^0.2.2"
+    "@gio-design/tokens" "^0.2.4"
     "@types/classnames" "^2.2.9"
     "@types/lodash" "^4.14.136"
     "@types/react" "^16.8.23"
@@ -377,10 +377,10 @@
   dependencies:
     radium "^0.25.2"
 
-"@gio-design/tokens@^0.2.2":
-  version "0.2.2"
-  resolved "https://repo.growingio.com/repository/npm-group/@gio-design/tokens/-/tokens-0.2.2.tgz#4dc294c001a302447c8906867b2ba613ab7edd80"
-  integrity sha512-IcmX6S4vitzTLsP7VSDXWeTd9/cR9FyUM3nVusEq4SU1DJrOyfqQXTSkL2F1NeqX9ybQgR+iMPV3sU6rBhUVJA==
+"@gio-design/tokens@^0.2.4":
+  version "0.2.4"
+  resolved "https://repo.growingio.com/repository/npm-group/@gio-design/tokens/-/tokens-0.2.4.tgz#ecb31f547943048c865ff6327a26e69759dbfd3d"
+  integrity sha512-8KOlPcKbWmxiUaaSwj+V/hSjCatUbU23a7vlous+2X1eMU0p/1F+TwmqkQ+pmE30VbYlf72cda0v2qRMkRJczQ==
 
 "@lerna/add@3.18.0":
   version "3.18.0"
