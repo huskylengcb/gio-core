@@ -3,6 +3,7 @@ import Button from '@gio-design/components/lib/button';
 import Chart from 'giochart';
 import { setRequsetHost } from 'giochart';
 import Input from '@gio-design/components/lib/input';
+import { format } from '@gio-core/utils/date';
 
 setRequsetHost('chartdata', '/chartdata');
 
@@ -14,7 +15,7 @@ const render = (data: any, dataType: dataTypes) => {
     <form className='gio-core-data-panel'>
       <div className='header'>
         {
-          ['custom'].includes(dataType) && (
+          [].includes(dataType) && (
             <Button size='small'>创建事件分析</Button>
           )
         }
@@ -30,6 +31,13 @@ const FormField: React.FC<{ field: string}> = (props) => (
   </div>
 )
 
+const readOnlyFields = [
+  'key',
+  'creatorName',
+  'createdAt',
+  'updatedAt'
+]
+
 const renderFormFields = (data, dataType) => {
   return fieldsMap[dataType].map((key: string) => {
     switch (key) {
@@ -38,11 +46,12 @@ const renderFormFields = (data, dataType) => {
       case 'platforms':
       case 'example':
       case 'description':
+      case 'valueType':
         return (
           <FormField key={`form-field-${key}`} field={key}>
             <React.Fragment>
               <label>{keyMap[key]}</label>
-              <div>{data[key]}</div>
+              <div>{renderValue(data[key], key)}</div>
             </React.Fragment>
           </FormField>
         )
@@ -51,12 +60,29 @@ const renderFormFields = (data, dataType) => {
           <FormField key={`form-field-${key}`} field={key}>
             <React.Fragment>
               <label>{keyMap[key]}</label>
-              <Input value={data[key]} readOnly />
+              <Input value={renderValue(data[key], key)} readOnly={readOnlyFields.includes(key)} />
             </React.Fragment>
           </FormField>
         )
     }
   });
+}
+
+const valueTypeMap = {
+  string: '字符串',
+  int: '整数',
+  double: '小数'
+}
+
+const renderValue = (value: any, key: string) => {
+  switch (key) {
+    case 'valueType':
+      return valueTypeMap[value];
+    case 'createdAt':
+    case 'updatedAt':
+      return format(new Date(value));
+  }
+  return value;
 }
 
 const renderChart = (data, dataType) => {
@@ -67,7 +93,7 @@ const renderChart = (data, dataType) => {
         <label>统计趋势</label>
         <div className='chart-area'>
           <Chart
-            width={430}
+            width={380}
             height={250}
             padding={0}
             gql={gql}
@@ -97,6 +123,12 @@ const fieldsMap = {
     'name',
     'key',
     'description'
+  ],
+  eventVariable: [
+    'name',
+    'key',
+    'description',
+    'valueType'
   ]
 }
 
@@ -108,7 +140,8 @@ const keyMap = {
   createdAt: '创建时间',
   updatedAt: '更新时间',
   platofmrs: '平台',
-  example: '示例'
+  example: '示例',
+  valueType: '类型'
 }
 
 const generateGQL = (event: any) => {

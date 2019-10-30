@@ -350,12 +350,12 @@
     unique-filename "^1.1.1"
     which "^1.3.1"
 
-"@gio-design/components@^0.1.3":
-  version "0.1.3"
-  resolved "https://repo.growingio.com/repository/npm-group/@gio-design/components/-/components-0.1.3.tgz#8daa06cc6fd6ae65d8a183e67545f652d0a85f2a"
-  integrity sha512-rpxZPeeWikj4ozwjHY1uOG4e3yP2yVMLP8HJ0HAJbkU546go4Hyy99774hKA+ailrsnlhcUV15Cr2kIe3UoFIw==
+"@gio-design/components@^0.1.7":
+  version "0.1.7"
+  resolved "https://repo.growingio.com/repository/npm-group/@gio-design/components/-/components-0.1.7.tgz#15cb274482edfc4443de85fc93d610634a858579"
+  integrity sha512-SOUmxBLOwCSYqZ8TtsCdhfa9Nj6dhoWJzVZNgiQmHmrN0YGoLmZovv1LNeHD0zOj0pf9rYRABuhpk8nNwnatBg==
   dependencies:
-    "@gio-design/tokens" "^0.2.4"
+    "@gio-design/tokens" "^0.2.8"
     "@types/classnames" "^2.2.9"
     "@types/lodash" "^4.14.136"
     "@types/react" "^16.8.23"
@@ -377,10 +377,10 @@
   dependencies:
     radium "^0.25.2"
 
-"@gio-design/tokens@^0.2.4":
-  version "0.2.4"
-  resolved "https://repo.growingio.com/repository/npm-group/@gio-design/tokens/-/tokens-0.2.4.tgz#ecb31f547943048c865ff6327a26e69759dbfd3d"
-  integrity sha512-8KOlPcKbWmxiUaaSwj+V/hSjCatUbU23a7vlous+2X1eMU0p/1F+TwmqkQ+pmE30VbYlf72cda0v2qRMkRJczQ==
+"@gio-design/tokens@^0.2.8":
+  version "0.2.8"
+  resolved "https://repo.growingio.com/repository/npm-group/@gio-design/tokens/-/tokens-0.2.8.tgz#0c079924ec1219f255ed91156e750c78488c1f1c"
+  integrity sha512-UmJ/56fv7OQ2l5gse5yhwLmkZe/+Z7jEuTAlP8EbWugkz9f1NIGP6NtRvIh0lUYJ5XstxlrAPIUXYI8QhmQ+cw==
 
 "@lerna/add@3.18.0":
   version "3.18.0"
@@ -2293,6 +2293,11 @@ dashdash@^1.12.0:
   integrity sha1-hTz6D3y+L+1d4gMmuN1YEDX24vA=
   dependencies:
     assert-plus "^1.0.0"
+
+date-fns@^2.6.0:
+  version "2.6.0"
+  resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-2.6.0.tgz#a5bc82e6a4c3995ae124b0ba1a71aec7b8cbd666"
+  integrity sha512-F55YxqRdEfP/eYQmQjLN798v0AwLjmZ8nMBjdQvNwEE3N/zWVrlkkqT+9seBlPlsbkybG4JmWg3Ee3dIV9BcGQ==
 
 dateformat@^3.0.0:
   version "3.0.3"
