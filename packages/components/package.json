@@ -16,7 +16,7 @@
     "giochart": "^1.1.0",
     "moment": "^2.19.3",
     "rc-calendar": "9.1.2",
-    "react": "^16.10.2"
+    "react": "^16.8.6"
   },
   "publishConfig": {
     "registry": "http://repo.growingio.com/repository/npm-hosted/"

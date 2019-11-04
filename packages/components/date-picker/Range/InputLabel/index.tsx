@@ -1,22 +1,20 @@
 import React from 'react';
-import styled from 'styled-components';
-
-const Wrapper = styled.span`
-  display: inline-block;
-  padding: 10px 0 6px 10px;
-  color: #3F4F9F;
-  font-weight: 500;
-`
 
 interface InputLabelProps {
   type?: 'normal' | 'now' | 'compare'
 }
 
+const WrapperStyle = {
+  display: 'inline-block',
+  padding: '10px 0 6px 10px',
+  color: '#3F4F9F',
+  'font-weight': 500,
+}
 const InputLabel = ({ type = 'normal'}: InputLabelProps) => {
   return (
-    <Wrapper>
+    <span style={WrapperStyle}>
       {getLabelByType(type)}：
-    </Wrapper>
+    </span>
   )
 }
 

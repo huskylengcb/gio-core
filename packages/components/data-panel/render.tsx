@@ -41,6 +41,8 @@ const readOnlyFields = [
 const renderFormFields = (data, dataType) => {
   return fieldsMap[dataType].map((key: string) => {
     switch (key) {
+      case 'eventVariables':
+        return 'eventVariables';
       case 'chart':
         return renderChart(data, dataType)
       case 'platforms':
@@ -112,6 +114,7 @@ const fieldsMap = {
     'createdAt',
     'updatedAt',
     'chart',
+    'eventVariables',
   ],
   preparedDimension: [
     'name',
