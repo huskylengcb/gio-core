@@ -1,7 +1,7 @@
 import React from 'react';
 import Filter from '@gio-core/types/Filter';
 import Expression from '@gio-core/types/FilterExpression';
-import Label from '@gio-core/components/Label';
+import Label from '@gio-core/components/label';
 import FilterDropdown from '@gio-core/components/filter-picker/FilterDropdown';
 import { handleRemove } from '@gio-core/components/filter-picker/utils';
 import { get } from 'lodash';

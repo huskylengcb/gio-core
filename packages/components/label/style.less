@@ -1,30 +1,42 @@
+@import '~@gio-design/tokens/dist/tokens';
+
 .gio-label {
   @font-color: #333;
-  @light-background-color: #FAFAFA;
-  @light-background-color-hover: #F2F2F2;
+
+  @color-label-light-base: white;
+  @background-color-label-light-base: @palette-primary-2;
+  @background-color-label-light-hover: @palette-primary-1;
 
   @dark-background-color: #F2F4FC;
   @dark-background-color-hover: #eeeeff;
+
+  @height-label: 20px;
 
   position: relative;
   display: inline-block;
   overflow: hidden;
   padding: 6px 10px;
-  border-radius: 2px;
+  border-radius: @border-radius-medium;
+  height: @height-label;
+  line-height: @height-label;
   vertical-align: baseline;
   max-width: 100%;
-  font-size: 14px;
-  color: @font-color;
-  background-color: @light-background-color;
+  font-size: 12px;
   word-break: break-all;
   transition: all 0.3s ease;
 
-  &:hover {
-    background-color: @light-background-color-hover;
+  &.light {
+    color: @color-label-light-base;
+    background-color: @background-color-label-light-base;
+
+    &:hover {
+      background-color: @background-color-label-light-hover;
+    }
   }
 
   &.dark {
     background-color: @dark-background-color;
+    @font-color: #333;
 
     &:hover {
       background-color: @dark-background-color-hover;
@@ -33,8 +45,6 @@
 
   &.nowrap {
     padding: 0 10px;
-    height: 30px;
-    line-height: 30px;
     white-space: nowrap;
     text-overflow: ellipsis;
   }
@@ -43,21 +53,17 @@
     padding-right: 32px;
   }
 
-  [class^=gio-icon] {
+  svg {
     position: absolute;
-    top: 5px;
+    top: 50%;
     right: 5px;
-    color: @font-color;
-    transform: scale(0.95);
     opacity: 0.75;
+    transform: translateY(-50%);
     transition: inherit;
+    cursor: pointer;
 
     &:hover {
       opacity: 1;
-    }
-
-    svg {
-      fill: currentColor!important;
     }
   }
 

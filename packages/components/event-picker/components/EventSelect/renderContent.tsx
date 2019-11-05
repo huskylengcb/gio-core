@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import { get } from 'lodash';
 import Button from '@gio-design/components/lib/button';
 import Icon from '@gio-design/components/lib/icon';
-import Label from '../../../label';
+import Label from '@gio-core/components/label';
 import { Props as SelectCoreProps } from '../../../picker/components/SelectCore';
 import FilterTab from '../FilterTab';
 import FilterSelect from '../FilterSelect';
