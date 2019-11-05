@@ -35,6 +35,7 @@ interface FilterPanelProps {
     showSearch: boolean,
     key: string
   }
+  dimensionsSearchPath: string
 };
 
 const style: React.CSSProperties = {
@@ -168,6 +169,7 @@ const FilterPanel = ({
               valueInclude={_valueIncludeItem}
               valueExclude={valueExclude}
               showSearch={showSearch}
+              dimensionsSearchPath={props.dimensionsSearchPath}
             />
           );
         })

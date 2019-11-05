@@ -33,7 +33,8 @@ interface Props {
   exclude?: string[]
   unique?: string[]
   operatorExclude?: Operator[]
-  valueExclude?: any[]
+  valueExclude?: any[],
+  dimensionsSearchPath?: string;
 }
 
 interface State {
@@ -110,6 +111,7 @@ class FilterDropdown extends React.PureComponent<Props, State> {
               unique={unique}
               operatorExclude={operatorExclude}
               valueExclude={valueExclude}
+              dimensionsSearchPath={this.props.dimensionsSearchPath}
             />
             <div className='gio-filter-dropdown__footer'>
               <Button onClick={this.handleCancel}>取消</Button>

@@ -28,6 +28,7 @@ interface Props {
   valueInclude?: any[],
   valueExclude?: any[],
   showSearch?: boolean,
+  dimensionsSearchPath?: string;
   [key: string]: any,
 }
 
@@ -51,6 +52,7 @@ const render = ({
   valueInclude = [],
   valueExclude = [],
   showSearch = true,
+  dimensionsSearchPath
 }: Props): JSX.Element[] => ([(
   <DimensionSelect
     key='gio-expression-dimension-select'
@@ -87,6 +89,7 @@ const render = ({
     timeRange={extraAttrs.timeRange}
     valueInclude={valueInclude}
     showSearch={showSearch}
+    dimensionsSearchPath={dimensionsSearchPath}
   />
 )]);
 

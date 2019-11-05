@@ -27,7 +27,8 @@ export interface ExpressionProps {
   operatorExclude?: Operator[]
   valueInclude?: any[]
   valueExclude?: any[]
-  showSearch?: boolean
+  showSearch?: boolean,
+  dimensionsSearchPath?: string
 };
 
 export default class Expression extends React.PureComponent<ExpressionProps, {}> {
@@ -57,7 +58,8 @@ export default class Expression extends React.PureComponent<ExpressionProps, {}>
       valueInclude = [],
       valueExclude = [],
       showSearch = true,
-      placeholder
+      placeholder,
+      dimensionsSearchPath
     } = this.props;
 
     const {
@@ -94,6 +96,7 @@ export default class Expression extends React.PureComponent<ExpressionProps, {}>
             valueInclude,
             valueExclude,
             showSearch,
+            dimensionsSearchPath
           })
         }
         {
