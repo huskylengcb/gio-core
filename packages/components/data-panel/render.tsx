@@ -4,6 +4,8 @@ import Chart from 'giochart';
 import { setRequsetHost } from 'giochart';
 import Input from '@gio-design/components/lib/input';
 import { format } from '@gio-core/utils/date';
+import List from '@gio-design/components/lib/list';
+
 
 setRequsetHost('chartdata', '/chartdata');
 
@@ -41,8 +43,8 @@ const readOnlyFields = [
 const renderFormFields = (data, dataType) => {
   return fieldsMap[dataType].map((key: string) => {
     switch (key) {
-      case 'eventVariables':
-        return 'eventVariables';
+      case 'attributes':
+        return renderAttributes(data, dataType, key);
       case 'chart':
         return renderChart(data, dataType)
       case 'platforms':
@@ -106,6 +108,35 @@ const renderChart = (data, dataType) => {
   )
 }
 
+const renderAttributes = (data: any, dataType: string, key: keyof typeof keyMap) => {
+  console.log(data, dataType, key);
+  const rowKey = (record: any) => record.id;
+
+  return (
+    <div className={`form-field-${key}`}>
+      <React.Fragment>
+        <div>
+          <label>{keyMap[key]}</label>
+        </div>
+        <div>
+          <List
+            rowKey={rowKey}
+            dataSource={data[key]}
+            columns={AttrColumns}
+          />
+        </div>
+      </React.Fragment>
+    </div>
+  )
+}
+
+const AttrColumns = [
+  { title: '名称', dataIndex: 'name', key: 'name', width: 100, textWrap: 'word-break', ellipsis: true },
+  { title: '标示符', dataIndex: 'key', key: 'key', width: 100 },
+  { title: '类型', dataIndex: 'valueType', key: 'valueType', width: 100 },
+  { title: '创建日期', dataIndex: 'associatedAt', key: 'associatedAt', width: 105, render: (value: string) => format(new Date(value), 'yyyy/MM/dd')},
+]
+
 const fieldsMap = {
   custom: [
     'name',
@@ -114,7 +145,7 @@ const fieldsMap = {
     'createdAt',
     'updatedAt',
     'chart',
-    'eventVariables',
+    'attributes',
   ],
   preparedDimension: [
     'name',
@@ -144,7 +175,8 @@ const keyMap = {
   updatedAt: '更新时间',
   platofmrs: '平台',
   example: '示例',
-  valueType: '类型'
+  valueType: '类型',
+  attributes: '关联事件级变量'
 }
 
 const generateGQL = (event: any) => {
