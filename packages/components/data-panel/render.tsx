@@ -109,7 +109,6 @@ const renderChart = (data, dataType) => {
 }
 
 const renderAttributes = (data: any, dataType: string, key: keyof typeof keyMap) => {
-  console.log(data, dataType, key);
   const rowKey = (record: any) => record.id;
 
   return (
