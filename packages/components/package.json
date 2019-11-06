@@ -1,11 +1,14 @@
 {
   "name": "@gio-core/components",
-  "version": "0.2.7",
+  "version": "0.2.8",
   "description": "GrowingIO core components",
   "main": "index.ts",
   "author": "Zhang Yuxiang",
   "license": "MIT",
   "dependencies": {
+    "rc-calendar": "9.1.2"
+  },
+  "peerDependencies": {
     "@gio-core/constants": "^0.0.2",
     "@gio-core/types": "^0.0.1",
     "@gio-core/utils": "^0.0.2",
@@ -13,9 +16,8 @@
     "@gio-design/icon": "^0.0.18",
     "antd": "^3.20.5",
     "classnames": "^2.2.6",
-    "giochart": "^1.1.0",
     "moment": "^2.19.3",
-    "rc-calendar": "9.1.2",
+    "giochart": "^1.1.0",
     "react": "^16.8.6"
   },
   "publishConfig": {
