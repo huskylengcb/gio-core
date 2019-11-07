@@ -1,5 +1,6 @@
 import React from 'react';
 import Input from '@gio-design/components/lib/input';
+import Spin from '@gio-design/components/lib/spin';
 import SelectList from '../SelectList';
 //import isContain from 'gioutils/pinyinHelper';
 import SelectListGroup from '../SelectList/SelectGroup';
@@ -9,14 +10,6 @@ const SearchInput = Input.Search;
 const isContain = (option: string, keyword: string) => option.includes(keyword);
 
 import './style.less';
-
-const loadingWrapperStyle: React.CSSProperties = {
-  position: 'absolute',
-  width: '100%',
-  height: '100%',
-  top: 0,
-  background: 'rgba(255, 255, 255, .7)'
-};
 
 export interface Props {
   value: any,
@@ -111,7 +104,9 @@ class SelectCore extends React.Component<Props, State> {
         {this.renderList()}
         {
           isLoading ? (
-            <div style={{ ...loadingWrapperStyle, height }}><div className='loading-gif' /></div>
+            <div className='loading-wrapper'>
+              <Spin />
+            </div>
           ) : null
         }
       </div>

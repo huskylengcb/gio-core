@@ -61,8 +61,11 @@ class Picker extends React.Component<Props & (SelectCoreProps | SelectCoreTabPro
     const isDropdown = this.props.type === 'dropdown';
     const placement = this.props.placement || (isDropdown ? 'bottom' : 'right');
     const getPopupContainer = this.props.getPopupContainer || this.getPopupContainer;
+    const renderedChilren = typeof children === 'function' ? children({
+      visible
+    }) : children
     return (
-      <div ref={this.setRef} className='gio-picker-wrapper gio-event-picker'>
+      <div ref={this.setRef} className='gio-picker-wrapper'>
         {
           isDropdown ? (
             <Dropdown
@@ -73,7 +76,7 @@ class Picker extends React.Component<Props & (SelectCoreProps | SelectCoreTabPro
               getPopupContainer={getPopupContainer}
               prefixCls='gio-picker dropdown ant-dropdown'
             >
-              {children}
+              {renderedChilren}
             </Dropdown>
           ) : (
             <Popover
@@ -85,7 +88,7 @@ class Picker extends React.Component<Props & (SelectCoreProps | SelectCoreTabPro
               prefixCls='gio-picker ant-popover'
               placement={placement}
             >
-              {children}
+              {renderedChilren}
             </Popover>
           )
         }

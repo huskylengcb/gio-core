@@ -1,3 +1,5 @@
+@import '~@gio-design/tokens/dist/tokens.less';
+
 .gio-select-option {
   padding: 0 25px 0 15px;
   font-size: 14px;
@@ -41,9 +43,12 @@
     }
   }
 
-  [name^=gicon-check] {
+  svg {
     position: absolute;
     right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: @palette-primary-1;
   }
 
   &.group {

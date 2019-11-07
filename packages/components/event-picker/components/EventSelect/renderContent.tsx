@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import { get } from 'lodash';
 import Button from '@gio-design/components/lib/button';
 import Icon from '@gio-design/components/lib/icon';
+import Spin from '@gio-design/components/lib/spin';
 import Label from '@gio-core/components/label';
 import { Props as SelectCoreProps } from '../../../picker/components/SelectCore';
 import FilterTab from '../FilterTab';
@@ -12,13 +13,14 @@ import { Header, Toolbar } from '../../../picker/components/index.styled';
 import {
   defaultFilters,
   tabs,
-  types,
-  platforms,
+  types as defaultTypes,
+  platforms as defaultPlatforms,
 } from './constants';
 import List from '../List';
 import { groupData } from '../../helper';
 // import StepPreview from 'modules/funnel/components/StepSelect/StepsPreview';
 import Input from '@gio-design/components/lib/input';
+import classnames from 'classnames';
 
 //const SearchInput = require('components/utils/SearchInput').default;
 const SearchInput = Input.Search;
@@ -61,6 +63,9 @@ const mouseEnterHandler = (setPreviewVisibility) => {
   setPreviewVisibility(true)
 }
 
+const handleRefetch = (refetch: () => void) =>
+  (e: React.MouseEvent<HTMLButtonElement>) => refetch()
+
 const renderContent = ({
   refContainer,
   isLoading,
@@ -92,7 +97,11 @@ const renderContent = ({
   setPreviewVisibility,
   filterVisibility,
   setFilterVisibility,
-  disabledPreviewOptions
+  disabledPreviewOptions,
+  useGroup,
+  useTab,
+  types,
+  platforms
 }: any) => ({ value, onChange }: Partial<SelectCoreProps>) => {
   const isLazyMode = !keyword;
   const groupIds = isLazyMode ? openedGroupIds : collapsedGroupIds;
@@ -123,11 +132,14 @@ const renderContent = ({
             <Button
               type='gray'
               className='btn-refresh'
-              onClick={refresh}
+              onClick={handleRefetch(refresh)}
             >
               <Icon name='gicon-refresh' />
             </Button>
-            <div className='event-select-toolbar'>
+            <div className={classnames(
+              'event-select-toolbar',
+              { 'tab-invisible': !useTab }
+            )}>
               <FilterTab
                 tabs={tabs}
                 onChange={handleScopeChange(setScope)}
@@ -135,6 +147,8 @@ const renderContent = ({
               />
               <span style={{ float: 'right' }} ref={refContainer} onClick={(e) => {e.stopPropagation()}}>
                 <FilterSelect
+                  types={types || defaultTypes}
+                  platforms={platforms || defaultPlatforms}
                   filterValues={filterValues}
                   reset={resetFilter(handleValueChange)}
                   handleFilterValueChange={handleFilterValueChange(handleValueChange)}
@@ -146,20 +160,20 @@ const renderContent = ({
             </div>
           </div>
           <div className='event-select-label-wrapper'>
-            {renderFilterLabel(filterValues, 'type', types, handleValueChange)}
-            {renderFilterLabel(filterValues, 'platform', platforms, handleValueChange)}
+            {renderFilterLabel(filterValues, 'type', types || defaultTypes, handleValueChange)}
+            {renderFilterLabel(filterValues, 'platform', platforms || defaultPlatforms, handleValueChange)}
           </div>
           <div onMouseEnter={() => { setFilterVisibility(false) }}>
             {isLoading && (
               <div className='event-select-loading-wrapper'>
-                <div className='loading-gif' />
+                <Spin />
               </div>
             )}
             <List
               value={value}
               max={max}
               options={
-                scope === 'all' ? groupData(filteredData, groupIds, groups, counters, isLazyMode, labeledDataCache, filterValues.type.length || filterValues.platform.length) : filteredData
+                useGroup ? groupData(filteredData, groupIds, groups, counters, isLazyMode, labeledDataCache, filterValues.type.length || filterValues.platform.length) : filteredData
               }
               disabledOptions={disabledOptions}
               isLoading={isLoading}

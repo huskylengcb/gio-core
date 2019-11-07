@@ -4,13 +4,6 @@ import useMount from 'react-use/lib/useMount';
 import useUnmount from 'react-use/lib/useUnmount';
 import cacheLatest from '@gio-core/utils/cacheLatest';
 import { isEqual, find, uniqBy } from 'lodash';
-import {
-  useFetch,
-  useSearch,
-  useLabeledData,
-  useGroups,
-  useEventsDetail
-} from '../../hooks';
 import PreparedMetric from '@gio-core/types/Metrics/PreparedMetric';
 import {
   convertToOption,
@@ -45,6 +38,16 @@ interface Props {
   needStepPreview?: boolean, // 是否需要右侧固定的步骤预览组件，目前只在漏斗模块中需要
   stepPreviewProps?: any, // 步骤预览组件所需要的各种属性
   placement?: PopoverPropsType['placement']
+  measurements?: any[];
+  loading?: boolean;
+  keyword?: string;
+  handleKeywordChange?: (keyword: string) => void;
+  useGroup?: boolean;
+  useTab?: boolean;
+  refetch?: () => void;
+  type?: 'dropdown' | 'popover';
+  types?: any[];
+  platforms?: any[];
 }
 
 const filterRecentEvents = cacheLatest((metrics: any[], preparedMetrics: PreparedMetric[], dataFilter: (any) => boolean, expandAttributes: boolean) => {
@@ -92,30 +95,18 @@ const EventSelect = ({
   stepPreviewProps,
   disabledPreviewOptions,
   placement = 'leftTop',
+  measurements,
+  loading,
+  keyword,
+  handleKeywordChange,
+  useGroup = false,
+  useTab = true,
+  refetch,
+  types,
+  type,
+  platforms
 }: Props) => {
   const refContainer = useRef(null);
-  /*
-  const {
-    data: labels,
-    isLoading: isLabelsLoading,
-    fetch: fetchLabels
-  } = useFetch(`/v3/projects/${window.project.id}/labels`);
-  const {
-    data: preparedMetrics,
-    isLoading: isPreparedMetricsLoading
-  } = useFetch(`/v3/projects/${window.project.id}/prepared-metrics`);
-  */
-
-  /*
-  const {
-    data: labeledData,
-    dataCache: labeledDataCache,
-    openedGroupIds,
-    isLoading: isLabeledDataLoading,
-    handleOpenedGroupChange,
-    reset: resetLabeledData
-  } = useLabeledData();
-  */
   const recentKey = 'key' || `${window.currentUser.id}:${window.project.id}:recentEvents`;
   const initValue = localStorage.getItem(recentKey) || JSON.stringify([])
 
@@ -137,44 +128,16 @@ const EventSelect = ({
   })
   /*dev*/
   const [
-    keyword,
-    scope,
     preparedMetrics,
     searchResults,
     labels,
     openedGroupIds,
-  ] = [ '', '', [], [], [], []];
-  /*dev*/
+  ] = ['', [], [], [], []];
+  
+  const [scope, setScope] = useState('');
+
+  let data = measurements;
   /*
-  const {
-    data: searchResults,
-    keyword,
-    isLoading: isSearchLoading,
-    handleSearch,
-    scope,
-    setScope,
-  } = useSearch(`/v3/projects/${window.project.id}/measurements`);
-
-  const {
-    groupIds: collapsedGroupIds,
-    handleGroupIdsChange: handleCollapsedGroupChange,
-    setGroupIds: setCollapsedGroupIds
-  } = useGroups([]);
-  */
-
-  // const { data: mineData, isLoading: isMineDataLoading } = useFetch(`/v3/projects/${window.project.id}/measurements?t=mine`);
-  // const { data: counters, isLoading: isCountersLoading } = useFetch(`/v3/projects/${window.project.id}/measurements/counters`);
-
-  const isLoading = false && [
-    isLabeledDataLoading,
-    isSearchLoading,
-    isLabelsLoading,
-    isPreparedMetricsLoading,
-    // isMineDataLoading,
-    // isCountersLoading
-  ].some((isLoading: boolean) => isLoading);
-
-  let data;
   if (keyword || scope !== 'all') {
     data = expandAttributes ? expandAttributeToMetric(searchResults) : searchResults;
   } else {
@@ -192,6 +155,7 @@ const EventSelect = ({
       ...(expandAttributes ? expandAttributeToMetric(labeledData) : labeledData)
     ];
   }
+  */
   const [ hoveringNode, setHoveringNode ] = useState(null);
   const [ previewVisibility, setPreviewVisibility ] = useState(false);
   const [ filterVisibility, setFilterVisibility ] = useState(false);
@@ -227,10 +191,10 @@ const EventSelect = ({
   return (
     <Picker
       value={value}
+      type={type}
       options={[]}
       onChange={onChange}
       className={'gio-event-picker__overlay'}
-      type='popover'
       placement={placement}
       isMultiple={isMultiple}
       getPopupContainer={getPopupContainer || (() => document.querySelector('body'))}
@@ -239,17 +203,11 @@ const EventSelect = ({
       onVisibleChange={stepPreviewProps ? stepPreviewProps.handleStepSelectVisibleChange : undefined}
       render={renderContent({
         refContainer,
-        isLoading,
-        data: [
-          { id: 'uv', name: '访问' },
-          { id: 'test', name: '测试事件' }
-        ],
+        isLoading: loading,
+        data,
         disabledOptions: disabledOptions ? disabledOptions.map((o: any) => convertToOption(o)).map((o: any) => o.selectKey) : undefined,
         exclusiveTypes,
-        refresh: () => {
-          fetchLabels();
-          resetLabeledData();
-        },
+        refresh: refetch,
         groups: [
           { id: 'recentlyUsed', name: '最近使用'},
           { id: 'prepared', name: '预定义指标' },
@@ -267,10 +225,10 @@ const EventSelect = ({
         dataFilter,
         handleCollapsedGroupChange: () => void 0,
         setCollapsedGroupIds: () => void 0,
-        handleSearch: () => void 0,
+        handleSearch: handleKeywordChange,
         handleOpenedGroupChange: () => void 0,
         scope,
-        setScope: () => void 0,
+        setScope,
         hoveringNode,
         handleNodeHover: setHoveringNode,
         labels,
@@ -280,7 +238,11 @@ const EventSelect = ({
         setPreviewVisibility,
         filterVisibility,
         setFilterVisibility,
-        disabledPreviewOptions
+        disabledPreviewOptions,
+        useGroup: useGroup && scope === 'all',
+        useTab,
+        types,
+        platforms
       })}
     >
       {children}
