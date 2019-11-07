@@ -1,29 +1,54 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Button from '@gio-design/components/lib/button';
+import List from '@gio-design/components/lib/list';
+import Input from '@gio-design/components/lib/input';
 import Chart from 'giochart';
 import { setRequsetHost } from 'giochart';
-import Input from '@gio-design/components/lib/input';
 import { format } from '@gio-core/utils/date';
-import List from '@gio-design/components/lib/list';
+import Form, { FormComponentProps } from 'antd/lib/form';
+import Select from '@gio-design/components/lib/select';
+const { Option } = Select;
 
-
+import { isEqual } from 'lodash';
 setRequsetHost('chartdata', '/chartdata');
 
-export type dataTypes = 'element' | 'complex' | 'custom'
+export type dataTypes = keyof typeof fieldsMap
+export interface DataPanelFormProps {
+  form: any;
+  data: any
+  dataType: dataTypes
+  extraData: any
+}
 
-const render = (data: any, dataType: dataTypes) => {
-  const formFields = renderFormFields(data, dataType);
+const formItemLayout = {
+  labelCol: {
+    xs: { span: 24 },
+    sm: { span: 5 },
+  },
+  wrapperCol: {
+    xs: { span: 24 },
+    sm: { span: 18 },
+  },
+};
+
+const DataPanelForm: React.FC<DataPanelFormProps> = ({ data, dataType, extraData, form }) => {
+  const { getFieldDecorator } = form
+  const formFields = renderFormFields(data, dataType, getFieldDecorator, extraData);
   return (
-    <form className='gio-core-data-panel'>
+    <Form
+      className='gio-core-data-panel'
+      layout='horizontal'
+      {...formItemLayout}
+    >
       <div className='header'>
         {
-          [].includes(dataType) && (
+          false && (
             <Button size='small'>创建事件分析</Button>
           )
         }
       </div>
       {formFields}
-    </form>
+    </Form>
   );
 }
 
@@ -40,33 +65,52 @@ const readOnlyFields = [
   'updatedAt'
 ]
 
-const renderFormFields = (data, dataType) => {
-  return fieldsMap[dataType].map((key: string) => {
+const renderFormFields = (data: any, dataType: dataTypes, getFieldDecorator: any, extraData: any) => {
+  return fieldsMap[dataType] && fieldsMap[dataType].map((key: string) => {
     switch (key) {
       case 'attributes':
-        return renderAttributes(data, dataType, key);
+        return renderAttributes(data, dataType, key, getFieldDecorator, extraData);
       case 'chart':
         return renderChart(data, dataType)
       case 'platforms':
       case 'example':
-      case 'description':
+      // case 'description':
       case 'valueType':
         return (
-          <FormField key={`form-field-${key}`} field={key}>
-            <React.Fragment>
-              <label>{keyMap[key]}</label>
+          <Form.Item label={keyMap[key]}>
+            {getFieldDecorator(key, {
+              initialValue: data[key]
+            })(
               <div>{renderValue(data[key], key)}</div>
-            </React.Fragment>
-          </FormField>
+            )}
+          </Form.Item>
+        )
+      case 'name':
+        return (
+          <Form.Item label='名称'>
+            {getFieldDecorator(key, {
+              initialValue: data[key],
+              rules: [{
+                required: true,
+                message: '名称不能为空',
+              }, {
+                max: 30,
+                message: '名称最长为30字符',
+              }],
+            })(
+              <Input placeholder='请输入名称' />
+            )}
+          </Form.Item>
         )
       default:
         return (
-          <FormField key={`form-field-${key}`} field={key}>
-            <React.Fragment>
-              <label>{keyMap[key]}</label>
-              <Input value={renderValue(data[key], key)} readOnly={readOnlyFields.includes(key)} />
-            </React.Fragment>
-          </FormField>
+          <Form.Item label={keyMap[key]}>
+            {getFieldDecorator(key, {
+              initialValue: data[key]
+            })(
+              <Input disabled={readOnlyFields.includes(key)} />
+            )}
+          </Form.Item>
         )
     }
   });
@@ -78,7 +122,7 @@ const valueTypeMap = {
   double: '小数'
 }
 
-const renderValue = (value: any, key: string) => {
+const renderValue = (value: keyof typeof valueTypeMap, key: string) => {
   switch (key) {
     case 'valueType':
       return valueTypeMap[value];
@@ -89,12 +133,12 @@ const renderValue = (value: any, key: string) => {
   return value;
 }
 
-const renderChart = (data, dataType) => {
+const renderChart = (data: any, dataType: string) => {
   const gql = generateGQL(data);
   return (
     <FormField key='form-field-chart' field={'chart'}>
       <React.Fragment>
-        <label>统计趋势</label>
+        <Form.Item label='统计趋势'></Form.Item>
         <div className='chart-area'>
           <Chart
             width={380}
@@ -108,15 +152,28 @@ const renderChart = (data, dataType) => {
   )
 }
 
-const renderAttributes = (data: any, dataType: string, key: keyof typeof keyMap) => {
+const renderAttributes = (data: any, dataType: string, key: keyof typeof keyMap, getFieldDecorator: any, extraData: any) => {
   const rowKey = (record: any) => record.id;
+  const eventVariables = extraData.eventVariables
 
   return (
     <div className={`form-field-${key}`}>
       <React.Fragment>
-        <div>
-          <label>{keyMap[key]}</label>
-        </div>
+        <Form.Item label={keyMap[key]}  labelCol={{ xs: { span: 8 }, sm: { span: 6 }}}>
+          {getFieldDecorator(key, {
+              initialValue: (data[key] || []).map((item: any) => item.id)
+            })(
+              <Select
+                mode='multiple'
+                placeholder='Please select'
+                style={{ width: '100%'}}
+              >
+                {eventVariables && eventVariables.map((item: any, index: number) => {
+                  return <Option key={index} value={item.id}>{item.key}</Option>
+                })}
+              </Select>
+            )}
+        </Form.Item>
         <div>
           <List
             rowKey={rowKey}
@@ -139,6 +196,7 @@ const AttrColumns = [
 const fieldsMap = {
   custom: [
     'name',
+    'description',
     'key',
     'creatorName',
     'createdAt',
@@ -172,10 +230,11 @@ const keyMap = {
   creatorName: '创建者',
   createdAt: '创建时间',
   updatedAt: '更新时间',
-  platofmrs: '平台',
+  platforms: '平台',
   example: '示例',
   valueType: '类型',
-  attributes: '关联事件级变量'
+  attributes: '关联事件级变量',
+  chart: '统计趋势'
 }
 
 const generateGQL = (event: any) => {
@@ -207,4 +266,22 @@ const generateGQL = (event: any) => {
   }
 }
 
-export default render;
+export interface FormProps extends FormComponentProps{
+  onValuesChange: (changed: boolean, values: any) => void;
+  data: any
+  dataType: dataTypes
+  extraData: any
+}
+
+
+const Render = Form.create({
+  onValuesChange: (props: FormProps, values: any) => {
+
+    if (props.onValuesChange) {
+      const changed = Object.keys(values).some((key: string) => !isEqual(props.data[key], values[key]));
+      props.onValuesChange(changed, values)
+    }
+  }
+})(DataPanelForm);
+
+export default Render;

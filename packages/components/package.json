@@ -14,7 +14,7 @@
     "@gio-core/constants": "^0.0.2",
     "@gio-core/types": "^0.0.1",
     "@gio-core/utils": "^0.0.2",
-    "@gio-design/components": "^0.3.1",
+    "@gio-design/components": "^0.4.2",
     "@gio-design/icon": "^0.0.19",
     "classnames": "^2.2.6",
     "giochart": "^1.1.0",
