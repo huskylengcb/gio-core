@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
-import SidePanel, { Props as SidePanelProps } from '@gio-design/components/src/components/side-panel';
+import SidePanel, { Props as SidePanelProps } from '@gio-design/components/lib/side-panel';
 import Render, { dataTypes } from './render';
 import './style.less';
 
