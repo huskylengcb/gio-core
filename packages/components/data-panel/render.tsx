@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import Button from '@gio-design/components/lib/button';
-import List from '@gio-design/components/lib/list';
 import Input from '@gio-design/components/lib/input';
 import Chart from 'giochart';
 import { setRequsetHost } from 'giochart';
 import { format } from '@gio-core/utils/date';
 import Form, { FormComponentProps } from 'antd/lib/form';
-import Select from '@gio-design/components/lib/select';
 import { isEqual } from 'lodash';
-const { Option } = Select;
+import EventVariablesSelect from '@gio-core/components/eventvariable-select';
+
 setRequsetHost('chartdata', '/chartdata');
 
 export type dataTypes = keyof typeof fieldsMap
@@ -31,8 +30,7 @@ const formItemLayout = {
 };
 
 const DataPanelForm: React.FC<DataPanelFormProps> = ({ data, dataType, extraData, form }) => {
-  const { getFieldDecorator } = form
-  const formFields = renderFormFields(data, dataType, getFieldDecorator, extraData);
+  const formFields = renderFormFields(data, dataType, form, extraData);
   return (
     <Form
       className='gio-core-data-panel'
@@ -64,11 +62,12 @@ const readOnlyFields = [
   'updatedAt'
 ]
 
-const renderFormFields = (data: any, dataType: dataTypes, getFieldDecorator: any, extraData: any) => {
+const renderFormFields = (data: any, dataType: dataTypes, form: any, extraData: any) => {
+  const { getFieldDecorator, getFieldValue } = form
   return fieldsMap[dataType] && fieldsMap[dataType].map((key: string) => {
     switch (key) {
       case 'attributes':
-        return renderAttributes(data, dataType, key, getFieldDecorator, extraData);
+        return renderAttributes(data, dataType, key, form, extraData);
       case 'chart':
         return renderChart(data, dataType)
       case 'platforms':
@@ -151,10 +150,10 @@ const renderChart = (data: any, dataType: string) => {
   )
 }
 
-const renderAttributes = (data: any, dataType: string, key: keyof typeof keyMap, getFieldDecorator: any, extraData: any) => {
+const renderAttributes = (data: any, dataType: string, key: keyof typeof keyMap, form: any, extraData: any) => {
   const rowKey = (record: any) => record.id;
   const eventVariables = extraData.eventVariables
-
+  const { getFieldDecorator } = form
   return (
     <div className={`form-field-${key}`}>
       <React.Fragment>
@@ -162,35 +161,13 @@ const renderAttributes = (data: any, dataType: string, key: keyof typeof keyMap,
           {getFieldDecorator(key, {
               initialValue: (data[key] || []).map((item: any) => item.id)
             })(
-              <Select
-                mode='multiple'
-                placeholder='Please select'
-                style={{ width: '100%'}}
-              >
-                {eventVariables && eventVariables.map((item: any, index: number) => {
-                  return <Option key={index} value={item.id}>{item.key}</Option>
-                })}
-              </Select>
+              <EventVariablesSelect eventVariables={eventVariables} />
             )}
         </Form.Item>
-        <div>
-          <List
-            rowKey={rowKey}
-            dataSource={data[key]}
-            columns={AttrColumns}
-          />
-        </div>
       </React.Fragment>
     </div>
   )
 }
-
-const AttrColumns = [
-  { title: '名称', dataIndex: 'name', key: 'name', width: 100, textWrap: 'word-break', ellipsis: true },
-  { title: '标识符', dataIndex: 'key', key: 'key', width: 100 },
-  { title: '类型', dataIndex: 'valueType', key: 'valueType', width: 100 },
-  { title: '创建日期', dataIndex: 'associatedAt', key: 'associatedAt', width: 105, render: (value: string) => format(new Date(value), 'yyyy/MM/dd')},
-]
 
 const fieldsMap = {
   custom: [
