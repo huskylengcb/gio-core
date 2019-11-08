@@ -209,8 +209,8 @@ class SelectCore extends React.Component<Props, State> {
     }
 
     return (
-      <div style={{ padding: '50% 10px 0', textAlign: 'center', height }}>
-        {emptyPlaceholder}
+      <div style={{ padding: '50% 10px 0', textAlign: 'center', width, height }}>
+        {!this.props.isLoading && emptyPlaceholder}
       </div>
     )
   }

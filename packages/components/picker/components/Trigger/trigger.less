@@ -1,0 +1,36 @@
+@import '~@gio-design/tokens/dist/tokens.less';
+
+.gio-picker-trigger {
+  display: inline-block;
+  padding: 5px 10px 5px 8px;
+  border-radius: 4px;
+  transition: background-color 0.2s  ease;
+  cursor: pointer;
+
+  &:hover {
+    background-color: @background-color-select-ghost-hover;
+  }
+
+  &-content {
+    display: inline-block;
+    vertical-align: middle;
+    padding-right: 8px;
+    max-width: 200px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  svg {
+    transition: transform 0.3s ease;
+  }
+}
+.ant-dropdown-open,
+.ant-popover-open {
+  .gio-picker-trigger {
+    background-color: @background-color-select-ghost-hover;
+    svg {
+      transform: rotate(180deg);
+    }
+  }
+}
