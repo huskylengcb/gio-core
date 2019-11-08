@@ -17,7 +17,7 @@ const DataPanel = (props: Props & SidePanelProps) => {
   }
 
   const [footerVisible, setFooterVisible] = useState(false)
-  const formRef = useRef();
+  const formRef = useRef() as any;
   const setFormRef = (form: any) => {
     formRef.current = form;
   }
@@ -27,23 +27,28 @@ const DataPanel = (props: Props & SidePanelProps) => {
   }
 
   const handleOk = () => {
-    (formRef as any).current.validateFields((errors: any, values: any) => {
+    formRef.current.validateFields((errors: any, values: any) => {
       if (!errors) {
         props.onChange && props.onChange(values)
-        (formRef as any).current.resetFields();
       }
     });
   }
 
   const handleCancel = () => {
-    (formRef as any).current.resetFields();
+    formRef.current.resetFields();
     props.close && props.close()
   }
+
+  useEffect(() => {
+    if (formRef.current && formRef.current.resetFields) {
+      formRef.current.resetFields()
+    }
+
+  }, [props.data])
 
   return (
     <SidePanel
       visible={props.visible}
-
       width={480}
       getContainer={props.getContainer}
       close={props.close}
