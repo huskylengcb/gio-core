@@ -42,6 +42,7 @@ const DataPanel = (props: Props & SidePanelProps) => {
   useEffect(() => {
     if (formRef.current && formRef.current.resetFields) {
       formRef.current.resetFields()
+      setFooterVisible(false)
     }
 
   }, [props.data])
