@@ -188,7 +188,7 @@ const renderAttributes = (data: any, dataType: string, key: keyof typeof keyMap,
 
 const AttrColumns = [
   { title: '名称', dataIndex: 'name', key: 'name', width: 100, textWrap: 'word-break', ellipsis: true },
-  { title: '标示符', dataIndex: 'key', key: 'key', width: 100 },
+  { title: '标识符', dataIndex: 'key', key: 'key', width: 100 },
   { title: '类型', dataIndex: 'valueType', key: 'valueType', width: 100 },
   { title: '创建日期', dataIndex: 'associatedAt', key: 'associatedAt', width: 105, render: (value: string) => format(new Date(value), 'yyyy/MM/dd')},
 ]
@@ -225,7 +225,7 @@ const fieldsMap = {
 
 const keyMap = {
   name: '名称',
-  key: '标示符',
+  key: '标识符',
   description: '描述',
   creatorName: '创建者',
   createdAt: '创建时间',
