@@ -7,9 +7,8 @@ import { setRequsetHost } from 'giochart';
 import { format } from '@gio-core/utils/date';
 import Form, { FormComponentProps } from 'antd/lib/form';
 import Select from '@gio-design/components/lib/select';
-const { Option } = Select;
-
 import { isEqual } from 'lodash';
+const { Option } = Select;
 setRequsetHost('chartdata', '/chartdata');
 
 export type dataTypes = keyof typeof fieldsMap
