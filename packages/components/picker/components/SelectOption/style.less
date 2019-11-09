@@ -22,7 +22,8 @@
   }
 
   &.selected {
-    background-color: #fef6f5;
+    // kbackground-color: #fef6f5;
+    background-color: #f2f2f2!important;
   }
 
   &.disabled {
@@ -43,7 +44,7 @@
     }
   }
 
-  svg {
+  &:not(.group) svg {
     position: absolute;
     right: 15px;
     top: 50%;
@@ -53,15 +54,14 @@
 
   &.group {
     padding: 0 15px 0 10px;
+
     .group-icon {
-      display: inline-block;
-      margin-right: 5px;
-      width: 22px;
-      height: 22px;
-      line-height: 22px;
-      background-color: #E3E7FC;
-      border-radius: 50%;
-      text-align: center;
+      margin-right: 10px!important;
+
+      svg {
+        vertical-align: text-top!important;
+        margin: 0!important;
+      }
     }
   }
 

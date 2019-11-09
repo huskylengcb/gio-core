@@ -4,6 +4,7 @@ import Spin from '@gio-design/components/lib/spin';
 import SelectList from '../SelectList';
 //import isContain from 'gioutils/pinyinHelper';
 import SelectListGroup from '../SelectList/SelectGroup';
+import { get, groupBy } from 'lodash';
 
 const SearchInput = Input.Search;
 
@@ -187,7 +188,7 @@ class SelectCore extends React.Component<Props, State> {
       } else {
         return (
           <SelectList
-            options={this.state.options}
+            options={getGroupedOptions(this.state.options)}
             disabledOptions={disabledOptions}
             value={this.state.value}
             valueKey={valueKey}
@@ -217,3 +218,23 @@ class SelectCore extends React.Component<Props, State> {
 }
 
 export default SelectCore;
+
+const getGroupedOptions = (options: any[]) => {
+  if (!options.some((option: any) => option && option.groupName)) {
+    return options;
+  }
+  const groupedOptions = groupBy(options, 'groupName');
+  return Object.keys(groupedOptions).reduce((opts: any[], groupKey: string) => {
+    const group = get(groupedOptions, `${groupKey}.0.group`);
+    const groupId = get(groupedOptions, `${groupKey}.0.groupId`);
+    return opts.concat([
+      {
+        id: groupId || groupKey,
+        name: groupKey,
+        type: 'groupName',
+        group
+      },
+      ...groupedOptions[groupKey]
+    ]);
+  }, []);
+}

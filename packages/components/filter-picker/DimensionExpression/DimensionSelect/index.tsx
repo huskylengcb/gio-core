@@ -58,7 +58,8 @@ const DimensionSelect = ({
 
 export const getGroupIcon = (group: string) => (
   <span className='group-icon'>
-    <Icon name={`gicon-${group}`} />
+    {/* <Icon name={`gicon-${group}`} /> */}
+    <Icon type='tag-2' />
   </span>
 );
 
