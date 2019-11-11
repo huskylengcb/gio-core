@@ -101,14 +101,15 @@ export default class Expression extends React.PureComponent<ExpressionProps, {}>
         }
         {
           allowRemove && (
-            <Icon
-              type='close'
-              width='16'
-              height='16'
-              onClick={this.handleExpressionRemove}
-              disabled={!index && !(property || values.length)}
-              className=''
-            />
+            <span className='gio-expression-btn-remove'>
+              <Icon
+                type='close'
+                width='16'
+                height='16'
+                onClick={this.handleExpressionRemove}
+                disabled={!index && !(property || (values && values.length))}
+              />
+            </span>
           )
         }
       </div>

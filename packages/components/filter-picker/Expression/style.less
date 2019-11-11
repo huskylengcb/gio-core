@@ -11,23 +11,30 @@
 
   .gio-value-select--multiple {
     vertical-align: top;
+
+    .ant-select-selection__choice__remove {
+      font-size: 14px!important;
+      right: 3px!important;
+    }
   }
 
-  svg {
-    vertical-align: middle;
-    margin-left: 15px;
-    margin-right: 0!important;
-    opacity: 0.8;
-    transition: opacity 0.3s ease;
-    cursor: pointer;
+  &-btn-remove {
+    svg {
+      vertical-align: middle;
+      margin-left: 15px;
+      margin-right: 0!important;
+      opacity: 0.8;
+      transition: opacity 0.3s ease;
+      cursor: pointer;
 
-    &:hover {
-      opacity: 1;
-    }
+      &:hover {
+        opacity: 1;
+      }
 
-    &[disabled] {
-      opacity: .4;
-      pointer-events: none;
+      &[disabled] {
+        opacity: .4;
+        pointer-events: none;
+      }
     }
   }
 }
