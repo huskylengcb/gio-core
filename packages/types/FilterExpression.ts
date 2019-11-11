@@ -3,7 +3,7 @@
 export default interface FilterExpression {
   key: string,
   op: string,
-  value: string,
+  values: string[],
   name?: string,
   symbol?: string
 };
@@ -11,5 +11,5 @@ export default interface FilterExpression {
 export const defaultFilterExpression: FilterExpression = {
   key: undefined,
   op: '=',
-  value: undefined
+  values: []
 };

@@ -65,7 +65,7 @@ export default class Expression extends React.PureComponent<ExpressionProps, {}>
     const {
       key: property,
       op: operator,
-      value,
+      values,
       name: propertyName
     } = expression;
 
@@ -85,7 +85,7 @@ export default class Expression extends React.PureComponent<ExpressionProps, {}>
             onPropertySelectChange: this.handlePropertySelectChange,
             operator,
             onOperatorSelectChange: this.handleOperatorSelectChange,
-            value,
+            values,
             valueOptions,
             valueSelectMode,
             placeholder,
@@ -106,7 +106,7 @@ export default class Expression extends React.PureComponent<ExpressionProps, {}>
               width='16'
               height='16'
               onClick={this.handleExpressionRemove}
-              disabled={!index && !(property || value)}
+              disabled={!index && !(property || values.length)}
               className=''
             />
           )
@@ -125,21 +125,21 @@ export default class Expression extends React.PureComponent<ExpressionProps, {}>
     this.handleChange({
       key: option.key,
       name: option.label,
-      value: undefined
+      values: []
     });
 
   private handleOperatorSelectChange = (op: string): void => {
     const props = this.props;
-    const values = props.expression.value && props.expression.value.split(',');
+    const values = props.expression.values || [];
     // 由多选切换到单选时，保留第一个已选值
-    if (props.multipleModeOperators.indexOf(op) === -1 && (values && values.length > 1)) {
-      this.handleChange({ op, value: values[0] });
+    if (props.multipleModeOperators.indexOf(op) === -1 && values.length > 1) {
+      this.handleChange({ op, values: [values[0]] });
     } else {
       this.handleChange({ op });
     }
   };
 
-  private handleValueSelectChange = (value: string): void => this.handleChange({ value });
+  private handleValueSelectChange = (values: string): void => this.handleChange({ values });
 
   private handleExpressionRemove = (): void => this.props.onRemove(this.props.index);
 

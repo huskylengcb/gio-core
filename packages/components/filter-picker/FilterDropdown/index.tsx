@@ -147,7 +147,7 @@ class FilterDropdown extends React.PureComponent<Props, State> {
   private handleConfirm = () => {
     this.handleVisibleChange(false);
     const { filter: oldFilter } = this.state;
-    const exprs = (get(oldFilter, 'exprs', []) as any[]).filter((e: FilterExpression) => e.key && e.value);
+    const exprs = (get(oldFilter, 'exprs', []) as any[]).filter((e: FilterExpression) => e.key && e.values.length);
     const filter = exprs.length ? { ...oldFilter, exprs } : null;
     this.setState((prevState: State) => ({
       ...prevState,

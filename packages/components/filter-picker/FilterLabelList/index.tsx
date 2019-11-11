@@ -54,7 +54,7 @@ const FilterLabelList: (props: Props) => JSX.Element = ({
               [
                 expression.name,
                 expression.op,
-                expression.value.replace(/,/g, ', ')
+                expression.values.join(', ')
               ].join(' ')
             }
           </Label>

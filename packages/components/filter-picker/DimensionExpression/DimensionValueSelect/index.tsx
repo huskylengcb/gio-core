@@ -18,7 +18,7 @@ interface State {
 }
 
 interface Props {
-  value: string,
+  values: string[],
   dimension: string,
   dimensionName: string,
   valueExclude?: any[],
@@ -29,7 +29,7 @@ interface Props {
   placeholder?: string,
   style?: React.CSSProperties,
   dimensionsSearchPath?: string;
-  onChange: (value: string) => void,
+  onChange: (values: string[]) => void,
   getPopupContainer?: () => HTMLElement,
   valueInclude?: any[]
   showSearch?: boolean
@@ -72,7 +72,7 @@ class DimensionValueSelect extends React.PureComponent<Props, State> {
         this.setState((prevState: State) => ({
           ...prevState,
           keyword: '',
-          valueOptions: [],
+          valueOptions: ['Error'],
           isLoading: false,
           isTyping: false
         }));
@@ -98,7 +98,7 @@ class DimensionValueSelect extends React.PureComponent<Props, State> {
         dropdownStyle={{ with: '360px' }}
         style={{ width: '200px', ...props.style }}
         disabled={!props.dimension}
-        value={props.value}
+        values={props.values}
         mode={props.mode}
         notFoundContent={isTyping || isLoading ? '正在加载……' : '没有可用维度值'}
         getPopupContainer={props.getPopupContainer}
@@ -114,15 +114,15 @@ class DimensionValueSelect extends React.PureComponent<Props, State> {
     }
   }
 
-  private onChange = (value: string) => {
+  private onChange = (values: string[]) => {
     // 搜索并选中后，清除关键词显示默认选项列表
     // if (this.state.keyword) {
     //   this.fetchSuggestions('');
     // }
-    if (this.props.mode === 'tags' && !value) {
+    if (this.props.mode === 'tags' && !(values && values.length)) {
       this.fetchSuggestions('');
     }
-    this.props.onChange(value);
+    this.props.onChange(Array.isArray(values) ? values : [values]);
   }
 
   private generateFreeInputTooltip = () => {

@@ -19,9 +19,9 @@ interface Props {
   onPropertySelectChange: (property: string) => void,
   operator: string,
   onOperatorSelectChange: (operator: string) => void,
-  value: string,
+  values: string[],
   ValueSelectMode: 'tags' | 'multiple',
-  onValueSelectChange: (value: string) => void,
+  onValueSelectChange: (values: string[]) => void,
   onChange: (expression: FilterExpression) => void,
   getPopupContainer: () => HTMLElement,
   operatorExclude?: Operator[],
@@ -42,7 +42,7 @@ const render = ({
   onPropertySelectChange,
   operator,
   onOperatorSelectChange,
-  value,
+  values,
   valueSelectMode,
   onValueSelectChange,
   getPopupContainer,
@@ -80,7 +80,7 @@ const render = ({
     key={'gio-expression-dimension-value-select'}
     dimension={property}
     dimensionName={propertyName}
-    value={value}
+    values={values}
     valueExclude={valueExclude}
     mode={valueSelectMode}
     onChange={onValueSelectChange}

@@ -8,7 +8,7 @@ import classnames from 'classnames';
 import './style.less';
 
 export interface ValueSelectProps {
-  value: string,
+  values: string[],
   options: any[],
   mode?: string,
   keyword?: string,
@@ -32,7 +32,7 @@ class ValueSelect extends React.Component<ValueSelectProps, {}> {
 
   public render() {
     const {
-      value,
+      values,
       options,
       mode,
       keyword,
@@ -47,7 +47,7 @@ class ValueSelect extends React.Component<ValueSelectProps, {}> {
         mode={mode}
         className={classnames('gio-value-select', { 'gio-value-select--multiple': isMultipleMode(mode) })}
         showSearch={showSearch}
-        value={value ? value.split(',').filter((v: string) => !!v) : []}
+        value={values}
         onChange={onSelectChange(onChange)}
         optionLabelProp={'value'}
         dropdownClassName={'gio-value-select-dropdown'}
@@ -77,7 +77,7 @@ class ValueSelect extends React.Component<ValueSelectProps, {}> {
     if (!options.length) {
       return null;
     }
-    const { value, mode } = this.props;
+    const { values, mode } = this.props;
     const OptionList = options.map((option: any) =>
       // typeof option === 'object' ?
       // (
@@ -87,7 +87,7 @@ class ValueSelect extends React.Component<ValueSelectProps, {}> {
       // ) :
       (
         <Select.Option className='gio-select-dropdown-menu-item-multiple' key={option} value={option} disabled={!(option && option.trim())}>
-          {isMultipleMode(mode) ? <Checkbox checked={(value ? value.split(',') : []).indexOf(option) > -1} /> : null}
+          {isMultipleMode(mode) ? <Checkbox checked={values.indexOf(option) > -1} /> : null}
           {option}
         </Select.Option>
       ));
@@ -142,16 +142,15 @@ class ValueSelect extends React.Component<ValueSelectProps, {}> {
         return;
       }
       const str = event.clipboardData.getData('text/plain');
-      const arr = [this.props.value, str]
+      const values = [...this.props.values, str]
           .join(',')
           .split(/,|\n|\r|\t/)
           .map((s: string) => s && s.trim())
           .filter((s: string) => !!s);
-      if (arr.length === 1) {
+      if (values.length === 1) {
         return;
       }
-      const value = Array.from(new Set(arr)).join(',');
-      this.props.onChange(value);
+      this.props.onChange(values);
       return false;
     };
   }
@@ -159,16 +158,8 @@ class ValueSelect extends React.Component<ValueSelectProps, {}> {
 
 const isMultipleMode = (mode?: string): boolean => /tags|multiple/.test(mode);
 
-const onSelectChange = (onChange: (value: string | string[]) => void) => ((key: string | string[]) => {
-  const value: string = convert2StringValue(key);
-  onChange(value);
+const onSelectChange = (onChange: (values: string[]) => void) => ((values: string[]) => {
+  onChange(values);
 })
-
-const convert2StringValue = (value: string | string[]): string => (
-  Array.isArray(value) ? (value as string[])
-    .map((s: string) => s.trim())
-    .filter((s: string) => !!s)
-    .join(',') : value && value.trim()
-);
 
 export default ValueSelect;
