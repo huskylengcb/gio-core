@@ -7,6 +7,6 @@
   "license": "MIT",
   "private": false,
   "publishConfig": {
-    "registry": "http://repo.growingio.com/repository/npm-hosted/"
+    "registry": "https://repo.growingio.com/repository/npm-hosted/"
   }
 }
