@@ -59,7 +59,8 @@ const readOnlyFields = [
   'key',
   'creatorName',
   'createdAt',
-  'updatedAt'
+  'updatedAt',
+  'type'
 ]
 
 const renderFormFields = (data: any, dataType: dataTypes, form: any, extraData: any) => {
@@ -196,6 +197,10 @@ const fieldsMap = {
     'key',
     'description',
     'valueType'
+  ],
+  tunnel: [
+    'name',
+    'description',
   ]
 }
 
