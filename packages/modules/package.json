@@ -1,6 +1,6 @@
 {
   "name": "@gio-core/modules",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "GrowingIO core modules",
   "main": "idnex.ts",
   "author": "Zhang Yuxiang",
