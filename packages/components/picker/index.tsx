@@ -7,6 +7,7 @@ import noop from 'lodash/noop';
 import SelectCore, { Props as SelectCoreProps} from './components/SelectCore';
 import SelectCoreTab, { TabOption, Props as SelectCoreTabProps } from './components/SelectCore/Tab';
 import classnames from 'classnames';
+import Trigger from './components/Trigger';
 
 import './style.less';
 
@@ -25,6 +26,7 @@ interface Props {
   footer?: JSX.Element | boolean | string,
   mode?: 'tab' | 'normal',
   tabKey?: string,
+  disabled?: boolean;
   render?: (props: SelectCoreProps) => JSX.Element
   onChange?: (value: any) => void
 }
@@ -32,6 +34,27 @@ interface Props {
 interface State {
   visible: boolean,
   value: any
+}
+
+const getDefaultTrigger = ({
+  value,
+  placeholder = '请选择',
+  selectKey = 'id',
+  options = [],
+  disabled
+} : {
+  value: any;
+  placeholder?: string;
+  selectKey?: string;
+  options?: any[];
+  disabled?: boolean
+}) => {
+  const { name } = (options.find((o: any) => o[selectKey] === value) || { name: placeholder });
+  return (
+    <span>
+      <Trigger disabled={disabled}>{name}</Trigger>
+    </span>
+  );
 }
 
 class Picker extends React.Component<Props & (SelectCoreProps | SelectCoreTabProps), State> {
@@ -55,7 +78,14 @@ class Picker extends React.Component<Props & (SelectCoreProps | SelectCoreTabPro
   public setRef = (node: Element) => this.picker = node
 
   public render() {
-    const children = this.props.children || <span style={{ cursor: 'pointer' }}>Picker</span>;
+    const {
+      value,
+      options,
+      placeholder,
+      selectKey,
+      disabled
+    } = this.props;
+    const children = this.props.children || getDefaultTrigger({ value, options, placeholder, selectKey, disabled });
     const visible = this.props.visible || this.state.visible;
     const onVisibleChange = this.props.onVisibleChange || this.handleVisibleChange;
     const isDropdown = this.props.type === 'dropdown';
@@ -64,6 +94,11 @@ class Picker extends React.Component<Props & (SelectCoreProps | SelectCoreTabPro
     const renderedChilren = typeof children === 'function' ? children({
       visible
     }) : children
+    if (disabled) {
+      return (
+        <div ref={this.setRef} className='gio-picker-wrapper'>{children}</div>
+      )
+    }
     return (
       <div ref={this.setRef} className='gio-picker-wrapper'>
         {

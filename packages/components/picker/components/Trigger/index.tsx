@@ -7,6 +7,7 @@ import './trigger.less';
 interface Props {
   className?: string;
   title?: string;
+  disabled?: boolean;
 }
 
 const Trigger: React.FC<Props> = (props) => {
@@ -15,7 +16,10 @@ const Trigger: React.FC<Props> = (props) => {
     <span
       className={classnames(
         'gio-picker-trigger',
-        props.className ? props.className : ''
+        {
+          disabled: props.disabled,
+          [`${props.className}`]: props.className
+        }
       )}
       title={title}
     >

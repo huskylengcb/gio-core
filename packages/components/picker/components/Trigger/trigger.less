@@ -11,6 +11,15 @@
     background-color: @background-color-select-ghost-hover;
   }
 
+  &.disabled {
+    cursor: not-allowed;
+    background-color: transparent;
+
+    svg {
+      opacity: @opacity-disabled;
+    }
+  }
+
   &-content {
     display: inline-block;
     vertical-align: middle;
