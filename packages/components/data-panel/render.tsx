@@ -6,7 +6,7 @@ import { setRequsetHost } from 'giochart';
 import { format } from '@gio-core/utils/date';
 import Form, { FormComponentProps } from 'antd/lib/form';
 import { isEqual } from 'lodash';
-import EventVariablesSelect from '@gio-core/components/eventvariable-select';
+import EventVariablesSelect, { valueTypeMap } from '@gio-core/components/eventvariable-select';
 
 setRequsetHost('chartdata', '/chartdata');
 
@@ -113,12 +113,6 @@ const renderFormFields = (data: any, dataType: dataTypes, form: any, extraData: 
         )
     }
   });
-}
-
-const valueTypeMap = {
-  string: '字符串',
-  int: '整数',
-  double: '小数'
 }
 
 const renderValue = (value: keyof typeof valueTypeMap, key: string) => {
