@@ -2,7 +2,7 @@ import React, { useRef, useState, useEffect } from 'react';
 import SidePanel, { Props as SidePanelProps } from '@gio-design/components/lib/side-panel';
 import Render, { dataTypes } from './render';
 import './style.less';
-
+import useWindowSize from 'react-use/lib/useWindowSize';
 interface Props {
   data: any
   dataType: dataTypes
@@ -15,7 +15,7 @@ const DataPanel = (props: Props & SidePanelProps) => {
   if (!data || !dataType) {
     return null;
   }
-
+  const { height: windowHeight } = useWindowSize()
   const [footerVisible, setFooterVisible] = useState(false)
   const formRef = useRef() as any;
   const setFormRef = (form: any) => {
@@ -51,6 +51,7 @@ const DataPanel = (props: Props & SidePanelProps) => {
     <SidePanel
       visible={props.visible}
       width={480}
+      height={windowHeight - 60}
       getContainer={props.getContainer}
       close={props.close}
       footer={footerVisible ? undefined : null}
