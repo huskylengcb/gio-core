@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import Button from '@gio-design/components/lib/button';
 import Input from '@gio-design/components/lib/input';
-import Chart from 'giochart';
-import { setRequsetHost } from 'giochart';
+import { setRequestHost, GioChart } from 'giochart';
 import { format } from '@gio-core/utils/date';
 import Form, { FormComponentProps } from 'antd/lib/form';
 import { isEqual } from 'lodash';
 import EventVariablesSelect, { valueTypeMap } from '@gio-core/components/eventvariable-select';
 
-setRequsetHost('chartdata', '/chartdata');
+setRequestHost('chartdata', '/chartdata');
 
 export type dataTypes = keyof typeof fieldsMap
 export interface DataPanelFormProps {
@@ -133,7 +132,7 @@ const renderChart = (data: any, dataType: string) => {
       <React.Fragment>
         <Form.Item label='统计趋势'></Form.Item>
         <div className='chart-area'>
-          <Chart
+          <GioChart
             width={380}
             height={250}
             padding={0}
