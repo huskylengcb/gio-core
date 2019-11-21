@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import { get } from 'lodash';
 import Button from '@gio-design/components/lib/button';
-import Icon from '@gio-design/components/lib/icon';
+import Icon from '@gio-design/icon';
 import Spin from '@gio-design/components/lib/spin';
 import Label from '@gio-core/components/label';
 import { Props as SelectCoreProps } from '../../../picker/components/SelectCore';

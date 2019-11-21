@@ -1,16 +1,20 @@
 import React, { ReactNode } from 'react';
-
+import classnames from 'classnames';
 import './style.less';
 
 interface Props {
   children: ReactNode,
   size?: string,
   style?: React.CSSProperties
+  className?: string
 };
 
-const CircularIcon = ({ children, size = '23px', style = {} }: Props): JSX.Element => (
+const CircularIcon = ({ children, size = '23px', style = {}, className = ''}: Props): JSX.Element => (
   <span
-    className='gio-circular-icon'
+    className={classnames(
+              'gio-circular-icon',
+              className
+            )}
     style={{
       width: size,
       height: size,

@@ -5,7 +5,7 @@ import RangeDatePicker from '../RangeDatePicker';
 import ShortcutButtons from '../ShortcutButtons';
 import Button from '@gio-design/components/lib/button';
 import Gap from '@gio-design/components/lib/gap';
-import Icon from '@gio-design/components/lib/icon';
+import Icon from '@gio-design/icon';
 import InputLabel from '../InputLabel';
 import bemClsFactor from '../../bemClsFactor';
 import './index.less';

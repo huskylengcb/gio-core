@@ -2,7 +2,7 @@ import React from 'react';
 // import Button from 'giodesign/button';
 import format from '../../Range/util/format';
 import Gap from '@gio-design/components/lib/gap';
-import Icon from '@gio-design/components/lib/icon';
+import Icon from '@gio-design/icon';
 import flattenDateRange from '../../flattenDate';
 import './index.less'
 interface  Props {

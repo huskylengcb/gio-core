@@ -1,5 +1,5 @@
 import React from 'react';
-import Icon from '@gio-design/components/lib/icon';
+import Icon from '@gio-design/icon';
 import './index.less';
 
 interface  Props {
