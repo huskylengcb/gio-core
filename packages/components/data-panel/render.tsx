@@ -64,7 +64,8 @@ const readOnlyFields = [
 
 const renderFormFields = (data: any, dataType: dataTypes, form: any, extraData: any) => {
   const { getFieldDecorator, getFieldValue } = form
-  return fieldsMap[dataType] && fieldsMap[dataType].map((key: string) => {
+  const { canEdit, fields = [] } = fieldsMap[dataType] || {}
+  return fields && fields.map((key: string) => {
     switch (key) {
       case 'attributes':
         return renderAttributes(data, dataType, key, form, extraData);
@@ -96,7 +97,7 @@ const renderFormFields = (data: any, dataType: dataTypes, form: any, extraData: 
                 message: '名称最长为30字符',
               }],
             })(
-              <Input placeholder='请输入名称' />
+              <Input placeholder='请输入名称' disabled={!canEdit} />
             )}
           </Form.Item>
         )
@@ -106,7 +107,7 @@ const renderFormFields = (data: any, dataType: dataTypes, form: any, extraData: 
             {getFieldDecorator(key, {
               initialValue: data[key]
             })(
-              <Input disabled={readOnlyFields.includes(key)} />
+              <Input disabled={readOnlyFields.includes(key) || !canEdit} />
             )}
           </Form.Item>
         )
@@ -164,37 +165,52 @@ const renderAttributes = (data: any, dataType: string, key: keyof typeof keyMap,
 }
 
 const fieldsMap = {
-  custom: [
-    'name',
-    'description',
-    'key',
-    'creatorName',
-    'createdAt',
-    'updatedAt',
-    'chart',
-    'attributes',
-  ],
-  preparedDimension: [
-    'name',
-    'description',
-    'platforms',
-    'example',
-  ],
-  userVariable: [
-    'name',
-    'key',
-    'description'
-  ],
-  eventVariable: [
-    'name',
-    'key',
-    'description',
-    'valueType'
-  ],
-  tunnel: [
-    'name',
-    'description',
-  ]
+  custom: {
+    canEdit: true,
+    fields: [
+      'name',
+      'description',
+      'key',
+      'creatorName',
+      'createdAt',
+      'updatedAt',
+      'chart',
+      'attributes',
+    ]
+  },
+  preparedDimension: {
+    canEdit: false,
+    fields: [
+      'name',
+      'description',
+      'platforms',
+      'example',
+    ]
+  },
+  userVariable: {
+    canEdit: true,
+    fields: [
+      'name',
+      'key',
+      'description'
+    ]
+  },
+  eventVariable: {
+    canEdit: true,
+    fields: [
+      'name',
+      'key',
+      'description',
+      'valueType'
+    ]
+  },
+  tunnel: {
+    canEdit: true,
+    fields: [
+      'name',
+      'description',
+    ]
+  }
 }
 
 const keyMap = {
