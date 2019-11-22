@@ -12,7 +12,7 @@ export interface Props {
   getPopupContainer?: () => HTMLElement
   onChange: (value: any) => void,
   useDimensions: any;
-
+  placement?: string;
   limit?: number,
   showCheckAllBox?: boolean,
   timeRange?: string,
@@ -35,6 +35,7 @@ const DimensionPicker: React.FC<Props & Partial<ValuePickerProps>> = ({
   visible: visibleProp,
   onVisibleChange,
   children,
+  placement = 'right',
   ...valuePickerProps
 }) => {
   const { data, loading } = useDimensions();
@@ -59,6 +60,7 @@ const DimensionPicker: React.FC<Props & Partial<ValuePickerProps>> = ({
       ref={ref}
       onVisibleChange={handleVisibleChange(onVisibleChange || setVisible)}
       width={320}
+      placement={placement}
     >
       {children}
     </Picker>
