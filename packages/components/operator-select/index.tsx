@@ -38,6 +38,7 @@ const OperatorSelect = ({
 }: OperatorSelectProps): JSX.Element => (
   <Select
     className='gio-operator-select'
+    type='ghost'
     value={value}
     onChange={onOperatorSelectChange(onChange)}
     optionLabelProp='value'

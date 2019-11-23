@@ -2,6 +2,7 @@ import React from 'react';
 import ValueSelect from '@gio-core/components/value-select';
 import Metric from '@gio-core/types/Metric';
 import { debounce, difference } from 'lodash';
+import { i18nRange } from '../../../date-picker/Range/util/shortcutRange'
 
 const http = require('@gio-core/utils/http').default;
 
@@ -127,7 +128,7 @@ class DimensionValueSelect extends React.PureComponent<Props, State> {
 
   private generateFreeInputTooltip = () => {
     const { timeRange } = this.props;
-    return timeRange && `${getDateRangeLabel(timeRange)}没有出现该维度值，您可以输入后在更大时间范围内搜索`;
+    return timeRange && `${i18nRange(timeRange)}没有出现该维度值，您可以输入后在更大时间范围内搜索`;
   }
 
   private fetchSuggestions = (keyword?: string): void => {

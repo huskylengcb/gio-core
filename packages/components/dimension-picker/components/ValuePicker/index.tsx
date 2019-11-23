@@ -50,8 +50,8 @@ const ValuePicker = ({
   const [keyword, setKeyword] = useState('');
   const {
     data,
-    isLoading
-  } = props.useDimensionValues(props.dimension, keyword);
+    loading
+  } = props.useDimensionValues(props.dimension, { keyword });
   return (
     <div className='value-picker-wrapper'>
       <SelectCore
@@ -59,7 +59,7 @@ const ValuePicker = ({
         value={value}
         valueKey={null}
         options={data}
-        isLoading={isLoading}
+        isLoading={loading}
         max={max}
         onSelect={props.onSelect}
         onDeselect={props.onDeselect}

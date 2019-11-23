@@ -11,7 +11,6 @@ import './style.less';
 const handleFilterChange = (handleFilterValueChange: any, filter: string, selectedValues: string[]) =>
   // CheckBoxGroup 单选
   (value: string[]) => {
-    console.info(selectedValues, value);
     let v: string[];
     if (!selectedValues.length) {
       v = value;
@@ -20,7 +19,6 @@ const handleFilterChange = (handleFilterValueChange: any, filter: string, select
     } else {
       v = value.filter((val: string) => val !== selectedValues.join(''))
     }
-    console.info(v)
     handleFilterValueChange(filter)(v)
   }
 
