@@ -33,8 +33,8 @@ export interface Props {
   onSearch?: (keyword: string) => void,
   renderFetchButton?: () => React.ReactNode,
   getGroupIcon?: (group: string) => React.ReactNode,
-  onSelect?: (value: any, selectedValue: any) => void,
-  onDeselect?: (value: any, selectedValue: any) => void,
+  onSelect?: (value: any, selectedValue: any, option: any) => void,
+  onDeselect?: (value: any, selectedValue: any, option: any) => void,
   labelRenderer?: (option: any, isGroup?: boolean) => any,
   showCheckAllBox?: boolean
 }

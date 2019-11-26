@@ -10,7 +10,8 @@ export interface Props {
   visible?: boolean
   onVisibleChange?: (visible: boolean) => void
   getPopupContainer?: () => HTMLElement
-  onChange: (value: any) => void,
+  onChange?: (value: any) => void,
+  onSelect?: (value: any, selectedValue: any, option: any) => void,
   useDimensions: any;
   placement?: string;
   limit?: number,
@@ -31,6 +32,7 @@ const DimensionPicker: React.FC<Props & Partial<ValuePickerProps>> = ({
   value,
   useDimensions,
   onChange,
+  onSelect,
   getPopupContainer,
   visible: visibleProp,
   onVisibleChange,
@@ -54,6 +56,7 @@ const DimensionPicker: React.FC<Props & Partial<ValuePickerProps>> = ({
         ...valuePickerProps
       } as any)}
       onChange={onChange}
+      onSelect={onSelect}
       getGroupIcon={getGroupIcon}
       getPopupContainer={getPopupContainer}
       visible={visibleProp || visible}
