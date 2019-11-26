@@ -134,7 +134,7 @@ const renderContent = ({
               className='btn-refresh'
               onClick={handleRefetch(refresh)}
             >
-              <Icon name='gicon-refresh' />
+              <Icon type='transfer' />
             </Button>
             <div className={classnames(
               'event-select-toolbar',

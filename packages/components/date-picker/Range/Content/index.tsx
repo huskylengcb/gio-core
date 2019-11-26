@@ -119,7 +119,7 @@ export default class DateRangeContent extends React.Component<DateRangeContentPi
                 </div>
                 <div className={cls('footer')}>
                     <div className={cls('footer-errMsg')}>
-                        {showError ? <Icon name='gicon-alert' fill='#F55252' /> : undefined}
+                        {showError ? <Icon type='information-circle' fill='#F55252' /> : undefined}
                         <Gap width={5} />
                         {showError ? errorMsg : undefined}
                     </div>

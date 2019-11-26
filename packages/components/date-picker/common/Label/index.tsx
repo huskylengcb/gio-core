@@ -16,9 +16,9 @@ const Label = (props: Props) => (
         onClick={props.onClick}
         type='button'
     >
-        <Icon className='icon calendar' name='gicon-calendar' fill='#7F7583' />
+        <Icon className='icon calendar' type='calendar' fill='#7F7583' />
         {props.label && (<span className='text' title={props.label}>{props.label}</span>)}
-        <Icon className={`icon arrow_down ${props.focus ? 'focus' : ''}`} name='gicon-arrow-down' fill='#666' />
+        <Icon className={`icon arrow_down ${props.focus ? 'focus' : ''}`} type='down' fill='#666' />
     </button>
 );
 

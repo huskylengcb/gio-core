@@ -26,7 +26,7 @@ const Label = (props: Props) => {
       {props.label && (<span className='text' title={props.label}>{props.label}</span>)}
       <Gap width={5} />
       {props.timeRange ? startStr === endStr ? startStr : `${startStr} - ${endStr}` : null}
-      {props.showArrow ? <Icon className={`icon arrow_down ${props.focus ? 'focus' : ''}`} name='gicon-arrow-down' fill={props.focus ? '#fff' : '#666'} /> : undefined}
+      {props.showArrow ? <Icon className={`icon arrow_down ${props.focus ? 'focus' : ''}`} type='down' fill={props.focus ? '#fff' : '#666'} /> : undefined}
     </div>
   )
 };
