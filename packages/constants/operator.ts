@@ -87,6 +87,18 @@ export enum notLike {
     zh = 'not like 不包含',
     en = 'not like'
 }
+export enum ltWith0 {
+    id = '14',
+    value = '<',
+    zh = '< 小于，包含 0，[0,X)',
+    en = '< less than, [0,X)'
+}
+export enum eqLtWith0 {
+    id = '15',
+    value = '<=',
+    zh = '<= 小于等于，包含 0，[0,X]',
+    en = '<= less than or equal to, [0,X]'
+}
 
 export default [
     eq,
@@ -99,9 +111,12 @@ export default [
     isIn,
     notIn,
     glob,
-    notGlob
+    notGlob,
+    ltWith0,
+    eqLtWith0
 ]
 
+export const numberOPWith0: Operator[] = [eq, gt, ltWith0, eqGt, eqLtWith0, between]
 export const eventNumberOP: Operator[] = [eq, lt, gt, eqGt, eqLt, between]
 export const eventStringOP: Operator[] = [eq, neq, isIn, notIn]
 export const dimensionOP: Operator[] = [eq, neq, isIn, notIn, like, notLike]
