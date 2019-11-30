@@ -31,9 +31,7 @@ export default class SelectOption extends React.PureComponent<Props> {
       hasGroupIcon,
       showGroupCheckBox
     } = this.props;
-    console.log('====================================');
-    console.log(showGroupCheckBox, 'showGroupCheckBox');
-    console.log('====================================');
+
     return (
       <div
         className={classnames('gio-core gio-select-option', className, {
