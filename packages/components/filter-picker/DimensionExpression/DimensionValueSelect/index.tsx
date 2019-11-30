@@ -34,13 +34,14 @@ interface Props {
   getPopupContainer?: () => HTMLElement,
   valueInclude?: any[]
   showSearch?: boolean
+  disabled?: boolean
 }
 
 const clearValueOptions = (prevState: State): State => ({ ...prevState, valueOptions: [] });
 
 class DimensionValueSelect extends React.PureComponent<Props, State> {
   public static defaultProps = {
-    placeholder: '选择维度值',
+    placeholder: '维度值',
     style: {}
   }
 
@@ -90,7 +91,7 @@ class DimensionValueSelect extends React.PureComponent<Props, State> {
         options={props.valueInclude && props.valueInclude.length ? props.valueInclude : valueOptions}
         onSearch={this.handleValueSearch}
         onFocus={this.handleValueFocus}
-        placeholder={props.placeholder}
+        placeholder={`选择${props.placeholder}`}
         keyword={keyword}
         isLoading={isLoading}
         groupName={props.dimensionName}
@@ -98,10 +99,10 @@ class DimensionValueSelect extends React.PureComponent<Props, State> {
         dropdownMatchSelectWidth={false}
         dropdownStyle={{ with: '360px' }}
         style={{ width: '200px', ...props.style }}
-        disabled={!props.dimension}
+        disabled={props.hasOwnProperty('disabled') ? props.disabled : !props.dimension}
         values={props.values}
         mode={props.mode}
-        notFoundContent={isTyping || isLoading ? '正在加载……' : '没有可用维度值'}
+        notFoundContent={isTyping || isLoading ? '正在加载……' : `没有可用${props.placeholder}`}
         getPopupContainer={props.getPopupContainer}
         freeInputTooltip={this.generateFreeInputTooltip()}
       />
@@ -128,7 +129,7 @@ class DimensionValueSelect extends React.PureComponent<Props, State> {
 
   private generateFreeInputTooltip = () => {
     const { timeRange } = this.props;
-    return timeRange && `${i18nRange(timeRange)}没有出现该维度值，您可以输入后在更大时间范围内搜索`;
+    return timeRange && `${i18nRange(timeRange)}没有出现该${this.props.placeholder}，您可以输入后在更大时间范围内搜索`;
   }
 
   private fetchSuggestions = (keyword?: string): void => {
