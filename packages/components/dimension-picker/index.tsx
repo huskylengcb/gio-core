@@ -26,6 +26,7 @@ export interface Props {
   onDimensionValueChange?: (dimensionValue: any) => void,
   onDimensionValueSelect?: (value: any, selectedValue: any) => void,
   onDimensionValueDeselect?: (value: any, selectedValue: any) => void,
+  isMultiple?: boolean
 }
 
 const DimensionPicker: React.FC<Props & Partial<ValuePickerProps>> = ({

@@ -2,7 +2,7 @@ import React from 'react';
 import SelectOption from '../SelectOption';
 import Group from '../SelectOption/Group';
 import _, { get } from 'lodash';
-//import withGroupedOptions from 'modules/core/components/HOC/withGroupedOptions';
+import withGroupedOptions from './withGroupedOptions';
 
 import './style.less';
 
@@ -48,7 +48,8 @@ class SelectList extends React.Component<Props, {}> {
     disabledOptions: [],
     isMultiple: false,
     width: 280,
-    height: 450
+    height: 450,
+    max: Infinity
   }
 
   public state: State = {
@@ -67,6 +68,7 @@ class SelectList extends React.Component<Props, {}> {
   private renderList = () => {
     const { value, width, height, disabledOptions } = this.props;
     const rowCount = this.getRowCount()
+
     return (
       <List
         value={value}
@@ -82,14 +84,20 @@ class SelectList extends React.Component<Props, {}> {
   }
 
   private getRowCount = () => {
-    const { originalOptions, options, groups } = this.props;
+    const { originalOptions, options, groups, isMultiple } = this.props;
+
     const showGroupCheckBox = Object.keys(groups).length > 1
     let count = options.length
-    if (showGroupCheckBox) {
-      count = options.length + 1
-    } else if (!showGroupCheckBox && options.length === originalOptions.length) {
-      count = options.length + 1
+    if (isMultiple) {
+      if (showGroupCheckBox) {
+        count = options.length + 1 // 有全选
+      } else {
+        count = options.length
+      }
+    } else if(!showGroupCheckBox)  {
+      count = originalOptions.length // 无group栏渲染
     }
+
     return count
   }
 
@@ -113,19 +121,37 @@ class SelectList extends React.Component<Props, {}> {
   }
 
   private renderListItem = ({ index, style }: { index: number, style: React.CSSProperties }) => {
-    const { isMultiple, required, value, valueKey, max, disabledOptions, groups, originalOptions, options } = this.props;
-    if (index === 0) {
-      return isMultiple && this.renderCheckAllButton(style)
+    const { isMultiple, required, value, valueKey, max, disabledOptions = [], groups, originalOptions, options } = this.props;
+    let showGroupCheckBox = Object.keys(groups).length > 1
+    let option = options[index] // default
+    if (isMultiple) {
+      // render multiple rowrender
+      if (index === 0) {
+        // render top choose all while single select have not
+        return this.renderCheckAllButton(style)
+      }
+      if (showGroupCheckBox) {
+        option = options[index - 1]
+      } else {
+        option = originalOptions[index - 1]
+      }
+    } else {
+      // render single select rowrender
+      if (showGroupCheckBox) {
+        option = options[index]
+      } else {
+        option = originalOptions[index]
+      }
     }
-    const showGroupCheckBox = Object.keys(groups).length > 1
-    const option = showGroupCheckBox ? options[index - 1] : originalOptions[index - 1];
+
     const isGroup = get(option, 'type') === 'groupName';
     const label = get(option, 'name') || option;
-    const key = valueKey ? option[valueKey] : option
+    const key = valueKey ? option[valueKey]: option
     const isSelectedAndRequired = this.getSelected(option) && required && (isMultiple ? value.length === 1 : true);
     const isMax = !this.getSelected(option) && isMultiple && value.length >= max;
     const disabled = isSelectedAndRequired || isMax || disabledOptions.indexOf(key) > -1;
     const groupIcon = this.props.getGroupIcon ? this.props.getGroupIcon(option.group) : null;
+
     if (isGroup) {
       const {isSelected, indeterminate} = this.getGroupSelected(option)
       return showGroupCheckBox && (
@@ -134,7 +160,7 @@ class SelectList extends React.Component<Props, {}> {
           style={style}
           icon={groupIcon}
           isSelected={isSelected}
-          isMultiple={this.props.isMultiple}
+          isMultiple={!!this.props.isMultiple}
           showGroupCheckBox={showGroupCheckBox}
           indeterminate={indeterminate}
           onSelect={this.handleGroupSelect}
@@ -239,7 +265,7 @@ class SelectList extends React.Component<Props, {}> {
     }
     const target = this.getValue(option);
 
-    return isMultiple ? value && value.indexOf(target) > -1 : value === target;
+    return Array.isArray(value) ? value && value.indexOf(target) > -1 : value === target;
   }
 
   private getGroupSelected = (option: any) => {
@@ -279,5 +305,5 @@ const getOptions = (options: any[]) => _
   .map(([groupId, options]) => ({ groupId, options, groupName: _.get(options, '0.groupName')}))
   .value()
 
-export default SelectList;
-//export default withGroupedOptions(SelectList, getOptions);
+// export default SelectList;
+export default withGroupedOptions(SelectList, getOptions);

@@ -87,7 +87,7 @@ class SelectList extends React.Component<Props, {}> {
         style={style}
         icon={groupIcon}
         isSelected={this.getSelected(option)}
-        isMultiple={this.props.isMultiple}
+        isMultiple={!!this.props.isMultiple}
         labelRenderer={labelRenderer}
       />
     ) : (
@@ -102,6 +102,7 @@ class SelectList extends React.Component<Props, {}> {
         onSelect={this.handleSelect}
         disabled={disabled}
         hasGroupIcon={!!groupIcon}
+        showGroupCheckBox={true}
       >
         {label}
       </SelectOption>

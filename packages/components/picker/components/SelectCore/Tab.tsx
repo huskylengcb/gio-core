@@ -6,8 +6,9 @@ import isEqual from 'lodash/isEqual';
 import Input from '@gio-design/components/lib/input';
 
 const isContain = require('@gio-core/utils/pinyinHelper').default;
-
-const AntTabs = require('antd/lib/tabs');
+import AntTabs from 'antd/lib/tabs'
+import 'antd/lib/tabs/style/index.css'
+// const AntTabs = require('antd/lib/tabs');
 const AntTabPane = AntTabs.TabPane;
 const SearchInput = Input.Search;
 
