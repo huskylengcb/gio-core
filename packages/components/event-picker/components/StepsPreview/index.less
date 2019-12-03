@@ -1,0 +1,162 @@
+@color-gray: #666;
+@color-light: #ccc;
+@color-error: #e76749;
+
+.gio-error-message {
+  color: @color-error;
+}
+
+.funnel-preview {
+  position: absolute;
+  top: 0;
+  right: -330px;
+  width: 330px;
+  height: 100%;
+  background-color: #ffffff;
+  padding: 17px 0px 17px 0px;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.2);
+
+  &__header {
+    margin-bottom: 15px;
+    padding: 0 13px;
+    color: @color-gray;
+  }
+
+  &__summary {
+    display: inline-block;
+  }
+
+  &__total-rate {
+    float: right;
+    margin-top: -2px;
+  }
+
+  &__num {
+    margin-left: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    color: @color-error;
+  }
+
+  &__step-list {
+    overflow-y: auto;
+    overflow-x: hidden;
+    margin-top: 10px;
+    padding-top: 3px;
+    height: 280px;
+  }
+
+  &__step-item {
+    margin: 3px 0;
+    transition: box-shadow 0.3s ease;
+
+    .gio-filter-label-list {
+      margin-left: 30px;
+      width: 83.5%;
+    }
+  }
+
+  &__step-item-inner {
+    position: relative;
+    overflow: hidden;
+    padding-right: 20px;
+    width: 98%;
+    height: 30px;
+    line-height: 30px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-size: 12px;
+  }
+
+  &__step-item--error {
+    color: @color-error;
+  }
+
+  &__icon-wrapper {
+    position: relative;
+    top: -21px;
+    display: inline-block;
+    width: 30px;
+    text-align: center;
+  }
+
+  .fnl-icon-draggable,
+  &__step-num {
+    position: absolute;
+    top: 1px;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: 0;
+    padding: 0 5px 0 5px;
+    font-size: 16px;
+    color: @color-light;
+  }
+
+  .fnl-icon-draggable {
+    top: 8px;
+  }
+
+  &__btn-remove {
+    display: none;
+    position: absolute;
+    top: 10px;
+    right: 0;
+    cursor: pointer;
+  }
+
+  &__step-item:not(.is-dragging):not(.is-over):not(.hoverDisabled).is-hovered {
+    box-shadow: 0 0 3px 2px #eee;
+
+    .funnel-preview__step-num {
+      display: none
+    }
+
+    .fnl-icon-draggable {
+      display: inline-block;
+    }
+
+    .funnel-preview__btn-remove {
+      display: block;
+    }
+  }
+
+  &__loading {
+    margin-right: 5px;
+  }
+
+  &__footer {
+    position: absolute;
+    right: 15px;
+    bottom: 15px;
+    .gio-btn.gio-btn-with-bg.gio-btn-primary.undisabled {
+      background-color: #716576;
+    }
+    .gio-btn.gio-btn-with-bg.gio-btn-primary.undisabled:hover {
+      background-color: #6a626e;
+    }
+    button {
+      margin-left: 10px;
+    }
+  }
+}
+
+.fnl-icon-draggable {
+  display: none;
+}
+
+.fnl-icon-draggable {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: 0;
+    padding: 0 5px 0 5px;
+    font-size: 16px;
+    color: @color-light;
+}
+
+.funnelPreviewPop .ant-popover-inner-content{
+  padding-right: 0px;
+}

@@ -18,7 +18,7 @@ import {
 } from './constants';
 import List from '../List';
 import { groupData } from '../../helper';
-// import StepPreview from 'modules/funnel/components/StepSelect/StepsPreview';
+import StepPreview from '../StepsPreview';
 import Input from '@gio-design/components/lib/input';
 import classnames from 'classnames';
 
@@ -70,7 +70,7 @@ const renderContent = ({
   refContainer,
   isLoading,
   needStepPreview,
-  stepPreviewProps,
+  stepPreviewProps = {},
   max,
   data,
   disabledOptions,
@@ -187,10 +187,10 @@ const renderContent = ({
             />
           </div>
           {/* 步骤预览，目前只在漏斗模块中出现，是固定在eventPicker右侧的组件 */}
-          {/*
+          {
             needStepPreview &&
             <StepPreview
-              steps={value}
+              steps={Array.isArray(value) ? value : [value]}
               removeStep={stepPreviewProps.removeStep}
               confirmDisabled={value.length < 2}
               onCancel={stepPreviewProps.onStepsPreviewCancel}
@@ -201,7 +201,7 @@ const renderContent = ({
               stepSelectVisible={stepPreviewProps.stepSelectVisible}
               timeRange={stepPreviewProps.timeRange}
             />
-          */}
+          }
           {/* 固定型的事件预览，如果存在步骤预览就不会出现，取而代之的是跟随型事件预览 */}
           {/*!needStepPreview && previewVisibility && (!disabledPreviewOptions || !(disabledPreviewOptions.includes(hoveringNode && hoveringNode.id))) && <EventPreview target={{ ...hoveringNode, fromEventPicker: true }} labels={labels} delay={750}/>*/}
         </div>

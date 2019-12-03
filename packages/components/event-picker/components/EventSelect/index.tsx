@@ -232,7 +232,7 @@ const EventSelect = ({
         hoveringNode,
         handleNodeHover: setHoveringNode,
         labels,
-        needStepPreview: false,
+        needStepPreview,
         stepPreviewProps,
         previewVisibility,
         setPreviewVisibility,
