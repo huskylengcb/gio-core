@@ -80,7 +80,7 @@ const EventSelect = ({
   value,
   disabledOptions,
   isMultiple,
-  isMetric = true,
+  isMetric = false,
   defaultAggregator,
   expandAttributes,
   children,
@@ -136,7 +136,7 @@ const EventSelect = ({
   
   const [scope, setScope] = useState('');
 
-  let data = measurements;
+  let data = isMetric ? expandAttributeToMetric(measurements as any) : measurements;
   /*
   if (keyword || scope !== 'all') {
     data = expandAttributes ? expandAttributeToMetric(searchResults) : searchResults;
