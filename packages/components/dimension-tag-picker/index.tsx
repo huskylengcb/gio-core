@@ -7,10 +7,6 @@ import Metric from '@gio-core/types/Metric';
 export interface Props {
   value: any,
   visible?: boolean
-  onVisibleChange?: (visible: boolean) => void
-  getPopupContainer?: () => HTMLElement
-  onChange?: (value: any) => void,
-  onSelect?: (value: any, selectedValue: any, option: any) => void,
   useDimensions: any;
   useTags: any;
   placement?: string;
@@ -19,7 +15,12 @@ export interface Props {
   timeRange?: string,
   targetUsers?: string[],
   measurements?: Metric[],
-  isMultiple?: boolean
+  isMultiple?: boolean,
+  onVisibleChange?: (visible: boolean) => void
+  getPopupContainer?: () => HTMLElement
+  onChange?: (value: any) => void,
+  onSelect?: (value: any, selectedValue: any, option: any) => void,
+  onDeselect?: (value: any, selectedValue: any, option: any) => void,
 }
 
 const DimensionTagPicker: React.FC<Props> = ({
@@ -34,6 +35,7 @@ const DimensionTagPicker: React.FC<Props> = ({
   children,
   placement = 'right',
   isMultiple,
+  onDeselect,
   // tabKey
 }) => {
   const { data: dimensionsData, loading1 } = useDimensions();
@@ -73,6 +75,7 @@ const DimensionTagPicker: React.FC<Props> = ({
       isLoading={loading1 || loading2 }
       onChange={onChange}
       onSelect={onSelect}
+      onDeselect={onDeselect}
       getGroupIcon={getGroupIcon}
       getPopupContainer={getPopupContainer}
       visible={visibleProp || visible}

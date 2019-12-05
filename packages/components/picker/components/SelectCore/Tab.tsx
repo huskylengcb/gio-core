@@ -4,10 +4,10 @@ import SelectList from '../SelectList/SelectGroup';
 import get from 'lodash/get'
 import isEqual from 'lodash/isEqual';
 import Input from '@gio-design/components/lib/input';
-
-const isContain = require('@gio-core/utils/pinyinHelper').default;
 import AntTabs from 'antd/lib/tabs'
 import 'antd/lib/tabs/style/index.css'
+
+const isContain = require('@gio-core/utils/pinyinHelper').default;
 // const AntTabs = require('antd/lib/tabs');
 const AntTabPane = AntTabs.TabPane;
 const SearchInput = Input.Search;
@@ -47,7 +47,7 @@ export interface Props {
   onSearch?: (keyword: string) => void,
   renderFetchButton?: () => React.ReactNode,
   getGroupIcon?: (group: string) => React.ReactNode,
-  onSelect?: (value: any, selectedValue: any) => void,
+  onSelect?: (value: any, selectedValue: any, option: any) => void,
   onDeselect?: (value: any, selectedValue: any) => void
   handleChange?: (value: ValueType) => void
   className?: string,
@@ -165,7 +165,7 @@ export default class Tabs extends React.Component<Props, State> {
   }
 
   private filterTabOptions = (keyword: string, props: Props = this.props) => {
-    const { tabOptions } = props;
+    const { tabOptions = [] } = props;
     if (!keyword) {
       return tabOptions;
     }
@@ -184,7 +184,7 @@ export default class Tabs extends React.Component<Props, State> {
       return options.filter((option: any) => isContain(option, keyword));
     }
     return options.filter((option: any) => {
-      if (searchableFields.length) {
+      if (Array.isArray(searchableFields) && searchableFields.length) {
         return searchableFields.some((field: string) => isContain(option[field], keyword));
       }
       return isContain(option, keyword)
@@ -193,7 +193,7 @@ export default class Tabs extends React.Component<Props, State> {
 
   private handleTabChange = (tabKey: any) => {
     this.setState({tabKey})
-    this.props.handleTabChange(tabKey)
+    this.props.handleTabChange && this.props.handleTabChange(tabKey)
   }
 
   private getFirstTabKey = (tabOptions: TabOption[]) => get(tabOptions, '[0].tabKey')

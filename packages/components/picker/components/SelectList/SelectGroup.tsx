@@ -30,8 +30,8 @@ interface Props {
   max?: number,
   width?: number,
   height?: number,
-  onSelect?: (option: any, value?: any | any[]) => void,
-  onDeselect?: (option: any, value?: any | any[]) => void,
+  onSelect?: (value: any, values?: any | any[], option?: any) => void,
+  onDeselect?: (value: any, values?: any | any[], option?: any) => void,
   onChange?: (value: any) => void,
   getSelected?: (option: any, value: any) => boolean,
   getGroupIcon?: (group: string) => React.ReactNode,
@@ -199,10 +199,10 @@ class SelectList extends React.Component<Props, {}> {
     const isSelected = this.getSelected(option);
     let value
     if (isSelected) {
-      if (onDeselect) { onDeselect(selectedValue, this.props.value); }
+      if (onDeselect) { onDeselect(selectedValue, this.props.value, option); }
       value = isMultiple ? this.props.value.filter((v: any) => v !== selectedValue) : null;
     } else {
-      if (onSelect) { onSelect(selectedValue, this.props.value); }
+      if (onSelect) { onSelect(selectedValue, this.props.value, option); }
       value = isMultiple ? [...(this.props.value || []), selectedValue] : selectedValue;
     }
     if (onChange) {
