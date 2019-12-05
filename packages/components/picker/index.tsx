@@ -106,7 +106,7 @@ class Picker extends React.Component<Props & (SelectCoreProps | SelectCoreTabPro
             <Dropdown
               visible={visible}
               trigger={['click']}
-              onVisibleChange={onVisibleChange}
+              onVisibleChange={disabled ? undefined : onVisibleChange}
               overlay={this.renderOverlay()}
               getPopupContainer={getPopupContainer}
               prefixCls='gio-picker dropdown ant-dropdown'
@@ -118,7 +118,7 @@ class Picker extends React.Component<Props & (SelectCoreProps | SelectCoreTabPro
               visible={visible}
               trigger={'click'}
               content={this.renderOverlay()}
-              onVisibleChange={onVisibleChange}
+              onVisibleChange={disabled ? undefined : onVisibleChange}
               getPopupContainer={getPopupContainer}
               prefixCls='gio-picker ant-popover'
               placement={placement}

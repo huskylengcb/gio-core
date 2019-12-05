@@ -21,6 +21,7 @@ const platforms = [] || (window as any).productPlatforms.replace(/js/, 'web').sp
 
 interface Props {
   value?: any,
+  disabled: boolean;
   disabledOptions?: any[],
   disabledPreviewOptions?: any[],
   isMultiple?: boolean,
@@ -78,6 +79,7 @@ const filterRecentEvents = cacheLatest((metrics: any[], preparedMetrics: Prepare
 
 const EventSelect = ({
   value,
+  disabled,
   disabledOptions,
   isMultiple,
   isMetric = false,
@@ -191,6 +193,7 @@ const EventSelect = ({
   return (
     <Picker
       value={value}
+      disabled={disabled}
       type={type}
       options={[]}
       onChange={onChange}
