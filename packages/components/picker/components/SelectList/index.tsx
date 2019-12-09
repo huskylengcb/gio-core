@@ -155,7 +155,7 @@ class SelectList extends React.Component<Props, {}> {
     }
     const target = valueKey ? option[valueKey] : option;
 
-    return (isMultiple && Array.isArray(value)) ? value && value.indexOf(target) > -1 : value === target;
+    return Array.isArray(value) ? value && value.indexOf(target) > -1 : value === target;
   }
 }
 
