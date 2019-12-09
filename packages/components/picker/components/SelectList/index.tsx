@@ -149,12 +149,13 @@ class SelectList extends React.Component<Props, {}> {
       isMultiple,
       valueKey
     } = this.props;
+
     if (getSelected) {
       return getSelected(option, value);
     }
     const target = valueKey ? option[valueKey] : option;
 
-    return isMultiple ? value && value.indexOf(target) > -1 : value === target;
+    return (isMultiple || Array.isArray(value)) ? value && value.indexOf(target) > -1 : value === target;
   }
 }
 
