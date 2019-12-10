@@ -16,6 +16,7 @@ export interface DateRangeContentPickerProps {
     value?: string,
     onOk?: (value: string, start: moment.Moment, end: moment.Moment) => void,
     shortcutIncludes?: string[],
+    supportRelativeRange?: boolean
     locale: string,
     minDate?: moment.Moment,
     maxDate?: moment.Moment
@@ -108,14 +109,18 @@ export default class DateRangeContent extends React.Component<DateRangeContentPi
                         maxDate={this.props.maxDate}
                         locale={this.props.locale}
                     />
-                    <div className='operate'>
-                        <ShortcutButtons
-                            range={this.state.value}
-                            onClick={this.handleRangeClick}
-                            includes={this.props.shortcutIncludes}
-                            locale={this.props.locale}
-                        />
-                    </div>
+                    {
+                        this.props.supportRelativeRange && (
+                            <div className='operate'>
+                                <ShortcutButtons
+                                    range={this.state.value}
+                                    onClick={this.handleRangeClick}
+                                    includes={this.props.shortcutIncludes}
+                                    locale={this.props.locale}
+                                />
+                            </div>
+                        )
+                    }
                 </div>
                 <div className={cls('footer')}>
                     <div className={cls('footer-errMsg')}>

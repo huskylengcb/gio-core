@@ -43,7 +43,7 @@ class HOCRange extends React.Component<RangeDecoratorProps, RangeDecoratorState>
         placeholder: '时间范围',
         locale: 'zh',
         disabled: false,
-        supportRelativeRange: false,
+        supportRelativeRange: true,
         inputLabelType: 'normal'
     }
 
@@ -112,6 +112,7 @@ class HOCRange extends React.Component<RangeDecoratorProps, RangeDecoratorState>
                 onCancel={this.handleCancel}
                 value={this.props.value}
                 shortcutIncludes={this.props.shortcutIncludes}
+                supportRelativeRange={this.props.supportRelativeRange}
                 locale={this.props.locale}
                 minDate={this.props.minDate}
                 maxDate={this.props.maxDate}
