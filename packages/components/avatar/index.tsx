@@ -19,7 +19,7 @@ const Avatar = (props: AvatarProps) => {
     } else if (name) {
       return <span className='avatar-name' style={{fontSize: size * 0.6 + 'px', lineHeight: size + 'px'}}>{renderUserName(name)}</span>
     } else {
-      return <Icon style={{width: '60%', height: '60%'}} type='user' fill='#FFF'/>
+      return <Icon style={{width: '60%', height: '60%'}} type='user' color='#FFF'/>
     }
   }
   return (

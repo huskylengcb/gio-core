@@ -223,7 +223,7 @@ const keyMap = {
   platforms: '平台',
   example: '示例',
   valueType: '类型',
-  attributes: '关联事件级变量',
+  attributes: '关联事件属性',
   chart: '统计趋势'
 }
 
