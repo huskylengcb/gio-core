@@ -3,6 +3,7 @@ import moment from 'moment';
 import Content from './Content';
 import Label from '../common/Label'
 import { getMomentsFromRange, i18nRange } from './util/shortcutRange';
+import flattenDate from '../flattenDate';
 
 export interface RangeDecoratorProps {
     value: string,
@@ -142,11 +143,14 @@ class HOCRange extends React.Component<RangeDecoratorProps, RangeDecoratorState>
         })
     }
     private getLabelText(): string {
-        const { value, placeholder } = this.props
+        const { value, placeholder, block } = this.props
         if (!value) {
             return placeholder
         }
         const replacedValue = value.replace(/\s/, '');
+        if (replacedValue === 'auto') {
+            return '上一周期';
+        }
         if (!(/(since)|(day)|(week)|(month)|(year)|(abs)/.test(replacedValue))) {
             return placeholder
         }

@@ -67,8 +67,8 @@ export default class DateRangeContent extends React.Component<DateRangeContentPi
         if (this.props.block) {
             const flattenBlock = flattenDate(this.props.block)
             const flattenTimeRange = flattenBlock.endTime - flattenBlock.startTime
-            const selectEndMoment = start
-            const selectStartMoment = moment(start.valueOf() - flattenTimeRange)
+            const selectEndMoment = start.endOf('day')
+            const selectStartMoment = moment(start.valueOf() - flattenTimeRange + 1).startOf('day')
             this.setState({
                 value: '',
                 start: selectStartMoment,
@@ -191,11 +191,21 @@ export default class DateRangeContent extends React.Component<DateRangeContentPi
 const getRangeFromPropsValue = (props: {
     value?: string,
     defaultValue?: string,
-    startTime?: moment.Moment
+    startTime?: moment.Moment,
+    block?: string
 }): moment.Moment[] => {
-    const { value, defaultValue, startTime } = props
+    const { value, defaultValue, startTime, block } = props
     if (!value) {
         return getMomentsFromRange(defaultValue)
+    }
+    if (value === 'auto') {
+        console.log(value)
+        const flattenBlockDate = flattenDate(block)
+        const flattenRange = flattenBlockDate.endTime - flattenBlockDate.startTime
+        return [
+            moment(flattenBlockDate.startTime - flattenRange).endOf('day'),
+            moment(flattenBlockDate.startTime - 1).startOf('day')
+        ]
     }
     if (/abs/.test(value)) {
         return getABSRange(value)

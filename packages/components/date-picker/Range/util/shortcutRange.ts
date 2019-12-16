@@ -121,7 +121,9 @@ const getAllRanges = (): {
     } = {};
     const keys = Object.keys(map);
     keys.forEach((key) => {
-        ranges[key] = map[key].range
+        if (key !== 'last_cycle') {
+            ranges[key] = map[key].range
+        }
     })
     return ranges
 }
