@@ -9,11 +9,13 @@ import Icon from '@gio-design/icon';
 import InputLabel from '../InputLabel';
 import bemClsFactor from '../../bemClsFactor';
 import './index.less';
+import flattenDate from '../../flattenDate';
 
 const cls = bemClsFactor('gio-datepicker-range')
 
 export interface DateRangeContentPickerProps {
     value?: string,
+    block?: string,
     onOk?: (value: string, start: moment.Moment, end: moment.Moment) => void,
     shortcutIncludes?: string[],
     supportRelativeRange?: boolean
@@ -62,6 +64,22 @@ export default class DateRangeContent extends React.Component<DateRangeContentPi
     }
 
     public handleChange = (start: moment.Moment, end: moment.Moment) => {
+        if (this.props.block) {
+            const flattenBlock = flattenDate(this.props.block)
+            const flattenTimeRange = flattenBlock.endTime - flattenBlock.startTime
+            const selectEndMoment = start
+            const selectStartMoment = moment(start.valueOf() - flattenTimeRange)
+            this.setState({
+                value: '',
+                start: selectStartMoment,
+                end: selectEndMoment
+            }, () => {
+                if (this.props.block) {
+                  this.handleOk()
+                }
+            })
+            return;
+        }
         this.setState(() => ({
             value: '',
             start,

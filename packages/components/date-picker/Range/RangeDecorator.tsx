@@ -16,6 +16,7 @@ export interface RangeDecoratorProps {
         focus?: boolean
     }) => React.ReactNode,
     locale?: string,
+    block?: string,
     overlayType?: 'dropdown' | 'popover',
     placeholder: string,
     minDate?: moment.Moment,
@@ -108,6 +109,7 @@ class HOCRange extends React.Component<RangeDecoratorProps, RangeDecoratorState>
     public renderContent(): React.ReactNode {
         return (
             <Content
+                block={this.props.block}
                 onOk={this.handleOk}
                 onCancel={this.handleCancel}
                 value={this.props.value}

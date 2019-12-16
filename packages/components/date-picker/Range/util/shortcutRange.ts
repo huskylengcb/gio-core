@@ -95,6 +95,12 @@ const map: {
         cn: '开始至今',
         en: 'up to now',
         tooltip: '从您选择的开始时间起，持续统计数据'
+    },
+    last_cycle: {
+        range: 'auto',
+        cn: '上一周期',
+        en: 'up to now',
+        tooltip: '从您选择的开始时间起，持续统计数据'
     }
 });
 
