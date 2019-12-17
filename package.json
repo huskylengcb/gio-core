@@ -12,6 +12,7 @@
     "lerna": "^3.16.4"
   },
   "scripts": {
-    "doc:start": "yarn workspace docs start"
+    "doc:start": "yarn workspace docs start",
+    "test": "yarn workspace @gio-core/components test"
   }
 }

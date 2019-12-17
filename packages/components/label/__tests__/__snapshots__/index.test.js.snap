@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`label 1`] = `
+<span
+  className="gio-label light nowrap"
+>
+  <span
+    className="gio-label-inner"
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
+  >
+    hello
+  </span>
+</span>
+`;
