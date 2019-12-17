@@ -1,0 +1,21 @@
+{
+  "name": "docs",
+  "version": "0.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "private": true,
+  "devDependencies": {
+    "@gio-design/components": "^0.4.28",
+    "@gio-design/icon": "^0.0.26",
+    "docz": "^2.2.0",
+    "gatsby-plugin-less": "^3.0.17",
+    "less": "^3.10.3",
+    "react-dom": "^16.12.0"
+  },
+  "dependencies": {
+    "@gio-core/components": "0.4.23"
+  },
+  "scripts": {
+    "start": "yarn docz dev"
+  }
+}
