@@ -13,6 +13,8 @@
   },
   "scripts": {
     "doc:start": "yarn workspace docs start",
-    "test": "yarn workspace @gio-core/components test"
+    "test": "yarn test:components && yarn test:utils",
+    "test:components": "yarn workspace @gio-core/components test",
+    "test:utils": "yarn workspace @gio-core/utils test"
   }
 }
