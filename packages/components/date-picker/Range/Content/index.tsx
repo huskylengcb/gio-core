@@ -44,8 +44,9 @@ export default class DateRangeContent extends React.Component<DateRangeContentPi
 
     constructor(props: DateRangeContentPickerProps) {
         super(props);
-        const ranges = getRangeFromPropsValue({
+        const ranges = this.getRangeFromPropsValue({
             value: props.value,
+            block: props.block,
             defaultValue
         })
         this.state = {
@@ -88,7 +89,7 @@ export default class DateRangeContent extends React.Component<DateRangeContentPi
     }
 
     public handleRangeClick = (value: string) => {
-        const ranges = getRangeFromPropsValue({ value, startTime: this.state.start })
+        const ranges = this.getRangeFromPropsValue({ value, startTime: this.state.start })
 
         this.setState(() => ({
             value: /since/.test(value) ? `${value}:${ranges[0].valueOf()}` : value,
@@ -176,7 +177,7 @@ export default class DateRangeContent extends React.Component<DateRangeContentPi
     }
 
     private getStateFromProps = (props) => {
-        const ranges = getRangeFromPropsValue({
+        const ranges = this.getRangeFromPropsValue({
             value: props.value,
             defaultValue
         })
@@ -186,38 +187,38 @@ export default class DateRangeContent extends React.Component<DateRangeContentPi
             end: ranges[1]
         }
     }
+    private getRangeFromPropsValue = (props: {
+        value?: string,
+        defaultValue?: string,
+        startTime?: moment.Moment,
+    }): moment.Moment[] => {
+        const { value, defaultValue, startTime } = props
+        if (!value) {
+            return getMomentsFromRange(defaultValue)
+        }
+        if (value === 'auto') {
+            const block = this.props.block;
+            const origin = flattenDate(block);
+            const blockLast = Math.ceil((origin.endTime - origin.startTime) / 6048e5) * 6048e5;
+            return [
+                moment(origin.startTime - blockLast),
+                moment(origin.endTime - blockLast)
+            ]
+        }
+        if (/abs/.test(value)) {
+            return getABSRange(value)
+        }
+        if (/^since\:\d+/.test(value)) {
+            return getSinceRangeFromNumber(parseInt(value.replace('since:', ''), 10))
+        }
+        if (value === 'since') {
+            return getSinceRangeFromMoment(startTime || moment().startOf('day'))
+        }
+        return getMomentsFromRange(value)
+    }
 }
 
-const getRangeFromPropsValue = (props: {
-    value?: string,
-    defaultValue?: string,
-    startTime?: moment.Moment,
-    block?: string
-}): moment.Moment[] => {
-    const { value, defaultValue, startTime, block } = props
-    if (!value) {
-        return getMomentsFromRange(defaultValue)
-    }
-    if (value === 'auto') {
-        console.log(value)
-        const flattenBlockDate = flattenDate(block)
-        const flattenRange = flattenBlockDate.endTime - flattenBlockDate.startTime
-        return [
-            moment(flattenBlockDate.startTime - flattenRange).endOf('day'),
-            moment(flattenBlockDate.startTime - 1).startOf('day')
-        ]
-    }
-    if (/abs/.test(value)) {
-        return getABSRange(value)
-    }
-    if (/^since\:\d+/.test(value)) {
-        return getSinceRangeFromNumber(parseInt(value.replace('since:', ''), 10))
-    }
-    if (value === 'since') {
-        return getSinceRangeFromMoment(startTime || moment().startOf('day'))
-    }
-    return getMomentsFromRange(value)
-}
+
 const getABSRange = (value: string): moment.Moment[] => {
     const absRangeTimeStamp = value.replace('abs:', '').split(',').map((t: string) => parseInt(t, 10))
     return [
