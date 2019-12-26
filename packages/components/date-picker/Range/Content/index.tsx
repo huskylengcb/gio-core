@@ -7,7 +7,7 @@ import Button from '@gio-design/components/lib/button';
 import Gap from '@gio-design/components/lib/gap';
 import Icon from '@gio-design/icon';
 import InputLabel from '../InputLabel';
-import bemClsFactor from '../../bemClsFactor';
+import bemClsFactor from '../../../../utils/bemClsFactor';
 import './index.less';
 import flattenDate from '../../flattenDate';
 
