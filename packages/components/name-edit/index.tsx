@@ -5,6 +5,7 @@ import GIOButton from '@gio-design/components/lib/button';
 import Input from '@gio-design/components/lib/input';
 import GIOIcon from '@gio-design/components/lib/icon';
 import message from '@gio-design/components/lib/message';
+import Gap from '@gio-design/components/lib/gap';
 import bemClsFactor from '../../utils/bemClsFactor';
 import './index.less';
 
@@ -55,13 +56,16 @@ class NameEdit extends PureComponent<NameEditProps, State> {
     status: 'value'
   } as State
 
-  public componentWillReceiveProps(nextProps: NameEditProps) {
-    this.setState({
-      value: nextProps.value,
-      error: null,
-      status: 'value'
-    });
+  public componentDidUpdate(prevProps: NameEditProps) {
+    if (prevProps.value !== this.props.value) {
+      this.setState({
+        value: this.props.value,
+        error: null,
+        status: 'value'
+      });
+    }
   }
+
   private toggleEdit = () => {
     this.setState((state) => {
       return {
@@ -102,6 +106,7 @@ class NameEdit extends PureComponent<NameEditProps, State> {
       this.handleOk();
     }
   }
+
   private handleOk = () => {
     const value = this.state.value.trim();
     if (!value) {
@@ -142,6 +147,7 @@ class NameEdit extends PureComponent<NameEditProps, State> {
       >
         保存
       </GIOButton>
+      <Gap width={15} />
       <GIOButton
         long
         type='default'
