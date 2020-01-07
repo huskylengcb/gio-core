@@ -93,8 +93,8 @@ const renderFormFields = (data: any, dataType: dataTypes, form: any, extraData: 
                 required: true,
                 message: '名称不能为空',
               }, {
-                max: 50,
-                message: '名称最长为50个字符',
+                max: 30,
+                message: '名称最长为30个字符',
               }],
             })(
               <Input placeholder='请输入名称' disabled={!canEdit} />
