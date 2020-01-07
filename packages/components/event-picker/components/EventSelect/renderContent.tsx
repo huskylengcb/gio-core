@@ -69,6 +69,7 @@ const handleRefetch = (refetch: () => void) =>
 const renderContent = ({
   refContainer,
   isLoading,
+  needEventPreview,
   needStepPreview,
   stepPreviewProps = {},
   max,
@@ -183,7 +184,7 @@ const renderContent = ({
               setHoveringNode={handleNodeHover}
               getGroupCollapsed={(groupId: string) => (isLazyMode && groupIds.indexOf(groupId) === -1) || (!isLazyMode && groupIds.indexOf(groupId) > -1)}
               handleGroupChange={handleGroupChange}
-              needEventPreview={needStepPreview} // 是否需要事件预览，如果是true的话，在列表中会出现跟随型事件预览的组件
+              needEventPreview={needEventPreview} // 是否需要事件预览，如果是true的话，在列表中会出现跟随型事件预览的组件
             />
           </div>
           {/* 步骤预览，目前只在漏斗模块中出现，是固定在eventPicker右侧的组件 */}

@@ -84,7 +84,7 @@ class StepItem extends React.PureComponent {
                   {this.renderStepName()}
                   {this.renderDropdown(renderProps)}
                   <Icon
-                    type='cross'
+                    type='close'
                     className={cls('btn-remove')}
                     onClick={this.handleCrossClick}
                   />

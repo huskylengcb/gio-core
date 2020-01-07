@@ -36,6 +36,7 @@ interface Props {
   onSelect?: (selected: any, index: number, event: any) => void,
   onChange?: (event: any) => void,
   getPopupContainer?: () => HTMLElement,
+  needEventPreview?: boolean, //是否需要事件预览
   needStepPreview?: boolean, // 是否需要右侧固定的步骤预览组件，目前只在漏斗模块中需要
   stepPreviewProps?: any, // 步骤预览组件所需要的各种属性
   placement?: PopoverPropsType['placement']
@@ -93,6 +94,7 @@ const EventSelect = ({
   onSelect,
   onChange,
   getPopupContainer,
+  needEventPreview,
   needStepPreview,
   stepPreviewProps,
   disabledPreviewOptions,
@@ -235,6 +237,7 @@ const EventSelect = ({
         hoveringNode,
         handleNodeHover: setHoveringNode,
         labels,
+        needEventPreview,
         needStepPreview,
         stepPreviewProps,
         previewVisibility,
