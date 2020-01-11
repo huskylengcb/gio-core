@@ -1,17 +1,18 @@
 import React, { useRef, useState, useEffect } from 'react';
+import useWindowSize from 'react-use/lib/useWindowSize';
 import SidePanel, { Props as SidePanelProps } from '@gio-design/components/lib/side-panel';
 import Render, { dataTypes } from './render';
 import './style.less';
-import useWindowSize from 'react-use/lib/useWindowSize';
 interface Props {
   data: any
   dataType: dataTypes
   extraData: any
+  extraRenders?: any
   onChange?: (data: any) => void
 }
 
 const DataPanel = (props: Props & SidePanelProps) => {
-  const { data, dataType, extraData } = props;
+  const { data, dataType, extraData, extraRenders } = props;
   if (!data || !dataType) {
     return null;
   }
@@ -63,6 +64,7 @@ const DataPanel = (props: Props & SidePanelProps) => {
           extraData={extraData}
           data={data}
           onValuesChange={onValuesChange}
+          extraRenders={extraRenders}
           ref={setFormRef}
         />
       }

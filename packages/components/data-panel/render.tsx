@@ -14,7 +14,8 @@ export interface DataPanelFormProps {
   form: any;
   data: any
   dataType: dataTypes
-  extraData: any
+  extraData: any,
+  extraRenders?: any
 }
 
 const formItemLayout = {
@@ -28,8 +29,8 @@ const formItemLayout = {
   },
 };
 
-const DataPanelForm: React.FC<DataPanelFormProps> = ({ data, dataType, extraData, form }) => {
-  const formFields = renderFormFields(data, dataType, form, extraData);
+const DataPanelForm: React.FC<DataPanelFormProps> = ({ data, dataType, extraData, form, extraRenders }) => {
+  const formFields = renderFormFields(data, dataType, form, extraData, extraRenders);
   return (
     <Form
       className='gio-core-data-panel'
@@ -62,7 +63,7 @@ const readOnlyFields = [
   'type'
 ]
 
-const renderFormFields = (data: any, dataType: dataTypes, form: any, extraData: any) => {
+const renderFormFields = (data: any, dataType: dataTypes, form: any, extraData: any, extraRenders?: any) => {
   const { getFieldDecorator, getFieldValue } = form
   const { canEdit, fields = [] } = fieldsMap[dataType] || {}
   return fields && fields.map((key: string) => {
@@ -99,6 +100,12 @@ const renderFormFields = (data: any, dataType: dataTypes, form: any, extraData: 
             })(
               <Input placeholder='请输入名称' disabled={!canEdit} />
             )}
+          </Form.Item>
+        )
+      case 'logs':
+        return (
+          <Form.Item label='操作历史'>
+            {extraRenders && extraRenders.LogsRender && extraRenders.LogsRender({data, dataType, key, form})}
           </Form.Item>
         )
       default:
@@ -210,6 +217,15 @@ const fieldsMap = {
       'name',
       'description',
     ]
+  },
+  dataImport: {
+    canEdit: false,
+    fields: [
+      'name',
+      'jobPath',
+      'timeRange',
+      'logs'
+    ]
   }
 }
 
@@ -224,7 +240,9 @@ const keyMap = {
   example: '示例',
   valueType: '类型',
   attributes: '关联事件属性',
-  chart: '统计趋势'
+  chart: '统计趋势',
+  jobPath: '任务目录地址',
+  timeRange: '时间范围'
 }
 
 const generateGQL = (event: any) => {
@@ -258,9 +276,10 @@ const generateGQL = (event: any) => {
 
 export interface FormProps extends FormComponentProps{
   onValuesChange: (changed: boolean, values: any) => void;
-  data: any
-  dataType: dataTypes
-  extraData: any
+  data: any;
+  dataType: dataTypes;
+  extraData: any;
+  extraRenders: any;
 }
 
 

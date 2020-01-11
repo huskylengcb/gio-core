@@ -1,6 +1,6 @@
 {
   "name": "@gio-core/utils",
-  "version": "0.0.7",
+  "version": "0.0.9",
   "description": "GrowingIO frontend utils",
   "main": "index.ts",
   "author": "Zhang Yuxiang",
