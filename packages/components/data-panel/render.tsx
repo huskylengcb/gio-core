@@ -104,6 +104,12 @@ const renderFormFields = (data: any, dataType: dataTypes, form: any, extraData: 
             )}
           </Form.Item>
         )
+      case 'others':
+        return (
+          <Form.Item label='其他'>
+            {extraRenders && extraRenders.DetailListRender && extraRenders.DetailListRender({data, dataType, key, form})}
+          </Form.Item>
+        )
       case 'logs':
         return (
           <Form.Item label='操作历史'>
@@ -225,7 +231,7 @@ const fieldsMap = {
     fields: [
       'name',
       'jobPath',
-      'timeRange',
+      'others',
       'logs'
     ]
   }
@@ -244,7 +250,8 @@ const keyMap = {
   attributes: '关联事件属性',
   chart: '统计趋势',
   jobPath: '任务目录地址',
-  timeRange: '时间范围'
+  timeRange: '时间范围',
+  others: '其他'
 }
 
 const generateGQL = (event: any) => {
