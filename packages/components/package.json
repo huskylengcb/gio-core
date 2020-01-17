@@ -1,6 +1,6 @@
 {
   "name": "@gio-core/components",
-  "version": "0.5.5",
+  "version": "0.5.6",
   "description": "GrowingIO core components",
   "main": "index.ts",
   "author": "Zhang Yuxiang",
