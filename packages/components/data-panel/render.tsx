@@ -57,7 +57,7 @@ const FormField: React.FC<{ field: string}> = (props) => (
 
 const readOnlyFields = [
   'key',
-  'creatorName',
+  'creator',
   'createdAt',
   'updatedAt',
   'type'
@@ -76,6 +76,8 @@ const renderFormFields = (data: any, dataType: dataTypes, form: any, extraData: 
       case 'example':
       // case 'description':
       case 'valueType':
+      case 'createdAt':
+      case 'updatedAt':
         return (
           <Form.Item label={keyMap[key]}>
             {getFieldDecorator(key, {
@@ -178,7 +180,7 @@ const fieldsMap = {
       'name',
       'description',
       'key',
-      'creatorName',
+      'creator',
       'createdAt',
       'updatedAt',
       'chart',
@@ -233,7 +235,7 @@ const keyMap = {
   name: '名称',
   key: '标识符',
   description: '描述',
-  creatorName: '创建者',
+  creator: '创建者',
   createdAt: '创建时间',
   updatedAt: '更新时间',
   platforms: '平台',
