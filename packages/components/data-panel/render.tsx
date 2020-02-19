@@ -116,6 +116,12 @@ const renderFormFields = (data: any, dataType: dataTypes, form: any, extraData: 
             {extraRenders && extraRenders.LogsRender && extraRenders.LogsRender({data, dataType, key, form})}
           </Form.Item>
         )
+      case 'complexMetricCondition':
+        return (
+          <Form.Item label='计算公式'>
+            {extraRenders && extraRenders.complexMetricCondition && extraRenders.complexMetricCondition({data, dataType, key, form})}
+          </Form.Item>
+        )
       default:
         return (
           <Form.Item label={keyMap[key]}>
@@ -233,6 +239,17 @@ const fieldsMap = {
       'jobPath',
       'others',
       'logs'
+    ]
+  },
+  complexMetric: {
+    canEdit: false,
+    fields: [
+      'name',
+      'description',
+      'complexMetricCondition',
+      'chart'
+      // 'others',
+      // 'logs'
     ]
   }
 }

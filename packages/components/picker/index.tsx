@@ -8,6 +8,7 @@ import SelectCore, { Props as SelectCoreProps} from './components/SelectCore';
 import SelectCoreTab, { TabOption, Props as SelectCoreTabProps } from './components/SelectCore/Tab';
 import classnames from 'classnames';
 import Trigger from './components/Trigger';
+import Tooltip from '@gio-design/components/lib/tooltip';
 
 import './style.less';
 
@@ -26,7 +27,8 @@ interface Props {
   footer?: JSX.Element | boolean | string,
   mode?: 'tab' | 'normal',
   tabKey?: string,
-  disabled?: boolean;
+  disabled?: boolean,
+  disabledTitle?: string,
   render?: (props: SelectCoreProps) => JSX.Element
   onChange?: (value: any) => void
 }
@@ -83,7 +85,8 @@ class Picker extends React.Component<Props & (SelectCoreProps | SelectCoreTabPro
       options,
       placeholder,
       selectKey,
-      disabled
+      disabled,
+      disabledTitle
     } = this.props;
     const children = this.props.children || getDefaultTrigger({ value, options, placeholder, selectKey, disabled });
     const visible = this.props.visible || this.state.visible;
@@ -96,7 +99,11 @@ class Picker extends React.Component<Props & (SelectCoreProps | SelectCoreTabPro
     }) : children
     if (disabled) {
       return (
-        <div ref={this.setRef} className='gio-picker-wrapper'>{children}</div>
+        <Tooltip title={disabledTitle}>
+          <div ref={this.setRef} className='gio-picker-wrapper'>
+            {children}
+          </div>
+        </Tooltip>
       )
     }
     return (
