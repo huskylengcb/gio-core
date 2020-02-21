@@ -147,8 +147,8 @@ const renderValue = (value: keyof typeof valueTypeMap, key: string) => {
   return value;
 }
 
-const renderChart = (data: any, dataType: string) => {
-  const gql = generateGQL(data);
+const renderChart = (data: any, dataType: dataTypes) => {
+  const gql = generateGQL(data, dataType);
   return (
     <FormField key='form-field-chart' field={'chart'}>
       <React.Fragment>
@@ -271,7 +271,7 @@ const keyMap = {
   others: '其他'
 }
 
-const generateGQL = (event: any) => {
+const generateGQL = (event: any, dataType: dataTypes) => {
   return {
     chartType: 'line',
     attrs: {
@@ -290,7 +290,7 @@ const generateGQL = (event: any) => {
     limit: 20,
     metrics: [{
       id: event.id,
-      type: 'custom'
+      type: dataType === 'complexMetric' ? 'complex' : 'custom'
     }],
     orders: null,
     timeRange: 'day:8,1',
