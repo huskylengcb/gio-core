@@ -24,6 +24,7 @@ interface Props {
   disabled: boolean;
   disabledOptions?: any[],
   disabledPreviewOptions?: any[],
+  disabledTypes?: string[]
   isMultiple?: boolean,
   isMetric?: boolean,
   defaultAggregator?: string,
@@ -108,7 +109,8 @@ const EventSelect = ({
   refetch,
   types,
   type,
-  platforms
+  platforms,
+  disabledTypes = []
 }: Props) => {
   const refContainer = useRef(null);
   const recentKey = 'key' || `${window.currentUser.id}:${window.project.id}:recentEvents`;
@@ -137,10 +139,11 @@ const EventSelect = ({
     labels,
     openedGroupIds,
   ] = ['', [], [], [], []];
-  
   const [scope, setScope] = useState('');
 
   let data = isMetric ? expandAttributeToMetric(measurements as any) : measurements;
+  disabledOptions = (disabledOptions || []).concat(data.filter((m) => disabledTypes.includes(m.type)))
+
   /*
   if (keyword || scope !== 'all') {
     data = expandAttributes ? expandAttributeToMetric(searchResults) : searchResults;
@@ -248,7 +251,8 @@ const EventSelect = ({
         useGroup: useGroup && scope === 'all',
         useTab,
         types,
-        platforms
+        platforms,
+        disabledTypes
       })}
     >
       {children}

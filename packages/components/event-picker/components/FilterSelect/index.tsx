@@ -30,7 +30,8 @@ const render = ({
   filterVisibility,
   setFilterVisibility,
   types,
-  platforms
+  platforms,
+  disabledTypes = []
 }: {
   filterValues: any,
   reset: (e: React.MouseEvent<HTMLSpanElement>) => void,
@@ -39,10 +40,12 @@ const render = ({
   filterVisibility?: boolean,
   setFilterVisibility?: (visible: boolean) => void,
   types: any[],
-  platforms: any[]
+  platforms: any[],
+  disabledTypes: string[]
 }) => {
   const hasUsedEventTypeFilter = localStorage.getItem('hasUsedEventTypeFilter') === '1';
   const setUsedEventTypeFilter = () => { localStorage.setItem('hasUsedEventTypeFilter', '1'); }
+
   return (
     <Popover
       visible={filterVisibility}
@@ -68,8 +71,8 @@ const render = ({
                 })
                 .map(({ id: value, name: label }) => ({
                   value,
-                label,
-                disabled: (constraintTypes.indexOf(value) > -1) && filterValues.platform.length
+                  label,
+                  disabled: ((constraintTypes.indexOf(value) > -1) && filterValues.platform.length) || disabledTypes.includes(value)
               }))}
               onChange={handleFilterChange(handleFilterValueChange, 'type', filterValues.type)}
             />

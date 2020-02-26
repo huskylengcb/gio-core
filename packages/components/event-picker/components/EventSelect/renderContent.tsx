@@ -102,7 +102,8 @@ const renderContent = ({
   useGroup,
   useTab,
   types,
-  platforms
+  platforms,
+  disabledTypes
 }: any) => ({ value, onChange }: Partial<SelectCoreProps>) => {
   const isLazyMode = !keyword;
   const groupIds = isLazyMode ? openedGroupIds : collapsedGroupIds;
@@ -156,6 +157,7 @@ const renderContent = ({
                   getPopupContainer={() => refContainer.current}
                   filterVisibility={filterVisibility}
                   setFilterVisibility={setFilterVisibility}
+                  disabledTypes={disabledTypes}
                 />
               </span>
             </div>

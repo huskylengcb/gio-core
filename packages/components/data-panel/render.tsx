@@ -290,7 +290,8 @@ const generateGQL = (event: any, dataType: dataTypes) => {
     limit: 20,
     metrics: [{
       id: event.id,
-      type: dataType === 'complexMetric' ? 'complex' : 'custom'
+      type: dataType === 'complexMetric' ? 'complex' : 'custom',
+      test: new Date().getTime()
     }],
     orders: null,
     timeRange: 'day:8,1',
