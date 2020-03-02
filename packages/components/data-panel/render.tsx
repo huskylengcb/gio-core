@@ -66,6 +66,8 @@ const readOnlyFields = [
 const renderFormFields = (data: any, dataType: dataTypes, form: any, extraData: any, extraRenders?: any) => {
   const { getFieldDecorator, getFieldValue } = form
   const { canEdit, fields = [] } = fieldsMap[dataType] || {}
+  console.log(data, dataType);
+
   return fields && fields.map((key: string) => {
     switch (key) {
       case 'attributes':
@@ -121,6 +123,10 @@ const renderFormFields = (data: any, dataType: dataTypes, form: any, extraData: 
           <Form.Item label='计算公式'>
             {extraRenders && extraRenders.complexMetricCondition && extraRenders.complexMetricCondition({data, dataType, key, form})}
           </Form.Item>
+        )
+      case 'tunnelDetail':
+        return (
+          extraRenders && extraRenders.tunnelDetail && extraRenders.tunnelDetail({data, dataType, key, form})
         )
       default:
         return (
@@ -230,6 +236,7 @@ const fieldsMap = {
     fields: [
       'name',
       'description',
+      'tunnelDetail',
     ]
   },
   dataImport: {
