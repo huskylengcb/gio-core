@@ -66,7 +66,6 @@ const readOnlyFields = [
 const renderFormFields = (data: any, dataType: dataTypes, form: any, extraData: any, extraRenders?: any) => {
   const { getFieldDecorator, getFieldValue } = form
   const { canEdit, fields = [] } = fieldsMap[dataType] || {}
-  console.log(data, dataType);
 
   return fields && fields.map((key: string) => {
     switch (key) {
