@@ -3,11 +3,15 @@ import useWindowSize from 'react-use/lib/useWindowSize';
 import SidePanel, { Props as SidePanelProps } from '@gio-design/components/lib/side-panel';
 import Render, { dataTypes } from './render';
 import './style.less';
+import Button from '@gio-design/components/lib/button';
+import Gap from '@gio-design/components/lib/gap';
 interface Props {
   data: any
   dataType: dataTypes
   extraData: any
   extraRenders?: any
+  disabledOk?: boolean
+  disabledTooltip?: string
   onChange?: (data: any) => void
 }
 
@@ -55,18 +59,27 @@ const DataPanel = (props: Props & SidePanelProps) => {
       height={windowHeight - 60}
       getContainer={props.getContainer}
       close={props.close}
-      footer={footerVisible ? undefined : null}
-      onOk={handleOk}
-      onCancel={handleCancel}
+      footer={null}
       content={
-        <Render
-          dataType={dataType}
-          extraData={extraData}
-          data={data}
-          onValuesChange={onValuesChange}
-          extraRenders={extraRenders}
-          ref={setFormRef}
-        />
+        <div className='data-panel-container'>
+          <Render
+            dataType={dataType}
+            extraData={extraData}
+            data={data}
+            onValuesChange={onValuesChange}
+            extraRenders={extraRenders}
+            ref={setFormRef}
+          />
+          {
+            footerVisible && (
+              <div className='footer'>
+                <Button onClick={handleCancel}>取消</Button>
+                <Gap width={16} />
+                <Button type='primary' onClick={handleOk} disabled={props.disabledOk}>确定</Button>
+              </div>
+            )
+          }
+        </div>
       }
     />
   );
