@@ -59,23 +59,25 @@ const render = ({
           </span>
           <div className='section'>
             <span>类型</span>
-            <Checkbox.Group
-              className='filter-select-checkbox'
-              value={filterValues.type}
-              options={types
-                .filter((tab: any) => {
-                  if ((window as any).productPlatforms === 'minigame') {
-                    return ['custom', 'merged', 'complex'].includes(tab.id)
-                  }
-                  return true;
-                })
-                .map(({ id: value, name: label }) => ({
-                  value,
-                  label,
-                  disabled: ((constraintTypes.indexOf(value) > -1) && filterValues.platform.length) || disabledTypes.includes(value)
-              }))}
-              onChange={handleFilterChange(handleFilterValueChange, 'type', filterValues.type)}
-            />
+            <div>
+              <Checkbox.Group
+                className='filter-select-checkbox'
+                value={filterValues.type}
+                options={types
+                  .filter((tab: any) => {
+                    if ((window as any).productPlatforms === 'minigame') {
+                      return ['custom', 'merged', 'complex'].includes(tab.id)
+                    }
+                    return true;
+                  })
+                  .map(({ id: value, name: label }) => ({
+                    value,
+                    label,
+                    disabled: ((constraintTypes.indexOf(value) > -1) && filterValues.platform.length) || disabledTypes.includes(value)
+                }))}
+                onChange={handleFilterChange(handleFilterValueChange, 'type', filterValues.type)}
+              />
+            </div>
           </div>
           {
             platforms && !!platforms.length && (
