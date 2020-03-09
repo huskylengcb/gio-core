@@ -221,6 +221,14 @@ const fieldsMap = {
       'description'
     ]
   },
+  itemVariable: {
+    canEdit: true,
+    fields: [
+      'name',
+      'key',
+      'description'
+    ]
+  },
   eventVariable: {
     canEdit: true,
     fields: [
