@@ -13,7 +13,7 @@
     "react-dom": "^16.12.0"
   },
   "dependencies": {
-    "@gio-core/components": "^0.5.15"
+    "@gio-core/components": "^0.5.16"
   },
   "scripts": {
     "start": "yarn docz dev"
