@@ -127,6 +127,10 @@ const renderFormFields = (data: any, dataType: dataTypes, form: any, extraData: 
         return (
           extraRenders && extraRenders.tunnelDetail && extraRenders.tunnelDetail({data, dataType, key, form})
         )
+      case 'itemModelPrimaryAttributeKey':
+        return (
+          extraRenders && extraRenders.itemModelPrimaryAttributeKey && extraRenders.itemModelPrimaryAttributeKey({data, dataType, key, form})
+        )
       default:
         return (
           <Form.Item label={keyMap[key]}>
@@ -264,6 +268,14 @@ const fieldsMap = {
       'chart'
       // 'others',
       // 'logs'
+    ]
+  },
+  itemModel: {
+    canEdit: true,
+    fields: [
+      'name',
+      'description',
+      'itemModelPrimaryAttributeKey'
     ]
   }
 }
