@@ -13,7 +13,7 @@ interface ItemSelectProps {
   usePrimaryItemVariable: (id: string) => { data: any, loading: boolean}
 }
 
-const ItemSelect: React.FC<ItemSelectProps> = ({ onChange = noop, usePrimaryItemVariable = noop, placeholder = '请选择物品唯一标识属性', itemModels, value = [], selectedItemModel }) => {
+const ItemSelect: React.FC<ItemSelectProps> = ({ onChange = noop, usePrimaryItemVariable = noop, placeholder = '请选择物品', itemModels, value = [], selectedItemModel }) => {
   const rowKey = (record: any) => record.id;
   const ref = useRef(null)
   const { data, loading} = usePrimaryItemVariable(value && value[0])
