@@ -6,6 +6,7 @@ import { format } from '@gio-core/utils/date';
 import Form, { FormComponentProps } from 'antd/lib/form';
 import { isEqual } from 'lodash';
 import EventVariablesSelect, { valueTypeMap } from '@gio-core/components/eventvariable-select';
+import ItemSelect from '@gio-core/components/item-select';
 
 setRequestHost('chartdata', '/chartdata');
 
@@ -71,6 +72,8 @@ const renderFormFields = (data: any, dataType: dataTypes, form: any, extraData: 
     switch (key) {
       case 'attributes':
         return renderAttributes(data, dataType, key, form, extraData);
+      case 'itemModels':
+        return renderItemModelSelect(data, dataType, key, form, extraData);
       case 'chart':
         return renderChart(data, dataType)
       case 'platforms':
@@ -194,6 +197,24 @@ const renderAttributes = (data: any, dataType: string, key: keyof typeof keyMap,
   )
 }
 
+const renderItemModelSelect = (data: any, dataType: string, key: keyof typeof keyMap, form: any, extraData: any) => {
+  const rowKey = (record: any) => record.id;
+  const { getFieldDecorator } = form
+  return (
+    <div className={`form-field-${key}`}>
+      <React.Fragment>
+        <Form.Item label={keyMap[key]}  labelCol={{ xs: { span: 8 }, sm: { span: 6 }}}>
+          {getFieldDecorator(key, {
+              initialValue: (data[key] || []).map((item: any) => item.id)
+            })(
+              <ItemSelect itemModels={extraData.itemModels} usePrimaryItemVariable={extraData.usePrimaryItemVariable}/>
+            )}
+        </Form.Item>
+      </React.Fragment>
+    </div>
+  )
+}
+
 const fieldsMap = {
   custom: {
     canEdit: true,
@@ -206,6 +227,7 @@ const fieldsMap = {
       'updatedAt',
       'chart',
       'attributes',
+      'itemModels'
     ]
   },
   preparedDimension: {
@@ -291,6 +313,7 @@ const keyMap = {
   example: '示例',
   valueType: '类型',
   attributes: '关联事件属性',
+  itemModels: '关联物品属性（限一个）',
   chart: '统计趋势',
   jobPath: '任务目录地址',
   timeRange: '时间范围',

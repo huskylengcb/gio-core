@@ -7,9 +7,10 @@ interface EventVariablesSelectProps {
   onChange?: (value: string[]) => void;
   eventVariables?: any[];
   value?: string[];
+  placeholder?: string
 }
 
-const EventVariablesSelect: React.FC<EventVariablesSelectProps> = ({ eventVariables, value, onChange }) => {
+const EventVariablesSelect: React.FC<EventVariablesSelectProps> = ({ placeholder = '请选择事件属性', eventVariables, value, onChange }) => {
   const rowKey = (record: any) => record.id;
   const tableDataSource = eventVariables && eventVariables.filter(({ id }) => value && value.includes(id));
   const ref = useRef(null)
@@ -17,7 +18,7 @@ const EventVariablesSelect: React.FC<EventVariablesSelectProps> = ({ eventVariab
     <div ref={ref} style={{position: 'relative'}}>
       <Select
         mode='multiple'
-        placeholder='Please select'
+        placeholder={placeholder}
         style={{ width: '100%' }}
         onChange={onChange}
         value={value}

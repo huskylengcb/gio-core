@@ -2,30 +2,36 @@ import React, { useRef } from 'react';
 import List from '@gio-design/components/lib/list';
 import Select from '@gio-design/components/lib/select';
 import { format } from '@gio-core/utils/date';
+import { noop } from 'lodash';
 
-interface ItemVariableSelectProps {
+interface ItemSelectProps {
   onChange?: (value: string[]) => void;
-  itemVariables?: any[];
-  value?: string[];
+  itemModels?: any[];
+  value?: string;
+  placeholder?: string
+  selectedItemModel?: any
+  usePrimaryItemVariable: (id: string) => { data: any, loading: boolean}
 }
 
-const ItemVariableSelect: React.FC<ItemVariableSelectProps> = ({ itemVariables, value, onChange }) => {
+const ItemSelect: React.FC<ItemSelectProps> = ({ usePrimaryItemVariable = noop, placeholder = '请选择物品唯一标识属性', itemModels, value = [], onChange, selectedItemModel }) => {
   const rowKey = (record: any) => record.id;
-  const tableDataSource = itemVariables && itemVariables.filter(({ id }) => value && value.includes(id));
   const ref = useRef(null)
+  const { data, loading} = usePrimaryItemVariable(value && value[0])
+  const tableDataSource = data ? [data] : []
+  const onSelectChange = (value: string) => onChange && onChange([value])
+
   return (
     <div ref={ref} style={{position: 'relative'}}>
       <Select
-        mode='multiple'
-        placeholder='Please select'
+        placeholder={placeholder}
         style={{ width: '100%' }}
-        onChange={onChange}
+        onChange={onSelectChange}
         value={value}
         default={value}
         getPopupContainer={() => ref.current}
       >
-        {itemVariables && itemVariables.map((item: any, index: number) => {
-          return <Select.Option key={index} value={item.id}>{item.key}</Select.Option>;
+        {itemModels && itemModels.map((item: any, index: number) => {
+          return <Select.Option key={index} value={item.id}>{item.name}</Select.Option>;
         })}
       </Select>
       <div>
@@ -39,7 +45,7 @@ const ItemVariableSelect: React.FC<ItemVariableSelectProps> = ({ itemVariables, 
     );
 };
 
-export default ItemVariableSelect;
+export default ItemSelect;
 
 const AttrColumns = [
   { title: '名称', dataIndex: 'name', key: 'name', width: 100, textWrap: 'word-break', ellipsis: true },
