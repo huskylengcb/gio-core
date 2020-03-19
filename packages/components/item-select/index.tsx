@@ -13,12 +13,12 @@ interface ItemSelectProps {
   usePrimaryItemVariable: (id: string) => { data: any, loading: boolean}
 }
 
-const ItemSelect: React.FC<ItemSelectProps> = ({ usePrimaryItemVariable = noop, placeholder = '请选择物品唯一标识属性', itemModels, value = [], onChange, selectedItemModel }) => {
+const ItemSelect: React.FC<ItemSelectProps> = ({ onChange = noop, usePrimaryItemVariable = noop, placeholder = '请选择物品唯一标识属性', itemModels, value = [], selectedItemModel }) => {
   const rowKey = (record: any) => record.id;
   const ref = useRef(null)
   const { data, loading} = usePrimaryItemVariable(value && value[0])
   const tableDataSource = data ? [data] : []
-  const onSelectChange = (value: string) => onChange && onChange([value])
+  const onSelectChange = (value: string) => onChange(value ? [value] : [])
 
   return (
     <div ref={ref} style={{position: 'relative'}}>
@@ -29,6 +29,7 @@ const ItemSelect: React.FC<ItemSelectProps> = ({ usePrimaryItemVariable = noop, 
         value={value}
         default={value}
         getPopupContainer={() => ref.current}
+        allowClear={true}
       >
         {itemModels && itemModels.map((item: any, index: number) => {
           return <Select.Option key={index} value={item.id}>{item.name}</Select.Option>;
