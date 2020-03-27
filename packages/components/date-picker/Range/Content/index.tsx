@@ -5,9 +5,13 @@ import RangeDatePicker from '../RangeDatePicker';
 import ShortcutButtons from '../ShortcutButtons';
 import Button from '@gio-design/components/lib/button';
 import Gap from '@gio-design/components/lib/gap';
+import Input from '@gio-design/components/lib/input';
 import Icon from '@gio-design/icon';
 import InputLabel from '../InputLabel';
 import bemClsFactor from '../../../../utils/bemClsFactor';
+import ReactDOM from 'react-dom';
+import cn from 'classnames';
+import { ValidInputElement } from 'antd/lib/auto-complete';
 import './index.less';
 import flattenDate from '../../flattenDate';
 
@@ -31,7 +35,8 @@ export interface DateRangeContentPickerProps {
 interface DateRangeContentState {
     value: string,
     start: moment.Moment,
-    end: moment.Moment
+    end: moment.Moment,
+    lastN: number
 }
 
 const defaultValue = getRangeFromKey('last_7_day')
@@ -42,17 +47,18 @@ export default class DateRangeContent extends React.Component<DateRangeContentPi
         validate: (start, end) => ({ showError: false, errorMsg: '' })
     }
 
+    private lastNRef;
+
     constructor(props: DateRangeContentPickerProps) {
         super(props);
-        const ranges = this.getRangeFromPropsValue({
-            value: props.value,
-            block: props.block,
-            defaultValue
-        })
+        const { start, end, lastN } = this.getStateFromProps(props)
+        this.lastNRef = React.createRef();
+        const { value } = props.value ? this.getStateFromProps(props) : { value: defaultValue }
         this.state = {
-            value: 'value' in props ? props.value : defaultValue,
-            start: ranges[0],
-            end: ranges[1]
+            value,
+            start,
+            end,
+            lastN
         }
     }
 
@@ -60,8 +66,10 @@ export default class DateRangeContent extends React.Component<DateRangeContentPi
         if (!('value' in nextProps) && nextProps.value === this.props.value) {
             return
         }
-        const nextState = this.getStateFromProps(nextProps)
-        this.setState(() => nextState)
+        if (this.props !== nextProps) {
+            const nextState = this.getStateFromProps(nextProps)
+            this.setState(() => nextState)
+        }
     }
 
     public handleChange = (start: moment.Moment, end: moment.Moment) => {
@@ -76,7 +84,7 @@ export default class DateRangeContent extends React.Component<DateRangeContentPi
                 end: selectEndMoment
             }, () => {
                 if (this.props.block) {
-                  this.handleOk()
+                    this.handleOk()
                 }
             })
             return;
@@ -91,11 +99,23 @@ export default class DateRangeContent extends React.Component<DateRangeContentPi
     public handleRangeClick = (value: string) => {
         const ranges = this.getRangeFromPropsValue({ value, startTime: this.state.start })
 
+        if (value === 'last:n') {
+            setTimeout(() => {
+                if (this.lastNRef) {
+                    (ReactDOM.findDOMNode(this.lastNRef) as HTMLInputElement).focus();
+                }
+            }, 300)
+        }
         this.setState(() => ({
             value: /since/.test(value) ? `${value}:${ranges[0].valueOf()}` : value,
             start: ranges[0],
-            end: ranges[1]
-        }), () => this.handleOk())
+            end: ranges[1],
+            lastN: undefined
+        }), () => {
+            if (value !== 'last:n') {
+                this.handleOk()
+            }
+        })
     }
 
     public handleOk = () => {
@@ -107,7 +127,11 @@ export default class DateRangeContent extends React.Component<DateRangeContentPi
         const startOfDay = start.clone().startOf('day')
         const endOfDay = end.clone().endOf('day')
         if (value) {
-            onOk(value, startOfDay, endOfDay)
+            if (value === 'last:n') {
+                onOk(`day:${this.state.lastN + 1},1`, startOfDay, endOfDay)
+            } else {
+                onOk(value, startOfDay, endOfDay)
+            }
         } else {
             onOk(`abs:${startOfDay.valueOf()},${endOfDay.valueOf()}`, startOfDay, endOfDay)
         }
@@ -116,30 +140,45 @@ export default class DateRangeContent extends React.Component<DateRangeContentPi
     public render() {
         const { start, end, value } = this.state
         const { showError, errorMsg } = this.props.validate(start, end)
+        const isLastN = !!(value === 'last:n' || this.state.lastN);
+        const lastNError = isLastN && this.state.lastN <= 0;
+        const lastNEmpty = !this.state.lastN;
         return (
             <div>
                 <InputLabel type={this.props.inputLabelType} />
-                <div className={`${cls('content')} ${this.props.inputLabelType}`}>
-                    <RangeDatePicker
-                        startTime={start}
-                        endTime={end}
-                        onChange={this.handleChange}
-                        minDate={this.props.minDate}
-                        maxDate={this.props.maxDate}
-                        locale={this.props.locale}
-                    />
+                {
+                    isLastN && (
+                        <span className='last-n-input'>
+                            过去&nbsp;
+                            <Input ref={(element) => { this.lastNRef = element }} type='number' min={1} placeholder='N' value={this.state.lastN} onChange={this.handleLastNChange} />
+                            &nbsp;天&nbsp;&nbsp;
+                            {
+                                lastNError && (<span className='error'>请输入正确天数</span>)
+                            }
+                        </span>
+                    )
+                }
+                <div className={cn(cls('content'), this.props.inputLabelType, {
+                    'last-n': isLastN
+                })}>
                     {
-                        this.props.supportRelativeRange && (
-                            <div className='operate'>
-                                <ShortcutButtons
-                                    range={this.state.value}
-                                    onClick={this.handleRangeClick}
-                                    includes={this.props.shortcutIncludes}
-                                    locale={this.props.locale}
-                                />
-                            </div>
-                        )
+                        <RangeDatePicker
+                            startTime={start}
+                            endTime={end}
+                            onChange={this.handleChange}
+                            minDate={this.props.minDate}
+                            maxDate={this.props.maxDate}
+                            locale={this.props.locale}
+                        />
                     }
+                    <div className='operate'>
+                        <ShortcutButtons
+                            range={isLastN ? 'last:n' : this.state.value}
+                            onClick={this.handleRangeClick}
+                            includes={this.props.shortcutIncludes}
+                            locale={this.props.locale}
+                        />
+                    </div>
                 </div>
                 <div className={cls('footer')}>
                     <div className={cls('footer-errMsg')}>
@@ -155,7 +194,7 @@ export default class DateRangeContent extends React.Component<DateRangeContentPi
                         >
                             取消
                         </Button>
-                        <Gap width={10}/>
+                        <Gap width={10} />
                         <Button
                             type='secondary'
                             onClick={this.handleOk}
@@ -170,6 +209,13 @@ export default class DateRangeContent extends React.Component<DateRangeContentPi
         )
     }
 
+    private handleLastNChange = (e: React.FormEvent<HTMLInputElement>) => {
+        const value = e.currentTarget.valueAsNumber;
+        this.setState({
+            lastN: value
+        })
+    }
+
     private handleCancel = () => {
         if (this.props.onCancel) { this.props.onCancel() }
         const propsState = this.getStateFromProps(this.props)
@@ -181,10 +227,15 @@ export default class DateRangeContent extends React.Component<DateRangeContentPi
             value: props.value,
             defaultValue
         })
+        const lastNRegex = /day:([0-9]*),1/;
+        const lastNMatch = props.value && props.value.match(lastNRegex);
+        const day = lastNMatch ? (parseInt(lastNMatch[1], 10) - 1) : undefined;
+        const lastN = this.props.shortcutIncludes.map((s => getRangeFromKey(s))).indexOf(props.value) < 0 ? day : undefined;
         return {
-            value: props.value,
+            value: lastN ? 'last:n' : props.value,
             start: ranges[0],
-            end: ranges[1]
+            end: ranges[1],
+            lastN
         }
     }
     private getRangeFromPropsValue = (props: {

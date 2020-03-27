@@ -90,6 +90,12 @@ const map: {
         en: 'Last 365 Days',
         tooltip: ''
     },
+    last_n_day: {
+        range: 'last:n',
+        cn: '过去N天',
+        en: 'Last N Days',
+        tooltip: ''
+    },
     since: {
         range: 'since',
         cn: '开始至今',
@@ -250,7 +256,11 @@ const i18nRange = (range: string, locale?: 'cn' | 'en'): string => {
         const ranges = range.replace('abs:', '').split(',').map((v) => parseInt(v, 10))
         return `${moment(ranges[0]).format('YYYY/MM/DD')} - ${moment(ranges[1]).format('YYYY/MM/DD')}`
     }
-    return getText(getKeyFromRange(range), locale) || range
+    const lastNRegex = /day:([0-9]*),1/;
+    const lastNMatch = range.match(lastNRegex);
+    const day = lastNMatch ? (parseInt(lastNMatch[1], 10) - 1) : undefined;
+
+    return getText(getKeyFromRange(range), locale) || (lastNMatch ? `过去${day}天` : range)
 }
 
 const getText = (key: string, locale: 'cn' | 'en' = 'cn'): string => {
