@@ -142,7 +142,7 @@ const EventSelect = ({
   const [scope, setScope] = useState('');
 
   let data = isMetric ? expandAttributeToMetric(measurements as any) : measurements;
-  disabledOptions = (disabledOptions || []).concat(data.filter((m) => disabledTypes.includes(m.type)))
+  disabledOptions = (disabledOptions || []).concat(data.filter((m) => disabledTypes.includes(m.aggregator || m.type)))
 
   /*
   if (keyword || scope !== 'all') {
