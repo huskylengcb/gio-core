@@ -23,5 +23,6 @@
   "scripts": {
     "test": "yarn jest",
     "test:cover": "yarn test --coverage"
-  }
+  },
+  "gitHead": "8fa60effe2511ff01b7656f2bd788ac6721c4dfb"
 }

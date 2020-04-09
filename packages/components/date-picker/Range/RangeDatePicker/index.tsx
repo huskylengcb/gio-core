@@ -10,6 +10,7 @@ export interface RangeDatePickerProps {
     onChange: (startTime: Moment, endTime: Moment) => void,
     minDate?: Moment,
     maxDate?: Moment,
+    maxAcross?: number
     locale: string
 }
 
@@ -83,7 +84,7 @@ export default class RangeDatePicker extends React.PureComponent<RangeDatePicker
     }
 
     private disabledDate = (current: any): boolean => {
-        const { minDate, maxDate } = this.props;
+        const { minDate, maxDate, maxAcross } = this.props;
         let isDisabledDate = false;
         if (minDate && !maxDate) {
             isDisabledDate = moment(current).isBefore(minDate);
@@ -93,6 +94,10 @@ export default class RangeDatePicker extends React.PureComponent<RangeDatePicker
         }
         if (minDate && maxDate) {
             isDisabledDate = moment(maxDate).isBefore(current) || moment(current).isBefore(minDate);
+        }
+        if (isDisabledDate) return isDisabledDate;
+        if (this.state.start && maxAcross) {
+            isDisabledDate = !(moment(current).isBetween(moment(this.state.start).subtract(maxAcross, 'days'), moment(this.state.start).add(maxAcross, 'days')))
         }
         return isDisabledDate;
     }

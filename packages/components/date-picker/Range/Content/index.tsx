@@ -25,7 +25,8 @@ export interface DateRangeContentPickerProps {
     supportRelativeRange?: boolean
     locale: string,
     minDate?: moment.Moment,
-    maxDate?: moment.Moment
+    maxDate?: moment.Moment,
+    maxAcross?: number,
     onCancel?: () => void
     inputLabelType?: 'normal' | 'now' | 'compare'
     // errorMessage?: string
@@ -168,6 +169,7 @@ export default class DateRangeContent extends React.Component<DateRangeContentPi
                             onChange={this.handleChange}
                             minDate={this.props.minDate}
                             maxDate={this.props.maxDate}
+                            maxAcross={this.props.maxAcross}
                             locale={this.props.locale}
                         />
                     }

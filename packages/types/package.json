@@ -8,5 +8,6 @@
   "private": false,
   "publishConfig": {
     "registry": "https://repo.growingio.com/repository/npm-hosted/"
-  }
+  },
+  "gitHead": "8fa60effe2511ff01b7656f2bd788ac6721c4dfb"
 }

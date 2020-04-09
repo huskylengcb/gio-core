@@ -5,5 +5,6 @@
   "main": "index.ts",
   "author": "Zhang Yuxiang",
   "license": "MIT",
-  "private": false
+  "private": false,
+  "gitHead": "8fa60effe2511ff01b7656f2bd788ac6721c4dfb"
 }

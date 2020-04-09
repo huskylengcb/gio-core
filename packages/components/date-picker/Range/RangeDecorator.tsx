@@ -22,6 +22,7 @@ export interface RangeDecoratorProps {
     placeholder: string,
     minDate?: moment.Moment,
     maxDate?: moment.Moment,
+    maxAcross?: number,
     disabled?: boolean,
     overlayPlacement?: 'top' | 'left' | 'right' | 'bottom' | 'topLeft' | 'topRight' | 'bottomLeft' | 'bottomRight' | 'leftTop' | 'leftBottom' | 'rightTop' | 'rightBottom',
     getPopupContainer?: (triggerNode: Element) => HTMLElement,
@@ -119,6 +120,7 @@ class HOCRange extends React.Component<RangeDecoratorProps, RangeDecoratorState>
                 locale={this.props.locale}
                 minDate={this.props.minDate}
                 maxDate={this.props.maxDate}
+                maxAcross={this.props.maxAcross}
                 inputLabelType={this.props.inputLabelType}
                 validate={this.props.validate}
             />
