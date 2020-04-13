@@ -1,6 +1,6 @@
 {
   "name": "@gio-core/types",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "GrowingIO Data Types",
   "main": "index.ts",
   "author": "Zhang Yuxiang",
