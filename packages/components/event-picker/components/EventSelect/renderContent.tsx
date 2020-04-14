@@ -196,6 +196,7 @@ const renderContent = ({
               steps={Array.isArray(value) ? value : [value]}
               removeStep={stepPreviewProps.removeStep}
               confirmDisabled={value.length < 2}
+              max={max}
               onCancel={stepPreviewProps.onStepsPreviewCancel}
               onConfirm={stepPreviewProps.onStepsPreviewConfirm}
               handleStepsChange={stepPreviewProps.handleStepsChange}

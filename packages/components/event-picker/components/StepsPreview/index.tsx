@@ -13,6 +13,7 @@ export interface Props {
   steps: any[]
   totalRate: number
   totalConversionRate: number,
+  max: number
   onCancel: () => void
   onConfirm: () => void
   confirmDisabled: boolean
@@ -37,7 +38,7 @@ class StepsPreview extends React.PureComponent<Props> {
       <div className={cls()}>
         <div className={cls('header')}>
           <div className={cls('summary')}>
-            漏斗步骤 { `${steps.length}/10` }
+            漏斗步骤 { `${steps.length}/${props.max}` }
           </div>
           <div className={cls('total-rate')}>
             {
