@@ -89,7 +89,8 @@ export const groupData = (
   hasFilter: boolean
 ) => {
   const groupMap = data.reduce((map: any, event: any) => {
-    event.groups.forEach((groupId: string) => {
+
+    (event.groups || []).forEach((groupId: string) => {
       if (!groupList.some(({ id }) => id === groupId )) {
         groupId = 'unknown';
       }
@@ -305,7 +306,8 @@ export const generatePayload = (type: string, dataSource: any, timeRange?: strin
     granularities: [{ id: 'tm', interval: 86400000, trend: true }],
     limit: 20,
     timeRange: timeRange || 'day:8,1',
-    targetUser: 'uv'
+    targetUser: 'uv',
+    chartType: 'line'
   };
 }
 

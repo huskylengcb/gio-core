@@ -5,9 +5,29 @@ import MrgedEventDetail from './MrgedEventDetail';
 import ComplexMetricDetail from './ComplexMetricDetail';
 import ElementDetail from './ElementDetail';
 import CustomEventDetail from './CustomEventDetail';
+import { GioChart } from 'giochart';
 // import PureChart from 'modules/core/components/ChartPreview/PureChart';
 
-const PureChart = (<div>PureChart</div>);
+interface PureChartProps {
+  payload: any
+  url: string
+  timeRange: string
+  cache: any
+  setCache: () => void
+}
+
+const PureChart = (props: PureChartProps) => {
+  return (
+    <GioChart
+      width={280}
+      height={180}
+      padding={0}
+      gql={props.payload}
+      hideDate={true}
+      hideTitle={true}
+    />
+  )
+}
 
 interface Params {
   target: any,
@@ -28,6 +48,7 @@ export const prepared = (params: Params) => {
   const preparedMetricDetail = find(preparedMetrics, {id: target.id})
   const description = get(target, 'description') || get(preparedMetricDetail, 'description') || '无';
   const instruction = get(target, 'instruction') || get(preparedMetricDetail, 'instruction') || '';
+
   return (
     <React.Fragment>
       <div key='prepared-metric-description'>
@@ -101,11 +122,13 @@ export const renderChart = (type: string, dataSource: any, timeRange?: string, c
     payload = generatePayload(type, dataSource, timeRange);
     url = `/v5/projects/${window.project.id}/chartdata`;
   } else {
+    return null
     // 如果dataSource中没有id，说明现在要展示的是一个没有定义过的元素
     // 此时需要调用的是ping接口
     payload = dataSource;
     url = `/v4/projects/${window.project.id}/ping`;
   }
+
   return (
     <div className='event-preview-chart-wrapper'>
       <PureChart payload={payload} url={url} timeRange={timeRange} cache={cache} setCache={setCache} />

@@ -80,6 +80,7 @@ const renderFormFields = (data: any, dataType: dataTypes, form: any, extraData: 
       case 'platforms':
       case 'example':
       // case 'description':
+      // case 'instruction':
       case 'valueType':
         return (
           <Form.Item label={keyMap[key]}>
@@ -315,7 +316,16 @@ const fieldsMap = {
       'description',
       'itemModelPrimaryAttributeKey'
     ]
-  }
+  },
+  preparedMetric: {
+    canEdit: false,
+    fields: [
+      'name',
+      'description',
+      'instruction',
+      'chart'
+    ]
+  },
 }
 
 const keyMap = {
@@ -333,10 +343,18 @@ const keyMap = {
   chart: '统计趋势',
   jobPath: '任务目录地址',
   timeRange: '时间范围',
-  others: '其他'
+  others: '其他',
+  instruction: '说明'
 }
 
 const generateGQL = (event: any, dataType: dataTypes) => {
+  let type = 'custom'
+  if (dataType === 'complexMetric') {
+    type = 'complex'
+  } else if (dataType === 'preparedMetric') {
+    type = 'prepared'
+  }
+
   return {
     chartType: 'line',
     attrs: {
@@ -355,7 +373,7 @@ const generateGQL = (event: any, dataType: dataTypes) => {
     limit: 20,
     metrics: [{
       id: event.id,
-      type: dataType === 'complexMetric' ? 'complex' : 'custom',
+      type,
       test: new Date().getTime()
     }],
     orders: null,

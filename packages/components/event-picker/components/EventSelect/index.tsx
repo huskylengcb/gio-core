@@ -3,7 +3,7 @@ import Picker from '../../../picker';
 import useMount from 'react-use/lib/useMount';
 import useUnmount from 'react-use/lib/useUnmount';
 import cacheLatest from '@gio-core/utils/cacheLatest';
-import { isEqual, find, uniqBy } from 'lodash';
+import { isEqual, find, uniqBy, noop } from 'lodash';
 import PreparedMetric from '@gio-core/types/Metrics/PreparedMetric';
 import {
   convertToOption,
@@ -16,6 +16,7 @@ import renderContent from './renderContent';
 import { PropsType as PopoverPropsType } from '@gio-design/components/lib/popover';
 
 import './style.less';
+import { useGroups } from '../../hooks';
 
 const platforms = [] || (window as any).productPlatforms.replace(/js/, 'web').split(',');
 
@@ -104,7 +105,8 @@ const EventSelect = ({
   loading,
   keyword,
   handleKeywordChange,
-  useGroup = false,
+  // useGroup = false,
+  useGroup = true,
   useTab = true,
   refetch,
   types,
@@ -132,14 +134,34 @@ const EventSelect = ({
   useUnmount(() => {
     removeEventListener('setLocalStorageEvent', onSetLocalStorage)
   })
+
+  const {
+    groupIds: collapsedGroupIds,
+    handleGroupIdsChange: handleCollapsedGroupChange,
+    setGroupIds: setCollapsedGroupIds
+  } = useGroups([]);
+
+  /*
+  * 异步获取
+  * const {
+  *   data: labeledData,
+  *   dataCache: labeledDataCache,
+  *   openedGroupIds,
+  *   isLoading: isLabeledDataLoading,
+  *   handleOpenedGroupChange,
+  *   reset: resetLabeledData
+  * } = useLabeledData();
+  *
+  * */
+
   /*dev*/
   const [
     preparedMetrics,
     searchResults,
     labels,
     openedGroupIds,
-  ] = ['', [], [], [], []];
-  const [scope, setScope] = useState('');
+  ] = ['', [], [], ['prepared', 'recentlyUsed', 'unknown']];
+  const [scope, setScope] = useState('all');
 
   let data = isMetric ? expandAttributeToMetric(measurements as any) : measurements;
   disabledOptions = (disabledOptions || []).concat(data.filter((m) => disabledTypes.includes(m.aggregator || m.type)))
@@ -217,7 +239,7 @@ const EventSelect = ({
         exclusiveTypes,
         refresh: refetch,
         groups: [
-          { id: 'recentlyUsed', name: '最近使用'},
+          // { id: 'recentlyUsed', name: '最近使用'},
           { id: 'prepared', name: '预定义指标' },
           ...labels,
           { id: 'unknown', name: '未分类' }
@@ -229,12 +251,12 @@ const EventSelect = ({
         openedGroupIds,
         counters: [],
         labeledDataCache: {},
-        collapsedGroupIds: [],
+        collapsedGroupIds, // 收起、展开，与 handleCollapsedGroupChange setCollapsedGroupIds 一起使用
         dataFilter,
-        handleCollapsedGroupChange: () => void 0,
-        setCollapsedGroupIds: () => void 0,
+        handleCollapsedGroupChange,
+        setCollapsedGroupIds,
         handleSearch: handleKeywordChange,
-        handleOpenedGroupChange: () => void 0,
+        handleOpenedGroupChange: () => {},
         scope,
         setScope,
         hoveringNode,

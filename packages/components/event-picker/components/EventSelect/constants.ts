@@ -26,6 +26,7 @@ export const platforms = (productPlatforms ? productPlatforms.split(',') : []).m
 });
 
 export const types = [
+  { id: 'prepared', name: '预定义指标' },
   { id: 'custom', name: '埋点事件' },
   { id: 'page', name: '页面浏览', shortName: '浏览' },
   { id: 'clck', name: '元素点击', shortName: '点击' },
@@ -41,7 +42,7 @@ export const defaultFilters = {
     value: [] as any,
     match: (option: any, key: string, value: any[]) => {
       return !value.length || value.some((type: any) => {
-        if (['custom', 'merged', 'complex'].includes(type)) {
+        if (['prepared', 'custom', 'merged', 'complex'].includes(type)) {
           return type === option.type;
         }
         return type === option.action;

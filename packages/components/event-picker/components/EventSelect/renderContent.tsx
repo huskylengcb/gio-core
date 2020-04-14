@@ -9,7 +9,7 @@ import FilterTab from '../FilterTab';
 import FilterSelect from '../FilterSelect';
 import EventPreview from '../../containers/previewContainer';
 import DataFilter, { FilterValues } from '../../../data-filter';
-import { Header, Toolbar } from '../../../picker/components/index.styled';
+// import { Header, Toolbar } from '../../../picker/components/index.styled';
 import {
   defaultFilters,
   tabs,
@@ -105,7 +105,7 @@ const renderContent = ({
   platforms,
   disabledTypes
 }: any) => ({ value, onChange }: Partial<SelectCoreProps>) => {
-  const isLazyMode = !keyword;
+  const isLazyMode = false // !keyword
   const groupIds = isLazyMode ? openedGroupIds : collapsedGroupIds;
   const handleGroupChange = isLazyMode ? handleOpenedGroupChange : handleCollapsedGroupChange;
 
@@ -116,6 +116,7 @@ const renderContent = ({
       predicate={predicate}
     >
       {({ data: filteredData, handleValueChange, filterValues }) => {
+        const options = useGroup ? groupData(filteredData, groupIds, groups, counters, isLazyMode, labeledDataCache, filterValues.type.length || filterValues.platform.length) : filteredData
         return (
         <div
           className='event-select-overlay'
@@ -175,9 +176,7 @@ const renderContent = ({
             <List
               value={value}
               max={max}
-              options={
-                useGroup ? groupData(filteredData, groupIds, groups, counters, isLazyMode, labeledDataCache, filterValues.type.length || filterValues.platform.length) : filteredData
-              }
+              options={options}
               disabledOptions={disabledOptions}
               isLoading={isLoading}
               isMultiple={isMultiple}
@@ -207,7 +206,15 @@ const renderContent = ({
             />
           }
           {/* 固定型的事件预览，如果存在步骤预览就不会出现，取而代之的是跟随型事件预览 */}
-          {/*!needStepPreview && previewVisibility && (!disabledPreviewOptions || !(disabledPreviewOptions.includes(hoveringNode && hoveringNode.id))) && <EventPreview target={{ ...hoveringNode, fromEventPicker: true }} labels={labels} delay={750}/>*/}
+          {
+            !needStepPreview &&
+            previewVisibility &&
+            (
+              !disabledPreviewOptions ||
+              !(disabledPreviewOptions.includes(hoveringNode && hoveringNode.id))
+            ) &&
+              <EventPreview target={{ ...hoveringNode, fromEventPicker: true }} labels={labels} delay={750}/>
+          }
         </div>
       ); }}
     </DataFilter>

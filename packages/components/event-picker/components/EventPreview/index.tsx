@@ -151,6 +151,4 @@ class Preview extends React.PureComponent<Props, State> {
   }
 };
 
-//export default Preview;
-const P = () => (<div>Preview</div>);
-export default P;
+export default Preview;

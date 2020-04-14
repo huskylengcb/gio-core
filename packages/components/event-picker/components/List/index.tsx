@@ -56,6 +56,7 @@ const renderLabel = (
   getGroupCollapsed: any,
   needEventPreview: boolean,
 ) => (option: any, isGroup?: boolean) => {
+
   if (isGroup) {
     const collapsed = getGroupCollapsed(option.id);
     return (
