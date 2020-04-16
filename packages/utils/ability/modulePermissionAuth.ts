@@ -44,7 +44,6 @@ export function modulePermissionAuthCheck(action, key) {
     return false;
   }
   if (!gioCorePermissionModules[key]) {
-    console.error('auth:error:wrong key: ' + key);
     return false;
   }
   const win: any = window;
