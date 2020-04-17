@@ -7,6 +7,7 @@ import Form, { FormComponentProps } from 'antd/lib/form';
 import { isEqual } from 'lodash';
 import EventVariablesSelect, { valueTypeMap } from '@gio-core/components/eventvariable-select';
 import ItemSelect from '@gio-core/components/item-select';
+import Select from '@gio-design/components/lib/select';
 
 setRequestHost('chartdata', '/chartdata');
 
@@ -50,7 +51,7 @@ const DataPanelForm: React.FC<DataPanelFormProps> = ({ data, dataType, extraData
   );
 }
 
-const FormField: React.FC<{ field: string}> = (props) => (
+const FormField: React.FC<{ field: string }> = (props) => (
   <div className={`form-field ${props.field}`}>
     {props.children}
   </div>
@@ -80,6 +81,20 @@ const renderFormFields = (data: any, dataType: dataTypes, form: any, extraData: 
       case 'example':
       // case 'description':
       case 'valueType':
+        return (
+          <Form.Item label={keyMap[key]}>
+            {getFieldDecorator(key, {
+              initialValue: data[key]
+            })(
+              <Select style={{ width: 140 , height: 40}} disabled>
+                <Select.Option value='string'>字符串</Select.Option>
+                <Select.Option value='int'>整数</Select.Option>
+                <Select.Option value='double'>小数</Select.Option>
+                <Select.Option value='date'>日期</Select.Option>
+              </Select>
+            )}
+          </Form.Item>
+        )
       case 'createdAt':
       case 'updatedAt':
         return (
@@ -111,28 +126,28 @@ const renderFormFields = (data: any, dataType: dataTypes, form: any, extraData: 
       case 'others':
         return (
           <Form.Item label='其他'>
-            {extraRenders && extraRenders.DetailListRender && extraRenders.DetailListRender({data, dataType, key, form})}
+            {extraRenders && extraRenders.DetailListRender && extraRenders.DetailListRender({ data, dataType, key, form })}
           </Form.Item>
         )
       case 'logs':
         return (
           <Form.Item label='操作历史'>
-            {extraRenders && extraRenders.LogsRender && extraRenders.LogsRender({data, dataType, key, form})}
+            {extraRenders && extraRenders.LogsRender && extraRenders.LogsRender({ data, dataType, key, form })}
           </Form.Item>
         )
       case 'complexMetricCondition':
         return (
           <Form.Item label='计算公式'>
-            {extraRenders && extraRenders.complexMetricCondition && extraRenders.complexMetricCondition({data, dataType, key, form})}
+            {extraRenders && extraRenders.complexMetricCondition && extraRenders.complexMetricCondition({ data, dataType, key, form })}
           </Form.Item>
         )
       case 'tunnelDetail':
         return (
-          extraRenders && extraRenders.tunnelDetail && extraRenders.tunnelDetail({data, dataType, key, form})
+          extraRenders && extraRenders.tunnelDetail && extraRenders.tunnelDetail({ data, dataType, key, form })
         )
       case 'itemModelPrimaryAttributeKey':
         return (
-          extraRenders && extraRenders.itemModelPrimaryAttributeKey && extraRenders.itemModelPrimaryAttributeKey({data, dataType, key, form})
+          extraRenders && extraRenders.itemModelPrimaryAttributeKey && extraRenders.itemModelPrimaryAttributeKey({ data, dataType, key, form })
         )
       default:
         return (
@@ -185,12 +200,12 @@ const renderAttributes = (data: any, dataType: string, key: keyof typeof keyMap,
   return (
     <div className={`form-field-${key}`}>
       <React.Fragment>
-        <Form.Item label={keyMap[key]}  labelCol={{ xs: { span: 8 }, sm: { span: 6 }}}>
+        <Form.Item label={keyMap[key]} labelCol={{ xs: { span: 8 }, sm: { span: 6 } }}>
           {getFieldDecorator(key, {
-              initialValue: (data[key] || []).map((item: any) => item.id)
-            })(
-              <EventVariablesSelect eventVariables={eventVariables} />
-            )}
+            initialValue: (data[key] || []).map((item: any) => item.id)
+          })(
+            <EventVariablesSelect eventVariables={eventVariables} />
+          )}
         </Form.Item>
       </React.Fragment>
     </div>
@@ -203,12 +218,12 @@ const renderItemModelSelect = (data: any, dataType: string, key: keyof typeof ke
   return (
     <div className={`form-field-${key}`}>
       <React.Fragment>
-        <Form.Item label={keyMap[key]}  labelCol={{ xs: { span: 8 }, sm: { span: 6 }}}>
+        <Form.Item label={keyMap[key]} labelCol={{ xs: { span: 8 }, sm: { span: 6 } }}>
           {getFieldDecorator(key, {
-              initialValue: (data[key] || []).map((item: any) => item.id)
-            })(
-              <ItemSelect itemModels={extraData.itemModels} usePrimaryItemVariable={extraData.usePrimaryItemVariable}/>
-            )}
+            initialValue: (data[key] || []).map((item: any) => item.id)
+          })(
+            <ItemSelect itemModels={extraData.itemModels} usePrimaryItemVariable={extraData.usePrimaryItemVariable} />
+          )}
         </Form.Item>
       </React.Fragment>
     </div>
@@ -244,6 +259,7 @@ const fieldsMap = {
     fields: [
       'name',
       'key',
+      'valueType',
       'description'
     ]
   },
@@ -350,7 +366,7 @@ const generateGQL = (event: any, dataType: dataTypes) => {
   }
 }
 
-export interface FormProps extends FormComponentProps{
+export interface FormProps extends FormComponentProps {
   onValuesChange: (changed: boolean, values: any) => void;
   data: any;
   dataType: dataTypes;
