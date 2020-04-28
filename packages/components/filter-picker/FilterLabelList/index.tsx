@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Filter from '@gio-core/types/Filter';
 import Expression from '@gio-core/types/FilterExpression';
 import Label from '@gio-core/components/label';
 import FilterDropdown from '@gio-core/components/filter-picker/FilterDropdown';
 import { handleRemove } from '@gio-core/components/filter-picker/utils';
-import { get } from 'lodash';
+import { get, cloneDeep, noop } from 'lodash';
 import Metric from '@gio-core/types/Metric';
+import moment from 'moment';
+import { utils } from 'giochart';
 
 import './style.less';
 
@@ -21,7 +23,7 @@ interface Props {
   nowrap?: boolean,
   onChange?: (filter: Filter) => void,
   beforeDropdownOpen?: () => void,
-  getPopupContainer?: () => HTMLElement
+  getPopupContainer?: () => HTMLElement,
 }
 
 const FilterLabelList: (props: Props) => JSX.Element = ({
@@ -36,49 +38,46 @@ const FilterLabelList: (props: Props) => JSX.Element = ({
   nowrap = true,
   onChange,
   beforeDropdownOpen,
-  getPopupContainer
-}) => (
-  <div
-    className='gio-filter-label-list'
-    style={{
-      position: 'relative',
-      display: 'inline-block',
-      maxWidth: '100%'
-    }}
-  >
-    {
-      (get(filter, 'exprs', []) as Expression[]).map((expression: Expression, index: number) => {
-        const label = (
-          <Label removable={removable} onRemove={handleRemove(index, filter, onChange)} nowrap={nowrap}>
-            {
-              [
-                expression.name,
-                expression.op,
-                expression.values.join(', ')
-              ].join(' ')
-            }
-          </Label>
-        );
-        return editable ? (
-          <FilterDropdown
-            title={title}
-            filter={filter}
-            propertyOptions={propertyOptions}
-            isPropertyOptionsLoading={isPropertyOptionsLoading}
-            onConfirm={onChange}
-            metrics={metrics}
-            timeRange={timeRange}
-            beforeOpen={beforeDropdownOpen}
-            getPopupContainer={getPopupContainer}
-          >
-            <span className='gio-filter-dropdown-trigger'>
-              {label}
-            </span>
-          </FilterDropdown>
-        ) : label;
-    })
-    }
-  </div>
-);
+  getPopupContainer,
+}) => {
+  return (
+    <div
+      className='gio-filter-label-list'
+      style={{
+        position: 'relative',
+        display: 'inline-block',
+        maxWidth: '100%'
+      }}
+    >
+      {
+        (get(filter, 'exprs', []) as Expression[]).map((expression: Expression, index: number) => {
+          const filterLabelText = utils.getFilterLabelText(expression as any)
+          const label = (
+            <Label removable={removable} onRemove={handleRemove(index, filter, onChange)} nowrap={nowrap}>
+              {filterLabelText}
+            </Label>
+          );
+          return editable ? (
+            <FilterDropdown
+              title={title}
+              filter={filter}
+              propertyOptions={propertyOptions}
+              isPropertyOptionsLoading={isPropertyOptionsLoading}
+              onConfirm={onChange}
+              metrics={metrics}
+              timeRange={timeRange}
+              beforeOpen={beforeDropdownOpen}
+              getPopupContainer={getPopupContainer}
+            >
+              <span className='gio-filter-dropdown-trigger'>
+                {label}
+              </span>
+            </FilterDropdown>
+          ) : label;
+        })
+      }
+    </div>
+  )
+};
 
 export default FilterLabelList;

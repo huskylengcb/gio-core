@@ -6,9 +6,9 @@
       "packages/*"
     ]
   },
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
+    "giochart": "^1.5.10",
     "lerna": "^3.16.4"
   },
   "scripts": {

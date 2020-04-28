@@ -7,6 +7,7 @@ import FilterLabelList from './FilterLabelList';
 import CircularIcon from '@gio-core/components/circular-icon';
 import Metric from '@gio-core/types/Metric';
 import Filter from '@gio-core/types/Filter'
+import { noop } from 'lodash';
 
 interface Props {
   filter: Filter,
@@ -29,7 +30,7 @@ const FilterPicker = ({
   version,
   metrics,
   targetUsers,
-  timeRange
+  timeRange,
 }: Props) => (
   <DimensionProvider
     type={type}

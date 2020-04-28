@@ -1,7 +1,7 @@
 .gio-expression {
-  margin-bottom: 15px;
+  margin-bottom: 16px;
 
-  & > div + div {
+  &>div+div {
     margin-left: 5px;
   }
 
@@ -13,19 +13,31 @@
     vertical-align: top;
 
     .ant-select-selection__choice__remove {
-      font-size: 14px!important;
-      right: 3px!important;
+      font-size: 14px !important;
+      right: 3px !important;
+    }
+  }
+
+  .gio-expression-selectors {
+    display: inline-block;
+    width: calc(~"100% - 60px");
+    position: relative;
+
+    div+div {
+      margin-left: 8px;
     }
   }
 
   &-btn-remove {
     svg {
       vertical-align: middle;
-      margin-left: 15px;
-      margin-right: 0!important;
+      margin-left: 8px;
+      margin-right: 0 !important;
       opacity: 0.8;
       transition: opacity 0.3s ease;
       cursor: pointer;
+      float: right;
+      margin-top: 10px;
 
       &:hover {
         opacity: 1;

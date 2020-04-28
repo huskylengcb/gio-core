@@ -173,14 +173,18 @@ export default class DateRangeContent extends React.Component<DateRangeContentPi
                             locale={this.props.locale}
                         />
                     }
-                    <div className='operate'>
-                        <ShortcutButtons
-                            range={isLastN ? 'last:n' : this.state.value}
-                            onClick={this.handleRangeClick}
-                            includes={this.props.shortcutIncludes}
-                            locale={this.props.locale}
-                        />
-                    </div>
+                    {
+                        this.props.supportRelativeRange && (
+                            <div className='operate'>
+                                <ShortcutButtons
+                                    range={isLastN ? 'last:n' : this.state.value}
+                                    onClick={this.handleRangeClick}
+                                    includes={this.props.shortcutIncludes}
+                                    locale={this.props.locale}
+                                />
+                            </div>
+                        )
+                    }
                 </div>
                 <div className={cls('footer')}>
                     <div className={cls('footer-errMsg')}>

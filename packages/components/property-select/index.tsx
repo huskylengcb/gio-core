@@ -22,7 +22,7 @@ const renderOptions = (options: any[]): ReactNode =>
       {option.name}
     </Select.Option>
   )
-);
+  );
 
 const renderGroupedOptions = (options: any[], groupKey = 'groupName', getGoupIcon: getGroupIconType): any => {
   const groupedOptions = groupBy(options, groupKey);
@@ -42,8 +42,13 @@ const renderGroupedOptions = (options: any[], groupKey = 'groupName', getGoupIco
   })
 };
 
-const onPropertySelectChange = (onChange: (option: any) => void) =>
-  (option: any) => onChange(option);
+const onPropertySelectChange = (onChange: (option: any) => void, valueTypeMap: any) =>
+  (option: any) => {
+    onChange({
+      ...option,
+      valueType: valueTypeMap[option.key]
+    })
+  }
 
 const PropertySelect = ({
   value,
@@ -53,21 +58,25 @@ const PropertySelect = ({
   groupKey,
   getGroupIcon = noop,
   ...props
- }: PropertySelectProps): JSX.Element => (
-  <Select
-    labelInValue={true}
-    value={value && { key: value }}
-    onChange={onPropertySelectChange(onChange)}
-    {...props}
-  >
+}: PropertySelectProps): JSX.Element => {
+  let valueTypeMap = {};
+   options.map((opt: any) => valueTypeMap[opt.id] = opt.valueType)
+  return (
+    <Select
+      labelInValue={true}
+      value={value && { key: value }}
+      onChange={onPropertySelectChange(onChange, valueTypeMap)}
+      {...props}
+    >
       {
         grouped && options.some((option: any) => !!option[groupKey || 'groupName'])
-        ?
-        renderGroupedOptions(options, groupKey, getGroupIcon)
-        :
-        renderOptions(options)
+          ?
+          renderGroupedOptions(options, groupKey, getGroupIcon)
+          :
+          renderOptions(options)
       }
-  </Select>
-);
+    </Select>
+  )
+};
 
 export default PropertySelect;

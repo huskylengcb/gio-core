@@ -1,6 +1,6 @@
 import React from 'react';
 import Expression from '../Expression';
-import OperatorSelect from '@gio-core/components/operator-select';
+import OperatorSelect from './OperationSelect';
 import DimensionValueSelect from './DimensionValueSelect';
 import DimensionSelect from './DimensionSelect';
 import FilterExpression from '@gio-core/types/FilterExpression';
@@ -8,6 +8,7 @@ import Filter from '@gio-core/types/Filter';
 import {
   Operator
 } from '@gio-core/constants/operator';
+import './index.less'
 interface Props {
   index: number,
   filter: Filter,
@@ -52,7 +53,9 @@ const render = ({
   valueInclude = [],
   valueExclude = [],
   showSearch = true,
-  dimensionsSearchPath
+  dimensionsSearchPath,
+  type,
+  valueType,
 }: Props): JSX.Element[] => ([(
   <DimensionSelect
     key='gio-expression-dimension-select'
@@ -74,6 +77,8 @@ const render = ({
     getPopupContainer={getPopupContainer}
     operatorExclude={operatorExclude}
     allowLike={property !== 'cs1'}
+    type={type}
+    valueType={valueType}
   />
 ), (
   <DimensionValueSelect
@@ -90,6 +95,9 @@ const render = ({
     valueInclude={valueInclude}
     showSearch={showSearch}
     dimensionsSearchPath={dimensionsSearchPath}
+    type={type}
+    valueType={valueType}
+    operator={operator}
   />
 )]);
 

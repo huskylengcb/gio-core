@@ -1,5 +1,5 @@
-import React from 'react';
-import { keyBy } from 'lodash';
+import React, { useState, useEffect } from 'react';
+import { keyBy, noop } from 'lodash';
 import CircularIcon from '@gio-core/components/circular-icon';
 import Filter, { defaultFilter } from '@gio-core/types/Filter';
 import FilterExpression, { defaultFilterExpression } from '@gio-core/types/FilterExpression';
@@ -39,9 +39,9 @@ interface FilterPanelProps {
 };
 
 const style: React.CSSProperties = {
-  padding: '20px',
+  padding: '24px',
   margin: '0 auto',
-  maxWidth: '590px',
+  maxWidth: '640px',
   textAlign: 'left',
   backgroundColor: 'white',
   maxHeight: 400,
@@ -125,7 +125,7 @@ const FilterPanel = ({
   filter: { exprs: expressions = [defaultFilterExpression] },
   onChange,
   maxLength = 5,
-  addButtonText = '继续添加过滤条件',
+  addButtonText = '添加过滤条件',
   unique,
   placeholder,
   operatorExclude = [],
@@ -176,7 +176,7 @@ const FilterPanel = ({
       }
       <Button
         disabled={expressions.length >= maxLength}
-        tooltip={expressions.length >= maxLength && `最多只能添加${maxLength}条`}
+        tooltip={expressions.length >= maxLength && `最多添加${maxLength}个过滤条件`}
         onClick={onExpressionAdd(expressions, filter, onChange)}
       >
         <Icon type='plus-circle' />

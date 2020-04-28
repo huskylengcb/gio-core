@@ -59,46 +59,73 @@ export default class Expression extends React.PureComponent<ExpressionProps, {}>
       valueExclude = [],
       showSearch = true,
       placeholder,
-      dimensionsSearchPath
+      dimensionsSearchPath,
     } = this.props;
 
-    const {
-      key: property,
+    let {
+      key: property = '',
       op: operator,
       values,
-      name: propertyName
+      name: propertyName,
+      valueType
     } = expression;
+    if (operator === 'relativeTime') {
+      const value: string = values[0].slice('relativeTime:'.length) || '';
+      // values[0] = value;
+      const values1 = value.split(',').map((v: string) => Number(v));
+      if (values1.length === 1) {
+        operator = 'relativeNow'
+      } else {
+        operator = (values1[0] === 0 || values1[1] === 0) ? 'relativeNow' : 'relativeBetween'
+      }
+    }
+    if (operator === '!=' && values[0] === ' ') {
+      operator = 'isNotNaN'
+    }
+    if (operator === '=' && values && values[0] === ' ') {
+      operator = 'isNaN'
+    }
+
+    const type = property.split('_')[0]
 
     const valueSelectMode = multipleModeOperators.indexOf(operator) > -1 ? 'tags' : undefined;
 
     return (
       <div className={'gio-expression'} ref={this.setRef}>
-        <CircularIcon>{index + 1}</CircularIcon>
-        {
-          render({
-            index,
-            filter,
-            property,
-            propertyName,
-            propertyOptions,
-            isPropertyOptionsLoading,
-            onPropertySelectChange: this.handlePropertySelectChange,
-            operator,
-            onOperatorSelectChange: this.handleOperatorSelectChange,
-            values,
-            valueOptions,
-            valueSelectMode,
-            placeholder,
-            onValueSelectChange: this.handleValueSelectChange,
-            getPopupContainer: this.getPopupContainer,
-            extraAttrs,
-            operatorExclude,
-            valueInclude,
-            valueExclude,
-            showSearch,
-            dimensionsSearchPath
-          })
-        }
+        <CircularIcon style={{
+          marginRight: '8px',
+          float: 'left',
+          marginTop: '10px'
+        }}>{index + 1}</CircularIcon>
+        <div className='gio-expression-selectors'>
+          {
+            render({
+              index,
+              filter,
+              property,
+              propertyName,
+              propertyOptions,
+              isPropertyOptionsLoading,
+              onPropertySelectChange: this.handlePropertySelectChange,
+              operator,
+              onOperatorSelectChange: this.handleOperatorSelectChange,
+              values,
+              valueOptions,
+              valueSelectMode,
+              placeholder,
+              onValueSelectChange: this.handleValueSelectChange,
+              getPopupContainer: this.getPopupContainer,
+              extraAttrs,
+              operatorExclude,
+              valueInclude,
+              valueExclude,
+              showSearch,
+              dimensionsSearchPath,
+              type,
+              valueType
+            })
+          }
+        </div>
         {
           allowRemove && (
             <span className='gio-expression-btn-remove'>
@@ -126,7 +153,9 @@ export default class Expression extends React.PureComponent<ExpressionProps, {}>
     this.handleChange({
       key: option.key,
       name: option.label,
-      values: []
+      valueType: option.valueType,
+      values: [],
+      op: '='
     });
 
   private handleOperatorSelectChange = (op: string): void => {
@@ -136,7 +165,7 @@ export default class Expression extends React.PureComponent<ExpressionProps, {}>
     if (props.multipleModeOperators.indexOf(op) === -1 && values.length > 1) {
       this.handleChange({ op, values: [values[0]] });
     } else {
-      this.handleChange({ op });
+      this.handleChange({  op, values: []  });
     }
   };
 

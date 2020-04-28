@@ -20,7 +20,7 @@ interface Props {
 }
 
 const defaultStyle = {
-  width: '195px',
+  width: '180px',
   placeholder: '选择维度',
   disabled: false,
 }

@@ -4,6 +4,7 @@ export default interface FilterExpression {
   key: string,
   op: string,
   values: string[],
+  valueType?: string,
   name?: string,
   symbol?: string
 };

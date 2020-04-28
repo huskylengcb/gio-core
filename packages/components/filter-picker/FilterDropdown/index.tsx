@@ -147,14 +147,38 @@ class FilterDropdown extends React.PureComponent<Props, State> {
   private handleConfirm = () => {
     this.handleVisibleChange(false);
     const { filter: oldFilter } = this.state;
-    const exprs = (get(oldFilter, 'exprs', []) as any[]).filter((e: FilterExpression) => e.key && e.values.length);
+    let exprs  = (get(oldFilter, 'exprs', []) as any[]).map((l) => {
+      let expr = l;
+      if (l.op === 'relativeNow' || l.op === 'relativeBetween' && l.values && l.values[0]) {
+        // expr.values[0] = 'relativeTime:' + l.values[0]
+        expr.op = 'relativeTime'
+      }
+      if (l.op === 'isNotNaN') {
+        expr.op = '!='
+        expr.values[0] = ' '
+      }
+      if (l.op === 'isNaN') {
+        expr.op = '='
+        expr.values[0] = ' '
+      }
+      return {
+        ...expr
+      }
+    });
+    exprs = exprs.filter((e: FilterExpression) => {
+      if (!e.key) return false;
+      if ((e.valueType === 'int' || e.valueType === 'double') && e.op === 'between') {
+        return e.values.length === 2 && typeof e.values[0] === 'number' && typeof e.values[1] === 'number';
+      } else {
+        return e.values.length !== 0
+      }
+    });
     const filter = exprs.length ? { ...oldFilter, exprs } : null;
+    this.props.onConfirm(filter);
     this.setState((prevState: State) => ({
       ...prevState,
       filter: filter || defaultFilter
-    }), () => {
-      this.props.onConfirm(filter);
-    })
+    }))
   }
 
   private handleCancel = () => {
