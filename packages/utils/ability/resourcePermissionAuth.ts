@@ -5,6 +5,9 @@ interface Resource {
 
 export function resourcePermissionAuthCheck(action: string, resourceName: string, resource: Resource) {
   const win: any = window;
+  if (action === 'owner') {
+    return resource.creatorId === win.currentUser.id;
+  }
   if (resource.creatorId === win.currentUser.id) {
     return true;
   }
