@@ -2,13 +2,11 @@ import React from 'react';
 import Input from '@gio-design/components/lib/input';
 import Spin from '@gio-design/components/lib/spin';
 import SelectList from '../SelectList';
-//import isContain from 'gioutils/pinyinHelper';
+import isContain from '@gio-core/utils/pinyinHelper';
 import SelectListGroup from '../SelectList/SelectGroup';
 import { get, groupBy } from 'lodash';
 
 const SearchInput = Input.Search;
-
-const isContain = (option: string, keyword: string) => option.includes(keyword);
 
 import './style.less';
 
