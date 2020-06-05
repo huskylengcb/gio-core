@@ -26,7 +26,8 @@ interface State {
   dimension: string,
   valueOptions: string[],
   isLoading: boolean,
-  isTyping: boolean
+  isTyping: boolean,
+  isError: boolean
 }
 
 interface Props {
@@ -112,7 +113,8 @@ class DimensionValueSelect extends React.PureComponent<Props, State> {
     dimension: '',
     valueOptions: [],
     isLoading: false,
-    isTyping: true
+    isTyping: true,
+    isError: false
   }
   componentDidMount() {
     this.getDefaultValues()
@@ -157,16 +159,18 @@ class DimensionValueSelect extends React.PureComponent<Props, State> {
           dimension,
           valueOptions,
           isLoading: false,
-          isTyping: false
+          isTyping: false,
+          isError: false
         }));
       })
       .catch(() => {
         this.setState((prevState: State) => ({
           ...prevState,
           keyword: '',
-          valueOptions: ['Error'],
+          valueOptions: [],
           isLoading: false,
-          isTyping: false
+          isTyping: false,
+          isError: true
         }));
       });
   } , 300);
@@ -250,7 +254,7 @@ class DimensionValueSelect extends React.PureComponent<Props, State> {
   public render() {
     const props = this.props;
     const { showSearch = true, type, valueType, operator, values } = props;
-    const { valueOptions, keyword, isLoading, isTyping } = this.state;
+    const { valueOptions, keyword, isLoading, isTyping, isError } = this.state;
     const disabled = !props.dimension;
     if (operator === 'isNaN' || operator === 'isNotNaN') {
       return null;
@@ -423,7 +427,7 @@ class DimensionValueSelect extends React.PureComponent<Props, State> {
         disabled={props.hasOwnProperty('disabled') ? props.disabled : !props.dimension}
         values={props.values}
         mode={props.mode}
-        notFoundContent={isTyping || isLoading ? '正在加载……' : `没有可用${props.placeholder}`}
+        notFoundContent={isTyping || isLoading ? '正在加载……' : isError ? '加载失败' : `没有可用${props.placeholder}`}
         getPopupContainer={props.getPopupContainer}
         freeInputTooltip={this.generateFreeInputTooltip()}
       />
