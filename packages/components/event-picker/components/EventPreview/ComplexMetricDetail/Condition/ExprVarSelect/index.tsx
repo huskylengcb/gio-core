@@ -22,6 +22,7 @@ const MEASUREMENTS = gql`
         name
         valueType
       }
+      isComplexDistinct
     }
   }
 `;

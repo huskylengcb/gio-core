@@ -117,7 +117,6 @@ const EventSelect = ({
   const refContainer = useRef(null);
   const recentKey = 'key' || `${window.currentUser.id}:${window.project.id}:recentEvents`;
   const initValue = localStorage.getItem(recentKey) || JSON.stringify([])
-
   const [recentEvents, setRecentEvents] = useState(JSON.parse(initValue));
   const onSetLocalStorage = (e) => {
     if (e.key === recentKey) {
@@ -164,7 +163,7 @@ const EventSelect = ({
   const [scope, setScope] = useState('all');
 
   let data = isMetric ? expandAttributeToMetric(measurements as any) : measurements;
-  disabledOptions = (disabledOptions || []).concat(data.filter((m) => disabledTypes.includes(m.aggregator || m.type)))
+  disabledOptions = (disabledOptions || []).concat(data.filter((m) => disabledTypes.includes(m.aggregator || m.type) || (disabledTypes.includes('isComplexDistinct') && m.isComplexDistinct)))
 
   /*
   if (keyword || scope !== 'all') {
@@ -224,7 +223,7 @@ const EventSelect = ({
       type={type}
       options={[]}
       onChange={onChange}
-      className={'gio-event-picker__overlay'}
+      className={'gio-event-picker__overlay_76'}
       placement={placement}
       isMultiple={isMultiple}
       getPopupContainer={getPopupContainer || (() => document.querySelector('body'))}

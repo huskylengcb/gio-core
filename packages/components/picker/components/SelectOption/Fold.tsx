@@ -37,13 +37,11 @@ export default class Group extends React.PureComponent<Props> {
 
     return (
       <div
-        className='gio-core gio-select-option group'
-        style={{ ...style, color: '#222f73' }}
+        className='gio-core gio-select-option fold'
+        style={{ ...style}}
         onClick={this.handleSelect}
       >
-        {!isMultiple && icon}
-        {isMultiple && showGroupCheckBox && <Checkbox checked={isSelected} indeterminate={indeterminate}/>}
-        {labelRenderer ? labelRenderer(option, 'group') : name}
+        {labelRenderer ? labelRenderer(option, 'fold') : name}
       </div>
     );
   }

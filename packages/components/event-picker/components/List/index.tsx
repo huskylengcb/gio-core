@@ -55,25 +55,35 @@ const renderLabel = (
   setHoveringNode: any,
   getGroupCollapsed: any,
   needEventPreview: boolean,
-) => (option: any, isGroup?: boolean) => {
-
+) => (option: any, isGroup?: string) => {
   if (isGroup) {
     const collapsed = getGroupCollapsed(option.id);
-    return (
-      <div
-        onClick={handleClick(handleGroupChange)(option.id)}
-        className={classnames('gio-event-picker-group-option', { collapsed })}
-        onMouseEnter={() => { setHoveringNode(null); }}
-      >
-        <Icon
-          type='tag'
-          className='icon-group-option'
-          svgStyle={iconStyle}
-        />
-        {option.name} {/*!isNaN(option.count) && `(${option.count})`*/}
-        <Icon type='down' />
-      </div>
-    )
+    switch(isGroup) {
+      case 'group':
+        return (
+          <div
+            onClick={handleClick(handleGroupChange)(option.id)}
+            className={classnames('gio-event-picker-group-option', { collapsed })}
+            onMouseEnter={() => { setHoveringNode(null); }}
+          >
+            <Icon
+              type='tag'
+              className='icon-group-option'
+              svgStyle={iconStyle}
+            />
+            {option.name} {/*!isNaN(option.count) && `(${option.count})`*/}
+            <Icon type='down' />
+          </div>
+        )
+      case 'fold':
+        return (
+          <div
+            onClick={handleClick(handleGroupChange)(option.id)}
+          >
+            {option.name} 
+          </div>
+        )
+    }
   }
 
   const prefix = getEventTypeLabel(option);
@@ -108,7 +118,8 @@ const renderLabel = (
 }
 
 const handleClick = (handleGroupChange: any) =>
-  (groupId: string) => () =>
+  (groupId: string) => () =>{
     handleGroupChange(groupId);
+  }
 
 export default List;

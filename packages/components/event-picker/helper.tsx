@@ -86,25 +86,42 @@ export const groupData = (
   counters: any,
   isLazyMode = true,
   labeledDataCache: any,
-  hasFilter: boolean
+  hasFilter: boolean,
+  disabledOptions: any[],
+  keyword: string
 ) => {
   const groupMap = data.reduce((map: any, event: any) => {
-
+    
     (event.groups || []).forEach((groupId: string) => {
       if (!groupList.some(({ id }) => id === groupId )) {
         groupId = 'unknown';
       }
-      const bucket = map[groupId];
-      if (bucket) {
-        bucket.push(event);
+      
+      if(!disabledOptions.includes(event.selectKey)) {
+        const bucket = map[groupId];
+        if (bucket) {
+          bucket.push(event);
+        } else {
+          map[groupId] = [event];
+        }
       } else {
-        map[groupId] = [event];
+        // const key = `disable_${groupId}`
+        const bucket = map[`disable_${groupId}`];
+        if (bucket) {
+          bucket.push(event);
+        } else {
+          map[`disable_${groupId}`] = [event];
+        }
       }
+      
     });
     return map;
   }, {});
+  const getSearchOrFilterStatue = () => !!keyword || !!hasFilter
+  
   return groupList.reduce((acc: any[], group) => {
     const bucket = groupMap[group.id] || [];
+    const disableBucket = groupMap[`disable_${group.id}`] || []
     const groupOption = {
       id: group.id,
       name: group.name,
@@ -112,9 +129,17 @@ export const groupData = (
       count: bucket.length,
       group
     };
-    if (!bucket.length && (!isLazyMode || group.id === 'prepared')) {
+    const foldOption = {
+      id: `fold_${group.id}`,
+      name: groupIds.includes(`fold_${group.id}`)?'收起':'展开全部',
+      type: 'fold',
+      group
+    }
+    
+    if (!bucket.length && !disableBucket.length && (!isLazyMode || group.id === 'prepared') && getSearchOrFilterStatue()) {
       return acc;
     }
+
     if (
       (groupIds.indexOf(group.id) === -1 && isLazyMode)
       ||
@@ -122,15 +147,36 @@ export const groupData = (
       ) {
       return [...acc, groupOption];
     }
-    return [
+    
+    let res = [
       ...acc,
       groupOption,
       ...bucket.map((event: any) => ({
         ...event,
         renderKey: event.selectKey + `-${group.id}`,
         typeInvisible: event.type === 'prepared'
-      }))
+      })),
     ]
+
+    // 展开，收起按钮添加规则
+    // 非查找或者非过滤状态（!getSearchOrFilterStatue()）、选项全部不可用，或者全部可用时(disableBucket.length && bucket.length）,不添加展开按钮
+    if(!groupIds.includes(group.id) && !getSearchOrFilterStatue() && disableBucket.length && bucket.length) {
+      res.push(foldOption)
+    }
+
+    // 添加disable选项
+    // 非折叠状态，查询状态，或者可用指标全部为disable时，添加disable选项
+    if (groupIds.includes(`fold_${group.id}`) || getSearchOrFilterStatue() || !bucket.length) {
+      res.push(...disableBucket.map((event: any) => ({
+          ...event,
+          renderKey: event.selectKey + `-${group.id}`,
+          typeInvisible: event.type === 'prepared'
+        }))
+      )
+    }
+
+   
+    return res
   }, []);
 }
 

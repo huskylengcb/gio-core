@@ -2,6 +2,7 @@ import React from 'react';
 import Popover from '@gio-design/components/lib/popover';
 import Icon from '@gio-design/icon';
 import Checkbox from 'antd/lib/checkbox';
+import Button from '@gio-design/components/lib/button';
 import Badge from 'antd/lib/badge';
 
 const constraintTypes = ['custom', 'merged', 'complex'];
@@ -11,15 +12,15 @@ import './style.less';
 const handleFilterChange = (handleFilterValueChange: any, filter: string, selectedValues: string[]) =>
   // CheckBoxGroup 单选
   (value: string[]) => {
-    let v: string[];
-    if (!selectedValues.length) {
-      v = value;
-    } else if (selectedValues.join('') === value.join('')) {
-      v = [];
-    } else {
-      v = value.filter((val: string) => val !== selectedValues.join(''))
-    }
-    handleFilterValueChange(filter)(v)
+    // let v: string[];
+    // if (!selectedValues.length) {
+    //   v = value;
+    // } else if (selectedValues.join('') === value.join('')) {
+    //   v = [];
+    // } else {
+    //   v = value.filter((val: string) => val !== selectedValues.join(''))
+    // }
+    handleFilterValueChange(filter)(value)
   }
 
 const render = ({
@@ -51,14 +52,14 @@ const render = ({
       visible={filterVisibility}
       content={(
         <div className='filter-select-wrapper'>
-          <span
+          {/* <span
             className='btn-reset'
             onClick={reset}
           >
             重置
-          </span>
+          </span> */}
           <div className='section'>
-            <span>类型</span>
+            {/* <span>类型</span> */}
             <div>
               <Checkbox.Group
                 className='filter-select-checkbox'
@@ -108,15 +109,20 @@ const render = ({
           setFilterVisibility(!filterVisibility);
           e.stopPropagation();
         }}>
-        <Icon type='filter' size='small' />
+        <Button
+          type='gray'
+          className='btn-refresh'
+        >
+          <Icon type='filter-2' size='small' />
+        </Button>
         {
-          hasUsedEventTypeFilter ? '筛选' :
-            <Badge
-              dot
-              style={{ height: 6, width: 6, right: -10 }}
-            >
-              筛选
-            </Badge>
+          // hasUsedEventTypeFilter ? '筛选' :
+            // <Badge
+            //   dot
+            //   style={{ height: 6, width: 6, right: -10 }}
+            // >
+            //   筛选
+            // </Badge>
         }
       </div>
     </Popover>

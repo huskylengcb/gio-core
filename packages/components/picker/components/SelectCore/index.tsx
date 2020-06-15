@@ -83,7 +83,6 @@ class SelectCore extends React.Component<Props, State> {
       searchPlaceholder,
       renderFetchButton
     } = this.props;
-
     return (
       <div className='gio-select-core'>
         {
@@ -163,7 +162,6 @@ class SelectCore extends React.Component<Props, State> {
       labelRenderer,
       showCheckAllBox
     } = this.props;
-
     if (this.state.options && this.state.options.length) {
       if (showCheckAllBox) {
         return (

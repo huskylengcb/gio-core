@@ -4,6 +4,7 @@ import Button from '@gio-design/components/lib/button';
 import Icon from '@gio-design/icon';
 import Spin from '@gio-design/components/lib/spin';
 import Label from '@gio-core/components/label';
+import Popover from '@gio-design/components/lib/popover';
 import { Props as SelectCoreProps } from '../../../picker/components/SelectCore';
 import FilterTab from '../FilterTab';
 import FilterSelect from '../FilterSelect';
@@ -116,7 +117,7 @@ const renderContent = ({
       predicate={predicate}
     >
       {({ data: filteredData, handleValueChange, filterValues }) => {
-        const options = useGroup ? groupData(filteredData, groupIds, groups, counters, isLazyMode, labeledDataCache, filterValues.type.length || filterValues.platform.length) : filteredData
+        const options = useGroup ? groupData(filteredData, groupIds, groups, counters, isLazyMode, labeledDataCache, filterValues.type.length || filterValues.platform.length, disabledOptions, keyword) : filteredData
         return (
         <div
           className='event-select-overlay'
@@ -130,6 +131,7 @@ const renderContent = ({
               onSearch={handleSearch}
               allowRedundant={true}
               quickMode={true}
+              allowClear={true}
               width='308px'
             />
             <Button
@@ -139,6 +141,19 @@ const renderContent = ({
             >
               <Icon type='transfer' />
             </Button>
+            <span ref={refContainer} onClick={(e) => {e.stopPropagation()}} style={{display: 'inline-block'}}>
+              <FilterSelect
+                types={types || defaultTypes}
+                platforms={platforms || defaultPlatforms}
+                filterValues={filterValues}
+                reset={resetFilter(handleValueChange)}
+                handleFilterValueChange={handleFilterValueChange(handleValueChange)}
+                getPopupContainer={() => refContainer.current}
+                filterVisibility={filterVisibility}
+                setFilterVisibility={setFilterVisibility}
+                disabledTypes={disabledTypes}
+              />
+            </span>
             <div className={classnames(
               'event-select-toolbar',
               { 'tab-invisible': !useTab }
@@ -148,7 +163,7 @@ const renderContent = ({
                 onChange={handleScopeChange(setScope)}
                 defaultActivedTab={tabs[0].id}
               />
-              <span style={{ float: 'right' }} ref={refContainer} onClick={(e) => {e.stopPropagation()}}>
+              {/* <span style={{ float: 'right' }} ref={refContainer} onClick={(e) => {e.stopPropagation()}}>
                 <FilterSelect
                   types={types || defaultTypes}
                   platforms={platforms || defaultPlatforms}
@@ -160,7 +175,7 @@ const renderContent = ({
                   setFilterVisibility={setFilterVisibility}
                   disabledTypes={disabledTypes}
                 />
-              </span>
+              </span> */}
             </div>
           </div>
           <div className='event-select-label-wrapper'>

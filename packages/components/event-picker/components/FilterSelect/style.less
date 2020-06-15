@@ -2,8 +2,8 @@
   font-size: 12px;
   &-wrapper {
     position: relative;
-    width: 240px;
-    padding: 10px;
+    width: 180px;
+    padding: 16px 8px;
 
     .btn-reset {
       position: absolute;
@@ -25,8 +25,6 @@
     }
 
     .section {
-      margin: 10px 0;
-
       .ant-checkbox-group {
         width: 100%;
       }
@@ -40,8 +38,11 @@
 
     .ant-checkbox-group-item {
       width: 48%;
-      margin: 5px 0;
-
+      height: 40px;
+      // margin: 5px 0;
+      line-height: 40px;
+     
+      display: block;
       input[type="checkbox"] {
         margin: 0!important;
       }
@@ -87,14 +88,16 @@
   &-checkbox {
     .ant-checkbox-group-item,
     .ant-checkbox-wrapper {
-      width: 45%;
-      margin: 5px 5px 5px 0;
+      width: 100%;
+      // margin: 5px 5px 5px 0;
       padding-right: 5px;
+      padding-left: 12px;
       white-space: nowrap;
       overflow: hidden;
-      font-size: 12px;
       text-overflow: ellipsis;
-      color: rgba(0,0,0,.65);
+      color: #313E75;
+      font-size: 14px;
+      font-weight: 400;
     }
   }
 }

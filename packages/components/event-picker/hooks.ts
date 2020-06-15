@@ -6,7 +6,7 @@ export const useGroups = (initialGroupIds = []) => {
     const isExist = groupIds.indexOf(groupId) > -1;
     let newGroupIds: string[] = [];
     if (isExist) {
-      newGroupIds = groupIds.filter((gId: string) => gId !== groupId);
+      newGroupIds = groupIds.filter((gId: string) => gId !== groupId && gId !== `fold_${groupId}`);
     } else {
       newGroupIds = [...groupIds, groupId];
     }

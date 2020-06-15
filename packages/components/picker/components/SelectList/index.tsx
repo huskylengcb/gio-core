@@ -1,6 +1,7 @@
 import React from 'react';
 import SelectOption from '../SelectOption';
 import Group from '../SelectOption/Group';
+import Fold from '../SelectOption/Fold';
 import { get } from 'lodash';
 //import withGroupedOptions from 'modules/core/components/HOC/withGroupedOptions';
 
@@ -70,7 +71,7 @@ class SelectList extends React.Component<Props, {}> {
 
   private renderListItem = ({ index, style }: { index: number, style: React.CSSProperties }) => {
     const option = this.props.options[index];
-    const isGroup = get(option, 'type') === 'groupName';
+    // const isGroup = get(option, 'type') === 'groupName';
     const { isMultiple, required, value, valueKey, renderKey, max, disabledOptions, labelRenderer } = this.props;
     const label = labelRenderer ? labelRenderer(option) : get(option, 'name') || option;
     const key = (renderKey || valueKey) ? option[renderKey || valueKey] : option
@@ -78,35 +79,82 @@ class SelectList extends React.Component<Props, {}> {
     const isMax = !this.getSelected(option) && isMultiple && value.length >= max;
     const disabled = isSelectedAndRequired || isMax || disabledOptions.indexOf(valueKey ? option[valueKey] : option) > -1;
     const groupIcon = this.props.getGroupIcon ? this.props.getGroupIcon(option.group) : null;
+    switch(get(option, 'type')) {
+      case 'groupName':
+        return (
+          <Group
+            key={option.name}
+            name={option.name}
+            option={option}
+            style={style}
+            icon={groupIcon}
+            isSelected={this.getSelected(option)}
+            isMultiple={!!this.props.isMultiple}
+            labelRenderer={labelRenderer}
+          />
+        )
 
-    return isGroup ? (
-      <Group
-        key={option.name}
-        name={option.name}
-        option={option}
-        style={style}
-        icon={groupIcon}
-        isSelected={this.getSelected(option)}
-        isMultiple={!!this.props.isMultiple}
-        labelRenderer={labelRenderer}
-      />
-    ) : (
-      <SelectOption
-        key={key}
-        style={style}
-        option={option}
-        title={!labelRenderer ? label : undefined}
-        isSelected={this.getSelected(option)}
-        isMultiple={this.props.isMultiple}
-        allowDuplicate={this.props.allowDuplicate}
-        onSelect={this.handleSelect}
-        disabled={disabled}
-        hasGroupIcon={!!groupIcon}
-        showGroupCheckBox={true}
-      >
-        {label}
-      </SelectOption>
-    );
+      case 'fold':
+        return (
+          <Fold
+            key={option.name}
+            name={option.name}
+            option={option}
+            style={style}
+            icon={groupIcon}
+            isSelected={this.getSelected(option)}
+            isMultiple={!!this.props.isMultiple}
+            labelRenderer={labelRenderer}
+          />
+        )
+      
+        default:  
+        return (
+          <SelectOption
+            key={key}
+            style={style}
+            option={option}
+            title={!labelRenderer ? label : undefined}
+            isSelected={this.getSelected(option)}
+            isMultiple={this.props.isMultiple}
+            allowDuplicate={this.props.allowDuplicate}
+            onSelect={this.handleSelect}
+            disabled={disabled}
+            hasGroupIcon={!!groupIcon}
+            showGroupCheckBox={true}
+          >
+            {label}
+          </SelectOption>
+        )
+    }
+    // return isGroup ? (
+    //   <Group
+    //     key={option.name}
+    //     name={option.name}
+    //     option={option}
+    //     style={style}
+    //     icon={groupIcon}
+    //     isSelected={this.getSelected(option)}
+    //     isMultiple={!!this.props.isMultiple}
+    //     labelRenderer={labelRenderer}
+    //   />
+    // ) : (
+    //   <SelectOption
+    //     key={key}
+    //     style={style}
+    //     option={option}
+    //     title={!labelRenderer ? label : undefined}
+    //     isSelected={this.getSelected(option)}
+    //     isMultiple={this.props.isMultiple}
+    //     allowDuplicate={this.props.allowDuplicate}
+    //     onSelect={this.handleSelect}
+    //     disabled={disabled}
+    //     hasGroupIcon={!!groupIcon}
+    //     showGroupCheckBox={true}
+    //   >
+    //     {label}
+    //   </SelectOption>
+    // );
   }
 
   private handleSelect = (option: any) => {
