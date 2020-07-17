@@ -3,7 +3,7 @@ import { noop } from 'lodash';
 import cn from 'classnames';
 import GIOButton from '@gio-design/components/lib/button';
 import Input from '@gio-design/components/lib/input';
-import GIOIcon from '@gio-design/components/lib/icon';
+import GIOIcon from '@gio-design/icon';
 import message from '@gio-design/components/lib/message';
 import Gap from '@gio-design/components/lib/gap';
 import bemClsFactor from '../../utils/bemClsFactor';
