@@ -16,7 +16,7 @@ interface Props {
 }
 
 const DataPanel = (props: Props & SidePanelProps) => {
-  const { data, dataType, extraData, extraRenders } = props;
+  const { data, dataType, extraData, extraRenders,disabledOk } = props;
   if (!data || !dataType) {
     return null;
   }
@@ -68,6 +68,7 @@ const DataPanel = (props: Props & SidePanelProps) => {
             data={data}
             onValuesChange={onValuesChange}
             extraRenders={extraRenders}
+            disabledOk={disabledOk}
             ref={setFormRef}
           />
           {

@@ -17,7 +17,8 @@ export interface DataPanelFormProps {
   data: any
   dataType: dataTypes
   extraData: any,
-  extraRenders?: any
+  extraRenders?: any,
+  disabledOk?: boolean
 }
 
 const formItemLayout = {
@@ -31,8 +32,8 @@ const formItemLayout = {
   },
 };
 
-const DataPanelForm: React.FC<DataPanelFormProps> = ({ data, dataType, extraData, form, extraRenders }) => {
-  const formFields = renderFormFields(data, dataType, form, extraData, extraRenders);
+const DataPanelForm: React.FC<DataPanelFormProps> = ({ data, dataType, extraData, form,disabledOk, extraRenders }) => {
+  const formFields = renderFormFields(data, dataType, form, extraData,disabledOk, extraRenders);
   return (
     <Form
       className='gio-core-data-panel'
@@ -65,10 +66,9 @@ const readOnlyFields = [
   'type'
 ]
 
-const renderFormFields = (data: any, dataType: dataTypes, form: any, extraData: any, extraRenders?: any) => {
+const renderFormFields = (data: any, dataType: dataTypes, form: any, extraData: any,disabledOk?: boolean, extraRenders?: any,) => {
   const { getFieldDecorator, getFieldValue } = form
   const { canEdit, fields = [] } = fieldsMap[dataType] || {}
-
   return fields && fields.map((key: string) => {
     switch (key) {
       case 'attributes':
@@ -120,7 +120,7 @@ const renderFormFields = (data: any, dataType: dataTypes, form: any, extraData: 
                 message: '名称最长为30个字符',
               }],
             })(
-              <Input placeholder='请输入名称' disabled={!canEdit} />
+              <Input placeholder='请输入名称' disabled={ disabledOk ? disabledOk : !canEdit} />
             )}
           </Form.Item>
         )
@@ -156,7 +156,7 @@ const renderFormFields = (data: any, dataType: dataTypes, form: any, extraData: 
             {getFieldDecorator(key, {
               initialValue: data[key]
             })(
-              <Input disabled={readOnlyFields.includes(key) || !canEdit} />
+              <Input disabled={ disabledOk ? disabledOk : (readOnlyFields.includes(key) || !canEdit)} />
             )}
           </Form.Item>
         )
@@ -390,6 +390,7 @@ export interface FormProps extends FormComponentProps {
   dataType: dataTypes;
   extraData: any;
   extraRenders: any;
+  disabledOk?:boolean
 }
 
 const Render = Form.create({

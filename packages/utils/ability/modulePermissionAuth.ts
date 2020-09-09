@@ -57,5 +57,8 @@ export function modulePermissionAuthCheck(action, key) {
   if (action === 'read' && gioCorePermissionModules[key] && (_.intersection(gioCorePermissionModules[key], ['create', 'edit', 'manage']).length > 0)) {
     return true;
   }
+  if(action === 'read' && gioCorePermissionModules[key] && gioCorePermissionModules[key].length === 1 && gioCorePermissionModules[key].includes('read')){
+    return false
+  }
   return !!(gioCorePermissionModules[key] && gioCorePermissionModules[key].indexOf(action) >= 0);
 }
