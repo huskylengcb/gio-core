@@ -52,6 +52,7 @@ interface Props {
   type?: 'dropdown' | 'popover';
   types?: any[];
   platforms?: any[];
+  getElement?: any;
 }
 
 const filterRecentEvents = cacheLatest((metrics: any[], preparedMetrics: PreparedMetric[], dataFilter: (any) => boolean, expandAttributes: boolean) => {
@@ -112,7 +113,8 @@ const EventSelect = ({
   types,
   type,
   platforms,
-  disabledTypes = []
+  disabledTypes = [],
+  getElement
 }: Props) => {
   const refContainer = useRef(null);
   const recentKey = 'key' || `${window.currentUser.id}:${window.project.id}:recentEvents`;
@@ -191,6 +193,9 @@ const EventSelect = ({
   const handleSelect = (onSelect: (value: any, index: number, option: any) => void, isMetric?: boolean, defaultAggregator?: string) =>
   (value: any, index: number, option: any) => {
     let event = omitOptionAttrs(option);
+    if(event.type === 'element') {
+      event.type = 'simple'
+    }
     const inRecentEvents = recentEvents.find(e => {
       return e.selectKey === option.selectKey && (option.type === 'prepared' ? e.name === option.name : true);
     })
@@ -215,6 +220,21 @@ const EventSelect = ({
   if (detailedRecentEvents.fetchStatus === 'succeed' && detailedRecentEvents.key === cacheKey && !isEqual(detailedRecentEvents.values, recentEvents)) {
     setRecentEvents(detailedRecentEvents.values);
     localStorage.setItem(recentKey, JSON.stringify(detailedRecentEvents.values));
+  }
+
+
+  const handleNodeHover = (option) => {
+    if (option && (option.type === 'simple' || option.type === 'element')) {
+      if(!!getElement){
+        getElement(option).then(res => {
+          setHoveringNode({...res.data.element, type: 'element'})
+        })
+      } else {
+        setHoveringNode(option)
+      }
+    } else {
+      setHoveringNode(option)
+    }
   }
   return (
     <Picker
@@ -259,7 +279,7 @@ const EventSelect = ({
         scope,
         setScope,
         hoveringNode,
-        handleNodeHover: setHoveringNode,
+        handleNodeHover: handleNodeHover,
         labels,
         needEventPreview,
         needStepPreview,

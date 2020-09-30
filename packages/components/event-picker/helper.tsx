@@ -56,7 +56,7 @@ export const getEventTypeLabel = (event: any) => {
   }
   const targetType = types.find((type: any) =>
     // remove measure from event' action like clck_count
-    [(event.action || '').replace(/_.*/g, ''), event.type].includes(type.id)
+    [(event.action || '').replace(/_.*/g, ''), event.type,event.docType].includes(type.id)
   );
   return targetType && targetType.name;
 }

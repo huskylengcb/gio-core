@@ -19,10 +19,11 @@ interface PureChartProps {
 const PureChart = (props: PureChartProps) => {
   return (
     <GioChart
+      sourceType={props.url.endsWith('ping')? 'ping': 'chartdata'}
       width={280}
       height={180}
       padding={0}
-      gql={props.payload}
+      gql={...props.payload}
       hideDate={true}
       hideTitle={true}
     />
@@ -74,8 +75,17 @@ export const simple = (params: Params) => {
   const chart = renderChart('simple', target, timeRange, cache, setCache);
   return (
     <React.Fragment>
-      <ElementDetail event={target} labels={labels} pages={pages} key={target.id} getRef={getRef} cache={cache} setCache={setCache} deleteCache={deleteCache} />
-      {chart}
+      <ElementDetail event={target} labels={labels} timeRange={timeRange} pages={pages} key={target.id} getRef={getRef} cache={cache} setCache={setCache} deleteCache={deleteCache} />
+    </React.Fragment>
+  )
+};
+
+export const element = (params: Params) => {
+  const { target, timeRange, labels, pages, getRef, cache, setCache, deleteCache } = params;
+  
+  return (
+    <React.Fragment>
+      <ElementDetail event={target} labels={labels} timeRange={timeRange} pages={pages} key={target.id} getRef={getRef} cache={cache} setCache={setCache} deleteCache={deleteCache} />
     </React.Fragment>
   )
 };
@@ -118,15 +128,30 @@ const dash = (params: Params) => {
 export const renderChart = (type: string, dataSource: any, timeRange?: string, cache?: object, setCache?: (cacheId: string, data: any) => void) => {
   let payload: object;
   let url: string;
-  if (dataSource.id) {
+  if(dataSource.type === 'element'){
+    payload = {
+      actions: dataSource.actions,
+      attrs: {
+        domain: get(dataSource,'definition.domain') || '',
+        path: get(dataSource,'definition.path') || '',
+        query: get(dataSource,'definition.query') || ''
+      },
+      definition: {
+        domain: get(dataSource,'definition.domain') || '',
+        path: get(dataSource,'definition.path') || '',
+        query: get(dataSource,'definition.query') || ''
+      },
+      platform: dataSource.platforms[0],
+      chartType: 'line',
+    };
+    url = `/v4/projects/${window.project.id}/ping`;
+  } else if (dataSource.id) {
     payload = generatePayload(type, dataSource, timeRange);
     url = `/v5/projects/${window.project.id}/chartdata`;
-  } else {
+  } else  {
     return null
     // 如果dataSource中没有id，说明现在要展示的是一个没有定义过的元素
     // 此时需要调用的是ping接口
-    payload = dataSource;
-    url = `/v4/projects/${window.project.id}/ping`;
   }
 
   return (
@@ -143,6 +168,7 @@ export const renderChart = (type: string, dataSource: any, timeRange?: string, c
 const render = {
   prepared,
   simple,
+  element,
   mrgd,
   complex,
   dash,

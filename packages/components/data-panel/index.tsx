@@ -70,13 +70,14 @@ const DataPanel = (props: Props & SidePanelProps) => {
             extraRenders={extraRenders}
             disabledOk={disabledOk}
             ref={setFormRef}
+            disabledOk={props.disabledOk}
           />
           {
             footerVisible && (
               <div className='footer'>
                 <Button onClick={handleCancel}>取消</Button>
                 <Gap width={16} />
-                <Button type='primary' onClick={handleOk} disabled={props.disabledOk}>确定</Button>
+                <Button type='primary' onClick={handleOk} disabled={props.disabledOk}>保存</Button>
               </div>
             )
           }

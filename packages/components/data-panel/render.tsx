@@ -4,10 +4,12 @@ import Input from '@gio-design/components/lib/input';
 import { setRequestHost, GioChart } from 'giochart';
 import { format } from '@gio-core/utils/date';
 import Form, { FormComponentProps } from 'antd/lib/form';
+import  Badge  from 'antd/lib/badge'
 import { isEqual } from 'lodash';
 import EventVariablesSelect, { valueTypeMap } from '@gio-core/components/eventvariable-select';
 import ItemSelect from '@gio-core/components/item-select';
 import Select from '@gio-design/components/lib/select';
+import styled from 'styled-components';
 
 setRequestHost('chartdata', '/chartdata');
 
@@ -21,6 +23,17 @@ export interface DataPanelFormProps {
   disabledOk?: boolean
 }
 
+const PointWrapper = styled.div`
+  width: 20px;
+  height: 20px;
+  border-radius: 10px;
+  background-color: #3867F4;
+  color: #fff;
+  text-align: center;
+  display: inline-block;
+  margin-right: 8px;
+`
+
 const formItemLayout = {
   labelCol: {
     xs: { span: 24 },
@@ -32,8 +45,8 @@ const formItemLayout = {
   },
 };
 
-const DataPanelForm: React.FC<DataPanelFormProps> = ({ data, dataType, extraData, form,disabledOk, extraRenders }) => {
-  const formFields = renderFormFields(data, dataType, form, extraData,disabledOk, extraRenders);
+const DataPanelForm: React.FC<DataPanelFormProps> = ({ data, dataType, extraData, form, extraRenders, disabledOk }) => {
+  const formFields = renderFormFields(data, dataType, form, extraData, extraRenders, disabledOk);
   return (
     <Form
       className='gio-core-data-panel'
@@ -63,13 +76,21 @@ const readOnlyFields = [
   'creator',
   'createdAt',
   'updatedAt',
-  'type'
+  'type',
+  'updater',
+  'docType'
 ]
 
-const renderFormFields = (data: any, dataType: dataTypes, form: any, extraData: any,disabledOk?: boolean, extraRenders?: any,) => {
+const renderFormFields = (data: any, dataType: dataTypes, form: any, extraData: any, extraRenders?: any, disabledOk?: boolean) => {
   const { getFieldDecorator, getFieldValue } = form
   const { canEdit, fields = [] } = fieldsMap[dataType] || {}
   return fields && fields.map((key: string) => {
+    // 分组元素
+    if (key.startsWith('gap')) {
+      return (
+        <div><PointWrapper>{key.slice(3)}</PointWrapper>{data[key]}</div>
+      )
+    }
     switch (key) {
       case 'attributes':
         return renderAttributes(data, dataType, key, form, extraData);
@@ -98,12 +119,37 @@ const renderFormFields = (data: any, dataType: dataTypes, form: any, extraData: 
         )
       case 'createdAt':
       case 'updatedAt':
-        return (
+      case 'updater':
+      case 'creator':
+        return dataType === 'elements'? (
+          <Form.Item label={keyMap[key]}>
+            {getFieldDecorator(key, {
+              initialValue: renderValue(data[key], key)
+            })(
+              <Input disabled={readOnlyFields.includes(key) || !canEdit} />
+            )}
+          </Form.Item>
+        ):(
           <Form.Item label={keyMap[key]}>
             {getFieldDecorator(key, {
               initialValue: data[key]
             })(
               <div>{renderValue(data[key], key)}</div>
+            )}
+          </Form.Item>
+        )
+
+      case 'description':
+        return (
+          <Form.Item label={keyMap[key]}>
+            {getFieldDecorator(key, {
+              initialValue: data[key],
+              rules: [{
+                max: 150,
+                message: '名称最长为150个字符',
+              }],
+            })(
+              <Input disabled={readOnlyFields.includes(key) || !canEdit || disabledOk} />
             )}
           </Form.Item>
         )
@@ -120,7 +166,7 @@ const renderFormFields = (data: any, dataType: dataTypes, form: any, extraData: 
                 message: '名称最长为30个字符',
               }],
             })(
-              <Input placeholder='请输入名称' disabled={ disabledOk ? disabledOk : !canEdit} />
+              <Input placeholder='请输入名称' disabled={!canEdit || disabledOk} />
             )}
           </Form.Item>
         )
@@ -150,13 +196,17 @@ const renderFormFields = (data: any, dataType: dataTypes, form: any, extraData: 
         return (
           extraRenders && extraRenders.itemModelPrimaryAttributeKey && extraRenders.itemModelPrimaryAttributeKey({ data, dataType, key, form })
         )
+      case 'elementRule':
+        return (
+          extraRenders && extraRenders.elementRule && extraRenders.elementRule({ data, dataType, key, form })
+        )
       default:
         return (
           <Form.Item label={keyMap[key]}>
             {getFieldDecorator(key, {
               initialValue: data[key]
             })(
-              <Input disabled={ disabledOk ? disabledOk : (readOnlyFields.includes(key) || !canEdit)} />
+              <Input disabled={readOnlyFields.includes(key) || !canEdit || disabledOk} />
             )}
           </Form.Item>
         )
@@ -246,6 +296,21 @@ const fieldsMap = {
       'itemModels'
     ]
   },
+  elements: {
+    canEdit: true,
+    fields: [
+      'gap1',
+      'name',
+      'description',
+      'gap2',
+      'elementRule',
+      'gap3',
+      'creator',
+      'createdAt',
+      'updater',
+      'updatedAt'
+    ]
+  },
   preparedDimension: {
     canEdit: false,
     fields: [
@@ -332,7 +397,7 @@ const keyMap = {
   name: '名称',
   key: '标识符',
   description: '描述',
-  creator: '创建者',
+  creator: '创建人',
   createdAt: '创建时间',
   updatedAt: '更新时间',
   platforms: '平台',
@@ -344,7 +409,8 @@ const keyMap = {
   jobPath: '任务目录地址',
   timeRange: '时间范围',
   others: '其他',
-  instruction: '说明'
+  instruction: '说明',
+  updater: '更新人'
 }
 
 const generateGQL = (event: any, dataType: dataTypes) => {
@@ -393,11 +459,16 @@ export interface FormProps extends FormComponentProps {
   disabledOk?:boolean
 }
 
+const tempValue = {}
+
 const Render = Form.create({
   onValuesChange: (props: FormProps, values: any) => {
-
     if (props.onValuesChange) {
-      const changed = Object.keys(values).some((key: string) => !isEqual(props.data[key], values[key]));
+      Object.keys(values).reduce((acc,key) => {
+        acc[key] = values[key]
+        return acc
+      },tempValue)
+      const changed = Object.keys(tempValue).some((key: string) => !isEqual(props.data[key], tempValue[key]));
       props.onValuesChange(changed, values)
     }
   }

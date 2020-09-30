@@ -38,6 +38,7 @@ class ScreenshotModal extends React.PureComponent<Props, State> {
         <Button
           className='btn-view-screenshot'
           onClick={this.handleOpen}
+          type="primary"
         >
           查看页面截图
         </Button>

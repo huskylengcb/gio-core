@@ -45,7 +45,7 @@ export const defaultFilters = {
         if (['prepared', 'custom', 'merged', 'complex'].includes(type)) {
           return type === option.type;
         }
-        return type === option.action;
+        return type === option.action || type === option.docType;
       })
     }
   },
