@@ -10,10 +10,11 @@ interface ItemSelectProps {
   value?: string;
   placeholder?: string
   selectedItemModel?: any
-  usePrimaryItemVariable: (id: string) => { data: any, loading: boolean}
+  usePrimaryItemVariable: (id: string) => { data: any, loading: boolean};
+  disabled?: boolean;
 }
 
-const ItemSelect: React.FC<ItemSelectProps> = ({ onChange = noop, usePrimaryItemVariable = noop, placeholder = '请选择物品', itemModels, value = [], selectedItemModel }) => {
+const ItemSelect: React.FC<ItemSelectProps> = ({ onChange = noop, usePrimaryItemVariable = noop, placeholder = '请选择物品', itemModels, value = [], selectedItemModel, disabled = false }) => {
   const rowKey = (record: any) => record.id;
   const ref = useRef(null)
   const { data, loading} = usePrimaryItemVariable(value && value[0])
@@ -30,6 +31,7 @@ const ItemSelect: React.FC<ItemSelectProps> = ({ onChange = noop, usePrimaryItem
         default={value}
         getPopupContainer={() => ref.current}
         allowClear={true}
+        disabled={disabled}
       >
         {itemModels && itemModels.map((item: any, index: number) => {
           return <Select.Option key={index} value={item.id}>{item.name}</Select.Option>;

@@ -7,10 +7,11 @@ interface EventVariablesSelectProps {
   onChange?: (value: string[]) => void;
   eventVariables?: any[];
   value?: string[];
-  placeholder?: string
+  placeholder?: string;
+  disabled?: boolean;
 }
 
-const EventVariablesSelect: React.FC<EventVariablesSelectProps> = ({ placeholder = '请选择事件属性', eventVariables, value, onChange }) => {
+const EventVariablesSelect: React.FC<EventVariablesSelectProps> = ({ placeholder = '请选择事件属性', eventVariables, value, onChange, disabled = false }) => {
   const rowKey = (record: any) => record.id;
   const tableDataSource = eventVariables && eventVariables.filter(({ id }) => value && value.includes(id));
   const ref = useRef(null)
@@ -24,6 +25,7 @@ const EventVariablesSelect: React.FC<EventVariablesSelectProps> = ({ placeholder
         value={value}
         default={value}
         getPopupContainer={() => ref.current}
+        disabled={disabled}
       >
         {eventVariables && eventVariables.map((item: any, index: number) => {
           return <Select.Option key={index} value={item.id}>{item.key}</Select.Option>;

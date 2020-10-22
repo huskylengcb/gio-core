@@ -93,9 +93,9 @@ const renderFormFields = (data: any, dataType: dataTypes, form: any, extraData: 
     }
     switch (key) {
       case 'attributes':
-        return renderAttributes(data, dataType, key, form, extraData);
+        return renderAttributes(data, dataType, key, form, extraData, disabledOk);
       case 'itemModels':
-        return renderItemModelSelect(data, dataType, key, form, extraData);
+        return renderItemModelSelect(data, dataType, key, form, extraData, disabledOk);
       case 'chart':
         return renderChart(data, dataType)
       case 'platforms':
@@ -244,7 +244,7 @@ const renderChart = (data: any, dataType: dataTypes) => {
   )
 }
 
-const renderAttributes = (data: any, dataType: string, key: keyof typeof keyMap, form: any, extraData: any) => {
+const renderAttributes = (data: any, dataType: string, key: keyof typeof keyMap, form: any, extraData: any, disableOk: boolean) => {
   const rowKey = (record: any) => record.id;
   const eventVariables = extraData.eventVariables
   const { getFieldDecorator } = form
@@ -255,7 +255,7 @@ const renderAttributes = (data: any, dataType: string, key: keyof typeof keyMap,
           {getFieldDecorator(key, {
             initialValue: (data[key] || []).map((item: any) => item.id)
           })(
-            <EventVariablesSelect eventVariables={eventVariables} />
+            <EventVariablesSelect eventVariables={eventVariables} disabled={disableOk} />
           )}
         </Form.Item>
       </React.Fragment>
@@ -263,7 +263,7 @@ const renderAttributes = (data: any, dataType: string, key: keyof typeof keyMap,
   )
 }
 
-const renderItemModelSelect = (data: any, dataType: string, key: keyof typeof keyMap, form: any, extraData: any) => {
+const renderItemModelSelect = (data: any, dataType: string, key: keyof typeof keyMap, form: any, extraData: any, disabledOk: boolean) => {
   const rowKey = (record: any) => record.id;
   const { getFieldDecorator } = form
   return (
@@ -273,7 +273,7 @@ const renderItemModelSelect = (data: any, dataType: string, key: keyof typeof ke
           {getFieldDecorator(key, {
             initialValue: (data[key] || []).map((item: any) => item.id)
           })(
-            <ItemSelect itemModels={extraData.itemModels} usePrimaryItemVariable={extraData.usePrimaryItemVariable} />
+            <ItemSelect itemModels={extraData.itemModels} usePrimaryItemVariable={extraData.usePrimaryItemVariable} disabled={disabledOk} />
           )}
         </Form.Item>
       </React.Fragment>
