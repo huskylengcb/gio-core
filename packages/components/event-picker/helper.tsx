@@ -248,7 +248,7 @@ export const convertToOption = ((obj: any, showEventName?: boolean) => {
 
 export const generateSelectKey = (obj: any = {}) => {
   if (obj.type === 'simple') {
-    return [obj.type, obj.action, obj.id].join('-');
+    return [obj.type, obj.id].join('-');
   }
   if (obj.type === 'custom' && obj.attribute) {
     return [obj.type, obj.id, obj.aggregator, obj.attribute].filter((s: string) => s).join('-');
