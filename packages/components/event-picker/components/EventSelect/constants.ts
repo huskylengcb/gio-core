@@ -30,6 +30,7 @@ export const types = [
   { id: 'custom', name: '埋点事件' },
   { id: 'page', name: '页面浏览', shortName: '浏览' },
   { id: 'clck', name: '元素点击', shortName: '点击' },
+  { id: 'elem', name: '元素点击', shortName: '点击' },
   { id: 'imp', name: '元素浏览', shortName: '浏览' },
   { id: 'chng', name: '输入框修改', shortName: '修改' },
   { id: 'sbmt', name: '表单提交', shortName: '提交'},

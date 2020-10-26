@@ -14,7 +14,7 @@ import { getEventPlatfromMap } from "@gio-core/constants/platformConfig";
 import { map } from "lodash";
 import styled from "styled-components";
 import { renderChart } from "./renderMap";
-import ElementClickDetail from "./ElementClickDetail";
+import Definition from "./ElemClickDefinitionRule";
 const TitleWrapper = styled.div`
   text-align: left;
   color: #a3adc8;
@@ -51,13 +51,9 @@ interface Props {
   timeRange: any;
 }
 
-const ElementDetail = (props: Props) => {
+const ElementClickDetail = (props: Props) => {
   const { event, timeRange, cache, setCache } = props;
-  const isElemClick = event.docType == "elem";
   const chart = renderChart("simple", event, timeRange, cache, setCache);
-  if (isElemClick) {
-    return <ElementClickDetail {...props} />;
-  }
   return (
     <div>
       <div>
@@ -66,53 +62,51 @@ const ElementDetail = (props: Props) => {
       </div>
       <div>
         <TitleWrapper>定义规则</TitleWrapper>
-        <div style={{ pading: "8px 16px", backgroundColor: "#F7F8FC" }}>
-          现在定义的是页面
-          <span style={{ color: "#1248E9" }}>
-            {get(event, "definition.domain")}
-            {get(event, "definition.path")}
-          </span>
-          {get(event, "definition.query")
-            ? `，查询条件为${get(event, "definition.query")}`
-            : ""}
-          。
-        </div>
+        <Definition {...{ data: event }}></Definition>
+        {/* <div style={{pading: '8px 16px',backgroundColor: '#F7F8FC'}}>现在定义的是页面<span style={{color: '#1248E9'}}>{get(event, 'definition.domain')}{get(event, 'definition.path')}</span>{get(event, 'definition.query') ?`，查询条件为${get(event, 'definition.query')}`: ''}。</div> */}
       </div>
       <div>
-        <TitleWrapper>域名</TitleWrapper>
-        <Input size="small" disabled value={get(event, "definition.domain")} />
+        <TitleWrapper>所属页面</TitleWrapper>
+        <Input
+          size="small"
+          disabled
+          value={`${get(event, "definition.domain")}${get(
+            event,
+            "definition.path"
+          )}`}
+        />
       </div>
-      <div>
-        <TitleWrapper>路径</TitleWrapper>
-        <Col width="80%">
-          <Input size="small" disabled value={get(event, "definition.path")} />
-        </Col>
-        <Col width="10%" marginLeft="5px">
-          <Switch disabled={true} checked={!!get(event, "definition.path")} />
-        </Col>
-      </div>
-      {get(event, "definition.query") && (
-        <div>
-          <TitleWrapper>查询条件</TitleWrapper>
-          {get(event, "definition.query")
-            .split("&")
-            .map((ele: any) => {
-              const query = ele.split("=");
-              return (
-                <div style={{ marginBottom: "10px" }}>
-                  <Col width={"40%"}>
-                    <Input disabled={true} value={query[0]} />
-                  </Col>
-                  <Col width={"5%"} marginLeft={true}>
-                    =
-                  </Col>
-                  <Col width={"40%"} marginLeft={true}>
-                    <Input disabled={true} value={query[1]} />
-                  </Col>
-                </div>
-              );
-            })}
-        </div>
+      {!!get(event, "definition.content") && (
+        <>
+          <TitleWrapper>
+            {`元素内容${
+              get(event, "definition.contentType") == "match_phrase"
+                ? "包含"
+                : ""
+            }`}
+          </TitleWrapper>
+          <Input
+            size="small"
+            disabled
+            value={get(event, "definition.content")}
+          />
+        </>
+      )}
+      {!!get(event, "definition.index") && (
+        <>
+          <TitleWrapper>元素位置</TitleWrapper>
+          <Input
+            size="small"
+            disabled
+            value={`第${get(event, "definition.index")}位`}
+          />
+        </>
+      )}
+      {!!get(event, "definition.href") && (
+        <>
+          <TitleWrapper>跳转链接</TitleWrapper>
+          <Input size="small" disabled value={get(event, "definition.href")} />
+        </>
       )}
       <div>
         <TitleWrapper>过去七天数据</TitleWrapper>
@@ -132,4 +126,4 @@ const ElementDetail = (props: Props) => {
   );
 };
 
-export default ElementDetail;
+export default ElementClickDetail;

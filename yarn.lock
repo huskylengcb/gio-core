@@ -1143,6 +1143,15 @@
     unique-filename "^1.1.1"
     which "^1.3.1"
 
+"@gio-core/components@^0.5.37":
+  version "0.5.37"
+  resolved "https://repo.growingio.com/repository/npm-group/@gio-core/components/-/components-0.5.37.tgz#b5c2bcf2d571e2ce726d816e77350c15dac75ede"
+  integrity sha512-gMMIelE14bEj4+5VXtpESFcTO1X3tDNEuKhtEI7ejlnYiH6exEVp8ZyxI3qkMGR7OFoVro9UaE8xnShtG8RddA==
+  dependencies:
+    antd "^3.20.5"
+    moment "^2.19.3"
+    rc-calendar "9.1.2"
+
 "@gio-design/components@^0.4.28":
   version "0.4.28"
   resolved "https://repo.growingio.com/repository/npm-group/@gio-design/components/-/components-0.4.28.tgz#1b59303833d04ce636e9267c260750fb7a16140f"
