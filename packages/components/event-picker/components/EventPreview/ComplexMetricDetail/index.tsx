@@ -34,7 +34,7 @@ export default ComplexMetricDetail;
 
 const ComplexMetricCondition = (props: any) => {
   const { data: { id }} = props
-  const { data: detail } = useQuery(getComplexMetricByIdGQL, { variables: { id }, skip: !id } )
+  const { data: detail } = useQuery(getComplexMetricByIdGQL, { variables: { id, spaceId: (window as any).space?.id }, skip: !id } )
   const complexMetric = detail && detail.complexMetric
 
   if (!complexMetric) {
@@ -70,8 +70,8 @@ const tranformOriginData = (complexMetric: any) => {
 }
 
 const getComplexMetricByIdGQL = gql`
-  query complexMetric($id: HashId!) {
-    complexMetric(id: $id) {
+  query complexMetric($id: HashId!, $spaceId: HashId) {
+    complexMetric(id: $id, spaceId: $spaceId) {
       id
       isSystem
       creatorId
