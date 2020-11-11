@@ -2,3 +2,4 @@ node_modules
 yarn-error.log
 .docz/
 coverage/
+**/.DS_Store

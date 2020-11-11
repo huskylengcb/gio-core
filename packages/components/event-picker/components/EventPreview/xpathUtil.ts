@@ -2,62 +2,61 @@
 
 // };
 const isSame = function(ax: string, bx: string): boolean {
-    if (_getFrame(ax) != _getFrame(bx)) return false;
-    let s1 = ax.split('/|\\.|#');
-    let s2 = bx.split('/|\\.|#');
-    if (s1.length != s2.length) {
+  if (_getFrame(ax) != _getFrame(bx)) return false;
+  let s1 = ax.split("/|\\.|#");
+  let s2 = bx.split("/|\\.|#");
+  if (s1.length != s2.length) {
+    return false;
+  }
+  for (let n in s1) {
+    if (s1[n] != "*" && s2[n] != "*" && s1[n] != s2[n]) {
       return false;
     }
-    for (let n in s1) {
-      if (s1[n] != '*' && s2[n] != '*' && s1[n] != s2[n]) {
-        return false;
-      }
-    }
-  
-    return true;
-  };
-  function _getFrame(xpath: string) {
-    let res = '';
-    let chs = xpath.split('');
-    for (let f of chs) {
-      if (f == '/' || f == '#' || f == '.') res += f;
-    }
-    return res;
   }
-  function _expTest(ax: string, bx: string) {
-    let axs = ax.split('/');
-    let bxs = bx.split('/');
-    if (axs.length != bxs.length) {
+
+  return true;
+};
+function _getFrame(xpath: string) {
+  let res = "";
+  let chs = xpath.split("");
+  for (let f of chs) {
+    if (f == "/" || f == "#" || f == ".") res += f;
+  }
+  return res;
+}
+function _expTest(ax: string, bx: string) {
+  let axs = ax.split("/");
+  let bxs = bx.split("/");
+  if (axs.length != bxs.length) {
+    return false;
+  }
+  for (let i in axs) {
+    if (!_test(axs[i], bxs[i])) {
       return false;
     }
-    for (let i in axs) {
-      if (!_test(axs[i], bxs[i])) {
-        return false;
-      }
-    }
+  }
+  return true;
+}
+function _test(likePattern: string, str: string) {
+  let pattern = likePattern.replace(/(\*)+/g, ".*");
+  if (pattern == ".*") {
     return true;
   }
-  function _test(likePattern: string, str: string) {
-    let pattern = likePattern.replace(/(\*)+/g, '.*');
-    if (pattern == '.*') {
-      return true;
-    }
-    if (pattern.includes('.*')) {
-      return new RegExp('^#{pattern}$').test(str);
-    }
-    return pattern == str;
+  if (pattern.includes(".*")) {
+    return new RegExp(`^${pattern}$`).test(str);
   }
-  /**
-   * //   # 判断两个xpath是否绝对相对，同时支持如果有带 * 的匹配
-   * @param ax xpath1
-   * @param bx xpath2
-   */
-  export const isSameWithRegular = function(ax: string, bx: string): boolean {
-    return isSame(ax, bx) || _expTest(ax, bx) || _expTest(bx, ax);
-  };
-  
-  
-  /**
+  return pattern == str;
+}
+/**
+ * //   # 判断两个xpath是否绝对相对，同时支持如果有带 * 的匹配
+ * @param ax xpath1
+ * @param bx xpath2
+ */
+export const isSameWithRegular = function(ax: string, bx: string): boolean {
+  return isSame(ax, bx) || _expTest(ax, bx) || _expTest(bx, ax);
+};
+
+/**
    * // class GrSameXpath
   //   @isSame: (ax, bx) =>
   //     if @_getFrame(ax) != @_getFrame(bx)
@@ -118,4 +117,3 @@ const isSame = function(ax: string, bx: string): boolean {
   //     ax == chrs.join('/')
   
    */
-  

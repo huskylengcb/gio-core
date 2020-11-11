@@ -14,7 +14,57 @@ import { getEventPlatfromMap } from "@gio-core/constants/platformConfig";
 import { map } from "lodash";
 import styled from "styled-components";
 import { renderChart } from "./renderMap";
-import Definition from "./ElemClickDefinitionRule";
+import Definition from "./ElemDefinitionRule";
+
+import gql from "graphql-tag";
+import { useQuery } from "react-apollo-hooks";
+//此处 事件速览中 需要显示所属页面名称
+const elements_query = gql`
+  query elements {
+    elements {
+      actions
+      appVersion
+      attrs {
+        content
+        contentType
+        domain
+        href
+        index
+        path
+        pg
+        query
+        xpath
+      }
+      businessType
+      createdAt
+      creator
+      creatorId
+      definition {
+        content
+        contentType
+        domain
+        href
+        index
+        path
+        pg
+        query
+        xpath
+      }
+      description
+      docType
+      id
+      isSystem
+      name
+      patternMatched
+      platforms
+      sdkVersion
+      updatedAt
+      updater
+      updaterId
+    }
+  }
+`;
+
 const TitleWrapper = styled.div`
   text-align: left;
   color: #a3adc8;
@@ -54,6 +104,24 @@ interface Props {
 const ElementClickDetail = (props: Props) => {
   const { event, timeRange, cache, setCache } = props;
   const chart = renderChart("simple", event, timeRange, cache, setCache);
+  const { loading, error, data = {} } = useQuery(elements_query);
+  const findCurrentElementPage = (dataList: any[], current: any) => {
+    if (!current) return "";
+    const { domain, path, query } = current.definition || {};
+
+    let page = (dataList || []).find(
+      (v) =>
+        v.docType == "page" &&
+        v.definition.domain == domain &&
+        v.definition.path == path &&
+        v.definition.query == query
+    );
+    if (page) {
+      return page.name;
+    }
+    return "";
+  };
+  const definedPageName = findCurrentElementPage(data.elements, event);
   return (
     <div>
       <div>
@@ -70,10 +138,12 @@ const ElementClickDetail = (props: Props) => {
         <Input
           size="small"
           disabled
-          value={`${get(event, "definition.domain")}${get(
+          value={`${definedPageName ? definedPageName + " | " : ""}${get(
             event,
-            "definition.path"
-          )}`}
+            "definition.domain"
+          )}${
+            !!get(event, "definition.path") ? get(event, "definition.path") : ""
+          }`}
         />
       </div>
       {!!get(event, "definition.content") && (

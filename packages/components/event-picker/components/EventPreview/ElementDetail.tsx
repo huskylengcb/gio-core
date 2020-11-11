@@ -15,6 +15,7 @@ import { map } from "lodash";
 import styled from "styled-components";
 import { renderChart } from "./renderMap";
 import ElementClickDetail from "./ElementClickDetail";
+import Icon from "@gio-design/icon";
 const TitleWrapper = styled.div`
   text-align: left;
   color: #a3adc8;
@@ -37,6 +38,15 @@ const DescripitionWrapper = styled.div`
   font-size: 14px;
   line-height: 20px;
 `;
+const DefinitionRule = styled.div`
+  background-color: #f7f8fc;
+  border-radius: 4px;
+  padding: 8px 16px;
+  font-size: 12px;
+  color: #313e75;
+  position: relative;
+  margin-bottom: 10px;
+`;
 
 interface Props {
   event: any;
@@ -50,7 +60,55 @@ interface Props {
   children: any;
   timeRange: any;
 }
-
+const renderEventDetail = (domain: string, path: string, query: string) => {
+  if (!path && !query) {
+    return (
+      <div style={{ wordBreak: "break-all" }}>
+        现在定义的是{" "}
+        <span style={{ color: "#1248E9", wordBreak: "break-all" }}>
+          {domain}
+        </span>{" "}
+        下的所有页面。
+      </div>
+    );
+  }
+  if (!path && query) {
+    return (
+      <div style={{ wordBreak: "break-all" }}>
+        现在定义的是{" "}
+        <span style={{ color: "#1248E9", wordBreak: "break-all" }}>
+          {domain}
+        </span>{" "}
+        查询条件为 <span style={{ color: "#1248E9" }}>{query}</span>
+        下的所有页面。
+      </div>
+    );
+  }
+  if (!query && path) {
+    return (
+      <div style={{ wordBreak: "break-all" }}>
+        现在定义的是{" "}
+        <span style={{ color: "#1248E9", wordBreak: "break-all" }}>
+          {domain}
+          {path}
+        </span>{" "}
+        。
+      </div>
+    );
+  }
+  if (query && path) {
+    return (
+      <div style={{ wordBreak: "break-all" }}>
+        现在定义的是{" "}
+        <span style={{ color: "#1248E9" }}>
+          {domain}
+          {path}
+        </span>{" "}
+        ，查询条件为 <span style={{ color: "#1248E9" }}>{query}</span> 。
+      </div>
+    );
+  }
+};
 const ElementDetail = (props: Props) => {
   const { event, timeRange, cache, setCache } = props;
   const isElemClick = event.docType == "elem";
@@ -66,17 +124,36 @@ const ElementDetail = (props: Props) => {
       </div>
       <div>
         <TitleWrapper>定义规则</TitleWrapper>
-        <div style={{ pading: "8px 16px", backgroundColor: "#F7F8FC" }}>
-          现在定义的是页面
-          <span style={{ color: "#1248E9" }}>
-            {get(event, "definition.domain")}
-            {get(event, "definition.path")}
-          </span>
-          {get(event, "definition.query")
-            ? `，查询条件为${get(event, "definition.query")}`
-            : ""}
-          。
-        </div>
+        <DefinitionRule>
+          <div
+            style={{
+              display: "inline-block",
+              width: "20px",
+              position: "absolute",
+              left: "12px",
+              top: "7px",
+            }}
+          >
+            <Icon
+              type={"warning-circle"}
+              style={{
+                backgroundColor: "#3867F4",
+                color: "#fff",
+                width: "16px",
+                height: "16px",
+                borderRadius: "8px",
+                display: "inline-block",
+              }}
+            />
+          </div>
+          <div style={{ display: "inline-block", paddingLeft: "20px" }}>
+            {renderEventDetail(
+              get(event, "definition.domain"),
+              get(event, "definition.path"),
+              get(event, "definition.query")
+            )}
+          </div>
+        </DefinitionRule>
       </div>
       <div>
         <TitleWrapper>域名</TitleWrapper>
