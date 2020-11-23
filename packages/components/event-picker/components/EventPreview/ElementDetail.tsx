@@ -35,7 +35,7 @@ const Col = styled.div`
 const DescripitionWrapper = styled.div`
   text-align: left;
   color: #313e75;
-  font-size: 14px;
+  font-size: 12px;
   line-height: 20px;
 `;
 const DefinitionRule = styled.div`
