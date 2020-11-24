@@ -132,14 +132,14 @@ const ElementClickDetail = (props: Props) => {
       </div>
       <div>
         <TitleWrapper style={{ color: "#A3ADC8" }}>定义规则</TitleWrapper>
-        <Definition {...{ data: event }}></Definition>
+        <Definition {...{ data: event }} />
         {/* <div style={{pading: '8px 16px',backgroundColor: '#F7F8FC'}}>现在定义的是页面<span style={{color: '#1248E9'}}>{get(event, 'definition.domain')}{get(event, 'definition.path')}</span>{get(event, 'definition.query') ?`，查询条件为${get(event, 'definition.query')}`: ''}。</div> */}
       </div>
       <div>
         <TitleWrapper>所属页面</TitleWrapper>
         <Input
           size="small"
-          disabled
+          disabled={true}
           value={`${definedPageName ? definedPageName + " | " : ""}${get(
             event,
             "definition.domain"
@@ -151,14 +151,15 @@ const ElementClickDetail = (props: Props) => {
         !!get(event, "attrs.content") && (
           <>
             <TitleWrapper>
-              <Checkbox disabled={true} checked={!!get(event, 'definition.contentType')} /><span style={{ marginLeft: '5px' }}>{`元素内容${get(event, "definition.contentType") == "match_phrase"
+              <Checkbox size='small' disabled={true} checked={!!get(event, 'definition.contentType')} />
+              <label style={{ marginLeft: '5px', fontWeight: 'normal' }}>{`元素内容${get(event, "definition.contentType") == "match_phrase"
                 ? "包含"
                 : ""
-                }`}</span>
+                }`}</label>
             </TitleWrapper>
             <Input
               size="small"
-              disabled
+              disabled={true}
               value={get(event, "definition.content") ? get(event, "definition.content") : get(event, "attrs.content")}
             />
           </>
@@ -168,11 +169,11 @@ const ElementClickDetail = (props: Props) => {
         !!get(event, "attrs.index") && (
           <>
             <TitleWrapper>
-              <Checkbox disabled={true} checked={!!get(event, 'definition.index')} /><span style={{ marginLeft: '5px' }}>元素位置</span>
+              <Checkbox size='small' disabled={true} checked={!!get(event, 'definition.index')} /><label style={{ marginLeft: '5px', fontWeight: 'normal' }}>元素位置</label>
             </TitleWrapper>
             <Input
               size="small"
-              disabled
+              disabled={true}
               value={`第${get(event, "definition.index")}位`}
             />
           </>
@@ -182,9 +183,9 @@ const ElementClickDetail = (props: Props) => {
         !!get(event, "attrs.href") && (
           <>
             <TitleWrapper>
-              <Checkbox disabled={true} checked={!!get(event, 'definition.href')} /><span style={{ marginLeft: '5px' }}>跳转链接</span>
+              <Checkbox size='small' disabled={true} checked={!!get(event, 'definition.href')} /><label style={{ marginLeft: '5px', fontWeight: 'normal' }}>跳转链接</label>
             </TitleWrapper>
-            <Input size="small" disabled value={get(event, "definition.href") ? get(event, "definition.href") : get(event, "attrs.href")} />
+            <Input size="small" disabled={true} value={get(event, "definition.href") ? get(event, "definition.href") : get(event, "attrs.href")} />
           </>
         )
       }
