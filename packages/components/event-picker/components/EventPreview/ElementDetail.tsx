@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { useElementDetail } from "../../hooks";
 // import Loading from 'giodesign/utils/Loading';
-import Input from "@gio-design/components/lib/input";
+import { Input, Tag } from "@gio-design/components";
 import Switch from "antd/lib/switch";
 import { getElemPage } from "../../helper";
 import { get, isEmpty } from "lodash";
 import ScreenshotModal from "./ScreenshotModal";
 import CreatorInfo from "./CreatorInfo";
-import { Tag } from "./index.styled";
+// import { Tag } from "./index.styled";
 import Tags from "./Tags";
 import FavoriteIcon from "./FavoriteIcon";
 import { getEventPlatfromMap } from "@gio-core/constants/platformConfig";
