@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { useElementDetail } from "../../hooks";
 // import Loading from 'giodesign/utils/Loading';
-import { Input, Checkbox } from "@gio-design/components";
+import { Input, Checkbox, Tag } from "@gio-design/components";
 import Switch from "antd/lib/switch";
 import { getElemPage } from "../../helper";
 import { get, isEmpty } from "lodash";
 import ScreenshotModal from "./ScreenshotModal";
 import CreatorInfo from "./CreatorInfo";
-import { Tag } from "./index.styled";
+// import { Tag } from "./index.styled";
 import Tags from "./Tags";
 import FavoriteIcon from "./FavoriteIcon";
 import { getEventPlatfromMap } from "@gio-core/constants/platformConfig";
@@ -129,6 +129,10 @@ const ElementClickDetail = (props: Props) => {
       <div>
         <TitleWrapper style={{ color: "#A3ADC8" }}>描述</TitleWrapper>
         <DescripitionWrapper>{event.description}</DescripitionWrapper>
+      </div>
+      <div>
+        <TitleWrapper style={{ color: "#A3ADC8" }}>平台</TitleWrapper>
+        <Tag size="small">{event.description}</Tag>
       </div>
       <div>
         <TitleWrapper style={{ color: "#A3ADC8" }}>定义规则</TitleWrapper>

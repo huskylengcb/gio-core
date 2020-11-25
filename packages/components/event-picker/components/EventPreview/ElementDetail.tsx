@@ -119,11 +119,15 @@ const ElementDetail = (props: Props) => {
   return (
     <div>
       <div>
-        <TitleWrapper>描述</TitleWrapper>
+        <TitleWrapper style={{ color: "#A3ADC8" }}>描述</TitleWrapper>
         <DescripitionWrapper>{event.description}</DescripitionWrapper>
       </div>
       <div>
-        <TitleWrapper>定义规则</TitleWrapper>
+        <TitleWrapper style={{ color: "#A3ADC8" }}>平台</TitleWrapper>
+        <Tag size="small">{event.description}</Tag>
+      </div>
+      <div>
+        <TitleWrapper style={{ color: "#A3ADC8" }}>定义规则</TitleWrapper>
         <DefinitionRule>
           <div
             style={{
@@ -199,9 +203,9 @@ const ElementDetail = (props: Props) => {
         src={
           get(event, "screenshot.viewport")
             ? `${document.location.origin}/download?file=${get(
-                event,
-                "screenshot.viewport"
-              ).slice(0, get(event, "screenshot.viewport").indexOf("?"))}`
+              event,
+              "screenshot.viewport"
+            ).slice(0, get(event, "screenshot.viewport").indexOf("?"))}`
             : ""
         }
       />
