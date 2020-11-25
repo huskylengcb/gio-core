@@ -12,7 +12,7 @@ const Rule = (props: any) => {
     font-size: 12px;
     letter-spacing: 0;
     line-height: 20px;
-    color: #313e75;
+    color: #313E75;
     position: relative;
   `;
   const Cel = (props: any) => (
@@ -241,12 +241,12 @@ const Rule = (props: any) => {
     }
     const tmp = () => {
       if (!str1 && !str2 && indexAttr) {
-        return <span>所有同类元素的数据之和。我们已经将这组同类元素用虚线框标记出来。</span>;
+        return <span style={{ color: '#313e75' }}>所有同类元素的数据之和。我们已经将这组同类元素用虚线框标记出来。</span>;
       }
       return (
         <>
-          <span>{str1 ? `若元素的${str1}改变，就不再继续统计了。` : ''}</span>
-          <span>{str2 ? `即使元素${str2}改变，也会继续统计。` : ''}</span>
+          <span style={{ color: '#313e75' }}>{str1 ? `若元素的${str1}改变，就不再继续统计了。` : ''}</span>
+          <span style={{ color: '#313e75' }}>{str2 ? `即使元素${str2}改变，也会继续统计。` : ''}</span>
         </>
       );
     };
@@ -282,14 +282,14 @@ const Rule = (props: any) => {
         />
       </div>
       <div style={{ display: 'inline-block', paddingLeft: '20px' }}>
-        <span>
+        <>
           现在定义的是
           <Cel>所属页面</Cel>
           中，
           {hasSimilar() ? renderSimilarElement({ ...props }) : renderNoSimilarElement({ ...props })}
           {/* 现在定义的是 所属页面 中，所有同类元素的数据之和
             现在定义的是 所属页面 中，当前位置 的元素。即使元素的内容和跳转链接改变，也会继续统计。 */}
-        </span>
+        </>
       </div>
     </DefinitionRuleContainer>
   );

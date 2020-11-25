@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useElementDetail } from "../../hooks";
 // import Loading from 'giodesign/utils/Loading';
-import { Input, Checkbox, Tag } from "@gio-design/components";
+import { Input, Checkbox } from "@gio-design/components";
 import Switch from "antd/lib/switch";
 import { getElemPage } from "../../helper";
 import { get, isEmpty } from "lodash";
@@ -12,12 +12,13 @@ import Tags from "./Tags";
 import FavoriteIcon from "./FavoriteIcon";
 import { getEventPlatfromMap } from "@gio-core/constants/platformConfig";
 import { map } from "lodash";
-import styled from "styled-components";
+
 import { renderChart } from "./renderMap";
 import Definition from "./ElemDefinitionRule";
 
 import gql from "graphql-tag";
 import { useQuery } from "react-apollo-hooks";
+import { TitleWrapper, DescripitionWrapper, QuickViewContent, Col, Tag } from './styled'
 //此处 事件速览中 需要显示所属页面名称
 const elements_query = gql`
   query elements {
@@ -65,31 +66,7 @@ const elements_query = gql`
   }
 `;
 
-const TitleWrapper = styled.div`
-  text-align: left;
-  color: #313E75;
-  font-size: 12px;
-  line-height: 20px;
-  margin-top: 10px;
-  margin-bottom: 5px;
-`;
 
-const Col = styled.div`
-  width: ${(props) => props.width};
-  display: inline-block;
-  margin-left: ${(props) => props.marginLeft && "4px"}
-  text-align: center;
-`;
-
-const DescripitionWrapper = styled.div`
-  text-align: left;
-  color: #313e75;
-  font-size: 12px;
-  line-height: 20px;
-`;
-const QuickViewContent = styled.div`
-  color: #313E75;
-`;
 interface Props {
   event: any;
   labels: string;
@@ -132,7 +109,7 @@ const ElementClickDetail = (props: Props) => {
       </div>
       <div>
         <TitleWrapper style={{ color: "#A3ADC8" }}>平台</TitleWrapper>
-        <Tag size="small">{event.description}</Tag>
+        <Tag>{get(event, "platforms.0", '')}</Tag>
       </div>
       <div>
         <TitleWrapper style={{ color: "#A3ADC8" }}>定义规则</TitleWrapper>

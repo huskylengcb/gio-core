@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useElementDetail } from "../../hooks";
 // import Loading from 'giodesign/utils/Loading';
-import { Input, Tag } from "@gio-design/components";
+import { Input } from "@gio-design/components";
 import Switch from "antd/lib/switch";
 import { getElemPage } from "../../helper";
 import { get, isEmpty } from "lodash";
@@ -16,28 +16,29 @@ import styled from "styled-components";
 import { renderChart } from "./renderMap";
 import ElementClickDetail from "./ElementClickDetail";
 import Icon from "@gio-design/icon";
-const TitleWrapper = styled.div`
-  text-align: left;
-  color: #a3adc8;
-  font-size: 12px;
-  line-height: 20px;
-  margin-top: 10px;
-  margin-bottom: 5px;
-`;
+import { TitleWrapper, DescripitionWrapper, QuickViewContent, Col, Tag } from './styled'
+// const TitleWrapper = styled.div`
+//   text-align: left;
+//   color: #a3adc8;
+//   font-size: 12px;
+//   line-height: 20px;
+//   margin-top: 10px;
+//   margin-bottom: 5px;
+// `;
 
-const Col = styled.div`
-  width: ${(props) => props.width};
-  display: inline-block;
-  margin-left: ${(props) => props.marginLeft && "4px"}
-  text-align: center;
-`;
+// const Col = styled.div`
+//   width: ${(props) => props.width};
+//   display: inline-block;
+//   margin-left: ${(props) => props.marginLeft && "4px"}
+//   text-align: center;
+// `;
 
-const DescripitionWrapper = styled.div`
-  text-align: left;
-  color: #313e75;
-  font-size: 12px;
-  line-height: 20px;
-`;
+// const DescripitionWrapper = styled.div`
+//   text-align: left;
+//   color: #313e75;
+//   font-size: 12px;
+//   line-height: 20px;
+// `;
 const DefinitionRule = styled.div`
   background-color: #f7f8fc;
   border-radius: 4px;
@@ -47,7 +48,16 @@ const DefinitionRule = styled.div`
   position: relative;
   margin-bottom: 10px;
 `;
-
+// const Tag = styled.span`
+//   display: inline-block;
+//   padding-right: 8px;
+//   padding-left: 8px;
+//   color: #313e75;
+//   font-family: PingFang SC;
+//   background-color: #f7f8fc;
+//   border-radius: 4px;
+//   cursor: default;
+// `;
 interface Props {
   event: any;
   labels: string;
@@ -117,14 +127,14 @@ const ElementDetail = (props: Props) => {
     return <ElementClickDetail {...props} />;
   }
   return (
-    <div>
+    <QuickViewContent>
       <div>
         <TitleWrapper style={{ color: "#A3ADC8" }}>描述</TitleWrapper>
         <DescripitionWrapper>{event.description}</DescripitionWrapper>
       </div>
       <div>
         <TitleWrapper style={{ color: "#A3ADC8" }}>平台</TitleWrapper>
-        <Tag size="small">{event.description}</Tag>
+        <Tag>{get(event, "platforms.0", '')}</Tag>
       </div>
       <div>
         <TitleWrapper style={{ color: "#A3ADC8" }}>定义规则</TitleWrapper>
@@ -209,7 +219,7 @@ const ElementDetail = (props: Props) => {
             : ""
         }
       />
-    </div>
+    </QuickViewContent>
   );
 };
 
