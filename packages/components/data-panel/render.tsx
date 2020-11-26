@@ -82,6 +82,7 @@ const FormField: React.FC<{ field: string }> = (props) => (
 );
 
 const readOnlyFields = [
+  "platforms",
   "key",
   "creator",
   "createdAt",
@@ -135,6 +136,19 @@ const renderFormFields = (
         case "chart":
           return renderChart(data, dataType);
         case "platforms":
+          return dataType === "elements" ? (
+            <Form.Item label={keyMap[key]}>
+              {getFieldDecorator(key, {
+                initialValue: renderValue(data[key], key),
+              })(<Input disabled={readOnlyFields.includes(key) || !canEdit} />)}
+            </Form.Item>
+          ) : (
+              <Form.Item label={keyMap[key]}>
+                {getFieldDecorator(key, {
+                  initialValue: data[key],
+                })(<div>{renderValue(data[key], key)}</div>)}
+              </Form.Item>
+            );
         case "example":
         // case 'description':
         // case 'instruction':
@@ -164,12 +178,12 @@ const renderFormFields = (
               })(<Input disabled={readOnlyFields.includes(key) || !canEdit} />)}
             </Form.Item>
           ) : (
-            <Form.Item label={keyMap[key]}>
-              {getFieldDecorator(key, {
-                initialValue: data[key],
-              })(<div>{renderValue(data[key], key)}</div>)}
-            </Form.Item>
-          );
+              <Form.Item label={keyMap[key]}>
+                {getFieldDecorator(key, {
+                  initialValue: data[key],
+                })(<div>{renderValue(data[key], key)}</div>)}
+              </Form.Item>
+            );
 
         case "description":
           return (
@@ -399,6 +413,7 @@ const fieldsMap = {
       "gap1",
       "name",
       "description",
+      "platforms",
       "gap2",
       "elementRule",
       "gap3",
