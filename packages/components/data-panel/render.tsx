@@ -266,6 +266,10 @@ const renderFormFields = (
             extraRenders.elementRule &&
             extraRenders.elementRule({ data, dataType, key, form, extraData })
           );
+        case 'userVariableCategory':
+          return (
+            extraRenders && extraRenders.userVariable && extraRenders.userVariable({ data, dataType, key, form })
+          )
         default:
           return (
             <Form.Item label={keyMap[key]}>
@@ -410,7 +414,7 @@ const fieldsMap = {
   },
   userVariable: {
     canEdit: true,
-    fields: ["name", "key", "valueType", "description"],
+    fields: ["name", "key", "valueType", "userVariableCategory","description"],
   },
   itemVariable: {
     canEdit: true,
