@@ -207,6 +207,7 @@ export const renderChart = (
         contentType: get(dataSource, "attrs.contentType") || undefined,
         index: get(dataSource, "attrs.index") || undefined,
         href: get(dataSource, "attrs.href") || undefined,
+        urlScheme: get(dataSource, 'definition.urlScheme') || undefined,
       },
       definition: {
         domain: get(dataSource, "definition.domain") || "",
@@ -217,6 +218,7 @@ export const renderChart = (
         contentType: get(dataSource, "definition.contentType") || undefined,
         index: get(dataSource, "definition.index") || undefined,
         href: get(dataSource, "definition.href") || undefined,
+        urlScheme: get(dataSource, 'definition.urlScheme') || undefined,
       },
       platform: dataSource.platforms[0],
       chartType: "line",
