@@ -1,6 +1,8 @@
 .event-select {
   &-label-wrapper {
-    padding: 10px 10px 0;
+    &:not(:empty) {
+      padding: 0px 16px;
+    }
 
     .gio-label.nowrap {
       margin-right: 8px;
@@ -10,7 +12,7 @@
       line-height: 20px;
 
       svg {
-        margin: 0!important;
+        margin: 0 !important;
       }
     }
   }
@@ -20,7 +22,7 @@
     height: 100%;
     position: absolute;
     top: 0;
-    background: rgba(255,255,255,0.5);
+    background: rgba(255, 255, 255, 0.5);
     z-index: 10;
 
     .gio-spin {
@@ -36,20 +38,26 @@
     position: relative;
 
     .c-search-input input {
-      max-width: 100%!important;
+      max-width: 100% !important;
     }
+
     .btn-refresh {
       width: 32px;
       padding: 0;
       height: 32px;
-      margin-left: 10px;
-      svg {
-        margin-left: 5px;
+      margin-left: 8px;
+      vertical-align: middle;
+
+      .gio-icon {
+        &>svg {
+          width: 16px;
+          height: 16px;
+        }
       }
     }
 
     .gio-select-list {
-      overflow-y: scroll!important;
+      overflow-y: scroll !important;
     }
 
     .gio-select-option.group:hover {
@@ -58,22 +66,43 @@
 
     .gio-select-option {
       padding-left: 25px;
+
+      &.group {
+        padding: 0 8px 0 8px;
+      }
+    }
+  }
+
+  &-list-wrapper {
+    .gio-select-list {
+      padding-left: 8px;
+      padding-right: 8px;
+
+      .gio-select-option:not(.disabled):hover {
+        border-radius: 4px;
+      }
     }
   }
 
   &-header {
-    padding: 10px 10px 0;
+    padding: 16px 0px 16px 16px;
+
     // border-bottom: 1px solid #EBEBEB;
     .gio-button:hover {
       box-shadow: none;
     }
+
+    &__searchbar {
+      display: inline-block;
+      width: 256px;
+    }
   }
 
   &-toolbar {
-    margin-top: 10px;
 
     &.tab-invisible {
       .filter-tab-list {
+        margin-top: 10px;
         // visibility: hidden;
         display: none;
       }

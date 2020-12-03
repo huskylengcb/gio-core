@@ -2,9 +2,9 @@ import React from 'react';
 import Popover from '@gio-design/components/lib/popover';
 import Icon from '@gio-design/icon';
 import Checkbox from 'antd/lib/checkbox';
-import Button from '@gio-design/components/lib/button';
 import Badge from 'antd/lib/badge';
-
+import { Button } from '@gio-design-new/components';
+import { Filter2Outlined } from '@gio-design/icons'
 const constraintTypes = ['custom', 'merged', 'complex'];
 
 import './style.less';
@@ -75,7 +75,7 @@ const render = ({
                     value,
                     label,
                     disabled: ((constraintTypes.indexOf(value) > -1) && filterValues.platform.length) || disabledTypes.includes(value)
-                }))}
+                  }))}
                 onChange={handleFilterChange(handleFilterValueChange, 'type', filterValues.type)}
               />
             </div>
@@ -110,19 +110,19 @@ const render = ({
           e.stopPropagation();
         }}>
         <Button
-          type='gray'
+          icon={<Filter2Outlined />}
+          type='secondary'
           className='btn-refresh'
-        >
-          <Icon type='filter-2' size='small' />
-        </Button>
+        />
+
         {
           // hasUsedEventTypeFilter ? '筛选' :
-            // <Badge
-            //   dot
-            //   style={{ height: 6, width: 6, right: -10 }}
-            // >
-            //   筛选
-            // </Badge>
+          // <Badge
+          //   dot
+          //   style={{ height: 6, width: 6, right: -10 }}
+          // >
+          //   筛选
+          // </Badge>
         }
       </div>
     </Popover>

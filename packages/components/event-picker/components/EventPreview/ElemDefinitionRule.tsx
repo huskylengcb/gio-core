@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import Icon from '@gio-design/icon';
+import { WarningFilled } from '@gio-design/icons';
 import { get } from 'lodash';
 import { isSameWithRegular } from './xpathUtil';
 const Rule = (props: any) => {
@@ -269,17 +269,7 @@ const Rule = (props: any) => {
           top: '7px',
         }}
       >
-        <Icon
-          type={'warning-circle'}
-          style={{
-            backgroundColor: '#3867F4',
-            color: '#fff',
-            width: '16px',
-            height: '16px',
-            borderRadius: '8px',
-            display: 'inline-block',
-          }}
-        />
+        <WarningFilled color="#3867F4" size="16px" />
       </div>
       <div style={{ display: 'inline-block', paddingLeft: '20px' }}>
         <>

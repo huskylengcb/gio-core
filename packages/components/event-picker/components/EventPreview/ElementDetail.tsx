@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { useElementDetail } from "../../hooks";
 // import Loading from 'giodesign/utils/Loading';
-import { Input } from "@gio-design/components";
-import Switch from "antd/lib/switch";
+import { Input, Toggles } from "@gio-design-new/components";
+// import Switch from "antd/lib/switch";
+import '@gio-design-new/components/es/components/toggles/style/index.less';
+
 import { getElemPage } from "../../helper";
 import { get, isEmpty } from "lodash";
 import ScreenshotModal from "./ScreenshotModal";
@@ -15,8 +17,10 @@ import { map } from "lodash";
 import styled from "styled-components";
 import { renderChart } from "./renderMap";
 import ElementClickDetail from "./ElementClickDetail";
-import Icon from "@gio-design/icon";
+// import Icon from "@gio-design/icon";
+import { WarningFilled } from "@gio-design/icons"
 import { TitleWrapper, DescripitionWrapper, QuickViewContent, Col, Tag } from './styled'
+const Switch = Toggles;
 // const TitleWrapper = styled.div`
 //   text-align: left;
 //   color: #a3adc8;
@@ -148,17 +152,7 @@ const ElementDetail = (props: Props) => {
               top: "7px",
             }}
           >
-            <Icon
-              type={"warning-circle"}
-              style={{
-                backgroundColor: "#3867F4",
-                color: "#fff",
-                width: "16px",
-                height: "16px",
-                borderRadius: "8px",
-                display: "inline-block",
-              }}
-            />
+            <WarningFilled color="#3867F4" size="16px" />
           </div>
           <div style={{ display: "inline-block", paddingLeft: "20px" }}>
             {renderEventDetail(
@@ -179,7 +173,7 @@ const ElementDetail = (props: Props) => {
           <Input size="small" disabled value={get(event, "definition.path")} />
         </Col>
         <Col width="10%" marginLeft="5px">
-          <Switch disabled={true} checked={!!get(event, "definition.path")} />
+          <Toggles disabled={true} defaultChecked={!!get(event, "definition.path")} />
         </Col>
       </div>
       {get(event, "definition.query") && (
@@ -192,13 +186,13 @@ const ElementDetail = (props: Props) => {
               return (
                 <div style={{ marginBottom: "10px" }}>
                   <Col width={"40%"}>
-                    <Input disabled={true} value={query[0]} />
+                    <Input size="small" disabled={true} value={query[0]} />
                   </Col>
                   <Col width={"5%"} marginLeft={true}>
                     =
                   </Col>
                   <Col width={"40%"} marginLeft={true}>
-                    <Input disabled={true} value={query[1]} />
+                    <Input size="small" disabled={true} value={query[1]} />
                   </Col>
                 </div>
               );

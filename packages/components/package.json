@@ -17,6 +17,8 @@
     "@gio-design/components": "^0.4.8",
     "@gio-design/icon": "^0.0.19",
     "@gio-design/tokens": "^0.2.12",
+    "@gio-design-new/components": "^20.11.5-2",
+    "@gio-design/icons": "^20.11.0-1",
     "classnames": "^2.2.6",
     "giochart": "^1.2.9",
     "lodash": "^4.17.15",
