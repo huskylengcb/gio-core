@@ -4,8 +4,8 @@ export const TitleWrapper = styled.div`
   color: #313E75;
   font-size: 12px;
   line-height: 20px;
-  margin-top: 10px;
-  margin-bottom: 5px;
+  margin-top: 16px;
+  margin-bottom: 6px;
 `;
 
 export const Col = styled.div`
