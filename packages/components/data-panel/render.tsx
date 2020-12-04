@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
-import Button from "@gio-design/components/lib/button";
-import Input from "@gio-design/components/lib/input";
+// import Button from "@gio-design/components/lib/button";
+// import Input from "@gio-design/components/lib/input";
+
+import { Input, Button } from "@gio-design-new/components";
 import { setRequestHost, GioChart } from "giochart";
 import { format } from "@gio-core/utils/date";
 import Form, { FormComponentProps } from "antd/lib/form";
@@ -429,7 +431,7 @@ const fieldsMap = {
   },
   userVariable: {
     canEdit: true,
-    fields: ["name", "key", "valueType", "userVariableCategory","description"],
+    fields: ["name", "key", "valueType", "userVariableCategory", "description"],
   },
   itemVariable: {
     canEdit: true,
