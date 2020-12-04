@@ -173,7 +173,10 @@ const ElementDetail = (props: Props) => {
           <Input size="small" disabled value={get(event, "definition.path")} />
         </Col>
         <Col width="10%" marginLeft="5px">
-          <Toggles disabled={true} defaultChecked={!!get(event, "definition.path")} />
+          <Toggles style={{
+            display: 'inline-block', verticalAlign: 'middle',
+            lineHeight: '0px'
+          }} disabled={true} defaultChecked={!!get(event, "definition.path")} />
         </Col>
       </div>
       {get(event, "definition.query") && (
