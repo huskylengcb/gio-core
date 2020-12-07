@@ -6,7 +6,7 @@ import Input from '@gio-design/components/lib/input';
 import GIOIcon from '@gio-design/icon';
 import message from '@gio-design/components/lib/message';
 import Gap from '@gio-design/components/lib/gap';
-import bemClsFactor from '../../utils/bemClsFactor';
+import bemClsFactor from '@gio-core/utils/bemClsFactor';
 import './index.less';
 
 interface NameEditProps {
