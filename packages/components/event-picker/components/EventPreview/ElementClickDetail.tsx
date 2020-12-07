@@ -21,8 +21,8 @@ import { useQuery } from "react-apollo-hooks";
 import { TitleWrapper, DescripitionWrapper, QuickViewContent, Col, Tag } from './styled'
 //此处 事件速览中 需要显示所属页面名称
 const elements_query = gql`
-  query elements {
-    elements {
+  query elements($projectId: HashId!) {
+    elements(projectId: $projectId) {
       actions
       appVersion
       attrs {
