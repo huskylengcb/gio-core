@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import { useElementDetail } from "../../hooks";
 // import Loading from 'giodesign/utils/Loading';
-import Input from "@gio-design/components/lib/input";
-import Switch from "antd/lib/switch";
+import { Input, Toggles } from "@gio-design-new/components";
+// import Switch from "antd/lib/switch";
+import '@gio-design-new/components/es/components/toggles/style/index.less';
+
 import { getElemPage } from "../../helper";
 import { get, isEmpty } from "lodash";
 import ScreenshotModal from "./ScreenshotModal";
 import CreatorInfo from "./CreatorInfo";
-import { Tag } from "./index.styled";
+// import { Tag } from "./index.styled";
 import Tags from "./Tags";
 import FavoriteIcon from "./FavoriteIcon";
 import { getEventPlatfromMap } from "@gio-core/constants/platformConfig";
@@ -15,29 +17,32 @@ import { map } from "lodash";
 import styled from "styled-components";
 import { renderChart } from "./renderMap";
 import ElementClickDetail from "./ElementClickDetail";
-import Icon from "@gio-design/icon";
-const TitleWrapper = styled.div`
-  text-align: left;
-  color: #a3adc8;
-  font-size: 12px;
-  line-height: 20px;
-  margin-top: 10px;
-  margin-bottom: 5px;
-`;
+// import Icon from "@gio-design/icon";
+import { WarningFilled } from "@gio-design/icons"
+import { TitleWrapper, DescripitionWrapper, QuickViewContent, Col, Tag } from './styled'
+const Switch = Toggles;
+// const TitleWrapper = styled.div`
+//   text-align: left;
+//   color: #a3adc8;
+//   font-size: 12px;
+//   line-height: 20px;
+//   margin-top: 10px;
+//   margin-bottom: 5px;
+// `;
 
-const Col = styled.div`
-  width: ${(props) => props.width};
-  display: inline-block;
-  margin-left: ${(props) => props.marginLeft && "4px"}
-  text-align: center;
-`;
+// const Col = styled.div`
+//   width: ${(props) => props.width};
+//   display: inline-block;
+//   margin-left: ${(props) => props.marginLeft && "4px"}
+//   text-align: center;
+// `;
 
-const DescripitionWrapper = styled.div`
-  text-align: left;
-  color: #313e75;
-  font-size: 14px;
-  line-height: 20px;
-`;
+// const DescripitionWrapper = styled.div`
+//   text-align: left;
+//   color: #313e75;
+//   font-size: 12px;
+//   line-height: 20px;
+// `;
 const DefinitionRule = styled.div`
   background-color: #f7f8fc;
   border-radius: 4px;
@@ -47,7 +52,16 @@ const DefinitionRule = styled.div`
   position: relative;
   margin-bottom: 10px;
 `;
-
+// const Tag = styled.span`
+//   display: inline-block;
+//   padding-right: 8px;
+//   padding-left: 8px;
+//   color: #313e75;
+//   font-family: PingFang SC;
+//   background-color: #f7f8fc;
+//   border-radius: 4px;
+//   cursor: default;
+// `;
 interface Props {
   event: any;
   labels: string;
@@ -117,13 +131,17 @@ const ElementDetail = (props: Props) => {
     return <ElementClickDetail {...props} />;
   }
   return (
-    <div>
+    <QuickViewContent>
       <div>
-        <TitleWrapper>描述</TitleWrapper>
+        <TitleWrapper style={{ color: "#A3ADC8" }}>描述</TitleWrapper>
         <DescripitionWrapper>{event.description}</DescripitionWrapper>
       </div>
       <div>
-        <TitleWrapper>定义规则</TitleWrapper>
+        <TitleWrapper style={{ color: "#A3ADC8" }}>平台</TitleWrapper>
+        <Tag>{get(event, "platforms.0", '')}</Tag>
+      </div>
+      <div>
+        <TitleWrapper style={{ color: "#A3ADC8" }}>定义规则</TitleWrapper>
         <DefinitionRule>
           <div
             style={{
@@ -134,17 +152,7 @@ const ElementDetail = (props: Props) => {
               top: "7px",
             }}
           >
-            <Icon
-              type={"warning-circle"}
-              style={{
-                backgroundColor: "#3867F4",
-                color: "#fff",
-                width: "16px",
-                height: "16px",
-                borderRadius: "8px",
-                display: "inline-block",
-              }}
-            />
+            <WarningFilled color="#3867F4" size="16px" />
           </div>
           <div style={{ display: "inline-block", paddingLeft: "20px" }}>
             {renderEventDetail(
@@ -165,7 +173,7 @@ const ElementDetail = (props: Props) => {
           <Input size="small" disabled value={get(event, "definition.path")} />
         </Col>
         <Col width="10%" marginLeft="5px">
-          <Switch disabled={true} checked={!!get(event, "definition.path")} />
+          <Toggles className="event-picker-preview-toggle" disabled={true} defaultChecked={!!get(event, "definition.path")} />
         </Col>
       </div>
       {get(event, "definition.query") && (
@@ -178,13 +186,13 @@ const ElementDetail = (props: Props) => {
               return (
                 <div style={{ marginBottom: "10px" }}>
                   <Col width={"40%"}>
-                    <Input disabled={true} value={query[0]} />
+                    <Input size="small" disabled={true} value={query[0]} />
                   </Col>
                   <Col width={"5%"} marginLeft={true}>
                     =
                   </Col>
                   <Col width={"40%"} marginLeft={true}>
-                    <Input disabled={true} value={query[1]} />
+                    <Input size="small" disabled={true} value={query[1]} />
                   </Col>
                 </div>
               );
@@ -199,13 +207,13 @@ const ElementDetail = (props: Props) => {
         src={
           get(event, "screenshot.viewport")
             ? `${document.location.origin}/download?file=${get(
-                event,
-                "screenshot.viewport"
-              ).slice(0, get(event, "screenshot.viewport").indexOf("?"))}`
+              event,
+              "screenshot.viewport"
+            ).slice(0, get(event, "screenshot.viewport").indexOf("?"))}`
             : ""
         }
       />
-    </div>
+    </QuickViewContent>
   );
 };
 
