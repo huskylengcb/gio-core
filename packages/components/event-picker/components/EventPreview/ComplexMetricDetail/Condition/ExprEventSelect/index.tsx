@@ -25,7 +25,7 @@ interface Props {
 }
 
 const ExprEventSelect = (props: Props) => {
-  const { loading, error, data: eventsQuery, refetch } = useQuery(MEASUREMENTS, { fetchPolicy: 'cache-and-network' });
+  const { loading, error, data: eventsQuery, refetch } = useQuery(MEASUREMENTS, { variables: { projectId: window.project.id }, fetchPolicy: 'cache-and-network' });
   const measurements = [...preparedEvents, ...get(eventsQuery, 'measurements', [])];
   const selectedMeasurement = [
     ...get(eventsQuery, 'preparedMetrics', []),
