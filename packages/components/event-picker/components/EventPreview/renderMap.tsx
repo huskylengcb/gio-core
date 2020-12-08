@@ -195,6 +195,7 @@ export const renderChart = (
 ) => {
   let payload: object;
   let url: string;
+  const projectId = window.location.href.match(/\/projects\/[0-9A-Za-z]*/)?.[0]?.replace('/projects/', '')
   if (dataSource.type === "element") {
     payload = {
       actions: dataSource.actions,
@@ -223,10 +224,10 @@ export const renderChart = (
       platform: dataSource.platforms[0],
       chartType: "line",
     };
-    url = `/v4/projects/${window.project.id}/ping`;
+    url = `/projects/${window.project.id}/ping`;
   } else if (dataSource.id) {
     payload = generatePayload(type, dataSource, timeRange);
-    url = `/v5/projects/${window.project.id}/chartdata`;
+    url = projectId?`/projects/${projectId}/chartdata`: '/chartdata';
   } else {
     return null;
     // 如果dataSource中没有id，说明现在要展示的是一个没有定义过的元素

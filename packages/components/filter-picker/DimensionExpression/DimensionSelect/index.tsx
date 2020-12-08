@@ -38,8 +38,8 @@ const DimensionSelect = ({
 }: Props) => (
   <PropertySelect
     key='dimension-select'
-    className={`dimension-select ${className}`}
-    dropdownClassName='dimension-select-dropdown'
+    className={`dimension-select dimension-select-dropdown ${className}`}
+    // dropdownClassName='dimension-select-dropdown'
     grouped={true}
     value={!value || dimensions.some((d: any) => d.id === value) ? value : '无效维度'}
     options={dimensions}
