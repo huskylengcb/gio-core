@@ -6,8 +6,8 @@ import { preparedEvents } from '../ExprEventSelect';
 import gql from 'graphql-tag';
 
 const MEASUREMENTS = gql`
-  query measurements {
-    measurements {
+  query measurements($projectId: HashId!) {
+    measurements(projectId: $projectId) {
       id
       name
       type
@@ -36,7 +36,7 @@ interface Props {
 }
 
 const ExprVarSelect = (props: Props) => {
-  const { loading, error, data: eventsQuery, refetch } = useQuery(MEASUREMENTS, { fetchPolicy: 'no-cache' });
+  const { loading, error, data: eventsQuery, refetch } = useQuery(MEASUREMENTS, { variables: { projectId: window.project.id }, fetchPolicy: 'no-cache' });
   const measurementList = [...preparedEvents, ...get(eventsQuery, 'measurements', [])];
 
   if (props.measurement.aggregator === 'distinct') {
