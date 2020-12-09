@@ -83,7 +83,7 @@ interface Props {
 const ElementClickDetail = (props: Props) => {
   const { event, timeRange, cache, setCache } = props;
   const chart = renderChart("simple", event, timeRange, cache, setCache);
-  const { loading, error, data = {} } = useQuery(elements_query);
+  const { loading, error, data = {} } = useQuery(elements_query, { variables: { projectId: window.project.id } });
   const findCurrentElementPage = (dataList: any[], current: any) => {
     if (!current) return "";
     const { domain, path, query } = current.definition || {};
