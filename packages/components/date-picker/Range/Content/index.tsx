@@ -11,7 +11,6 @@ import InputLabel from '../InputLabel';
 import bemClsFactor from '@gio-core/utils/bemClsFactor';
 import ReactDOM from 'react-dom';
 import cn from 'classnames';
-import { ValidInputElement } from 'antd/lib/auto-complete';
 import './index.less';
 import flattenDate from '../../flattenDate';
 

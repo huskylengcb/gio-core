@@ -3,7 +3,7 @@ import update from 'immutability-helper';
 import createSortableItem, { ItemWithId } from '../SortableItem';
 import _ from 'lodash';
 import { DndProvider } from 'react-dnd';
-import HTML5Backend from 'react-dnd-html5-backend';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 
 export interface SortableCollectionProps {
   type: string;

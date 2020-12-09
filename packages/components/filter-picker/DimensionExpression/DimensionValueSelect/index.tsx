@@ -147,7 +147,7 @@ class DimensionValueSelect extends React.PureComponent<Props, State> {
 
   private fetchDimensionValue = debounce((dimension: string, keyword: string) => {
     this.setState((prevState: State) => ({ ...prevState, isLoading: true }));
-    const { metrics = [], timeRange = 'day:8,1', valueExclude, dimensionsSearchPath = '/dimensions/search' } = this.props;
+    const { metrics = [], timeRange = 'day:8,1', valueExclude, dimensionsSearchPath = `/projects/${window.project?.id}/dimensions/search` } = this.props;
     http.post(dimensionsSearchPath, { data: { dimension, keyword: keyword || '', metrics, timeRange } }, true)
     //dimensionsService.search(dimension, keyword || '', metrics, timeRange)
       .then((valueOptions: any[]) => {
