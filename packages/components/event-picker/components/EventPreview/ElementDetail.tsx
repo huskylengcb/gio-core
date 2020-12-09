@@ -18,7 +18,7 @@ import styled from "styled-components";
 import { renderChart } from "./renderMap";
 import ElementClickDetail from "./ElementClickDetail";
 // import Icon from "@gio-design/icon";
-import { WarningFilled } from "@gio-design/icons"
+import { InformationFilled } from "@gio-design/icons"
 import { TitleWrapper, DescripitionWrapper, QuickViewContent, Col, Tag } from './styled'
 const Switch = Toggles;
 // const TitleWrapper = styled.div`
@@ -152,7 +152,7 @@ const ElementDetail = (props: Props) => {
               top: "7px",
             }}
           >
-            <WarningFilled color="#3867F4" size="16px" />
+            <InformationFilled color="#3867F4" size="16px" />
           </div>
           <div style={{ display: "inline-block", paddingLeft: "20px" }}>
             {renderEventDetail(
@@ -169,10 +169,10 @@ const ElementDetail = (props: Props) => {
       </div>
       <div>
         <TitleWrapper>路径</TitleWrapper>
-        <Col width="80%">
+        <Col width="240px">
           <Input size="small" disabled value={get(event, "definition.path")} />
         </Col>
-        <Col width="10%" marginLeft="5px">
+        <Col width="auto" marginLeft="8px">
           <Toggles className="event-picker-preview-toggle" disabled={true} defaultChecked={!!get(event, "definition.path")} />
         </Col>
       </div>
