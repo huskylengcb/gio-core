@@ -185,13 +185,13 @@ const ElementDetail = (props: Props) => {
               const query = ele.split("=");
               return (
                 <div style={{ marginBottom: "10px" }}>
-                  <Col width={"40%"}>
+                  <Col width={"45%"}>
                     <Input size="small" disabled={true} value={query[0]} />
                   </Col>
-                  <Col width={"5%"} marginLeft={true}>
+                  <Col width={"10%"}>
                     =
                   </Col>
-                  <Col width={"40%"} marginLeft={true}>
+                  <Col width={"45%"}>
                     <Input size="small" disabled={true} value={query[1]} />
                   </Col>
                 </div>
