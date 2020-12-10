@@ -188,10 +188,10 @@ const ElementDetail = (props: Props) => {
                   <Col width={"40%"}>
                     <Input size="small" disabled={true} value={query[0]} />
                   </Col>
-                  <Col width={"5%"} marginLeft={true}>
+                  <Col width={"5%"}>
                     =
                   </Col>
-                  <Col width={"40%"} marginLeft={true}>
+                  <Col width={"40%"}>
                     <Input size="small" disabled={true} value={query[1]} />
                   </Col>
                 </div>

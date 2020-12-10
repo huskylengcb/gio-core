@@ -11,7 +11,7 @@ export const TitleWrapper = styled.div`
 export const Col = styled.div`
   width: ${(props) => props.width};
   display: inline-block;
-  margin-left: ${(props) => props.marginLeft && "4px"}
+  margin-left: ${(props) => props.marginLeft ? "4px" : '0px'}
   text-align: center;
 `;
 
