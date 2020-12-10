@@ -60,7 +60,9 @@ const OperationSelect = (props: Props) => {
       if (valueType === 'date') {
         return renderOptions(DateOperationSelects)
       }
-      return renderOptions(StringOperationSelections)
+      return renderOptions(StringOperationSelections);
+    case 'tag':
+      return renderOptions(OperationSelects);
     default:
       return renderOptions(StringOperationSelections)
   }
