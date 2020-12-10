@@ -147,7 +147,8 @@ class DimensionValueSelect extends React.PureComponent<Props, State> {
 
   private fetchDimensionValue = debounce((dimension: string, keyword: string) => {
     this.setState((prevState: State) => ({ ...prevState, isLoading: true }));
-    const { metrics = [], timeRange = 'day:8,1', valueExclude, dimensionsSearchPath = `/projects/${window.project?.id}/dimensions/search` } = this.props;
+    const projectId = window.location.href.match(/\/projects\/[0-9A-Za-z]*/)?.[0]?.replace('/projects/', '')
+    const { metrics = [], timeRange = 'day:8,1', valueExclude, dimensionsSearchPath = projectId ? `/projects/${projectId}/dimensions/search`: '/dimensions/search' } = this.props;
     http.post(dimensionsSearchPath, { data: { dimension, keyword: keyword || '', metrics, timeRange } }, true)
     //dimensionsService.search(dimension, keyword || '', metrics, timeRange)
       .then((valueOptions: any[]) => {
@@ -469,7 +470,8 @@ class DimensionValueSelect extends React.PureComponent<Props, State> {
 
     if (!shouldFetch) { return; }
     this.setState({ isTyping: true });
-    this.fetchDimensionValue(dimension, keyword);
+    const projectId = window.location.href.match(/\/projects\/[0-9A-Za-z]*/)?.[0]?.replace('/projects/', '')
+    this.fetchDimensionValue(dimension, keyword, projectId? projectId: null);
   }
 
   private handleValueSearch = (keyword: string): void => {
