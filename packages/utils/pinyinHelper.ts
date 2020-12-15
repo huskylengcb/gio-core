@@ -1,4 +1,4 @@
-const pinyinMatch = require('pinyin-match');
+const pinyinMatch = require('pinyin-match').default;
 
 export default function isContain(target: string = '', source: string = ''): boolean {
   if (!target) {
