@@ -1,6 +1,6 @@
 {
   "name": "@gio-core/components",
-  "version": "0.6.39",
+  "version": "0.7.0",
   "description": "GrowingIO core components",
   "main": "index.ts",
   "author": "Zhang Yuxiang",
@@ -25,7 +25,7 @@
     "react": "^16.8.6"
   },
   "publishConfig": {
-    "registry": "https://repo.growingio.com/repository/npm-hosted/"
+    "registry": "https://nexus.growingio.com/repository/npm-hosted/"
   },
   "devDependencies": {
     "@babel/core": "^7.7.5",
