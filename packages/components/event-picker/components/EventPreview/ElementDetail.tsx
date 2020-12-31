@@ -173,7 +173,7 @@ const ElementDetail = (props: Props) => {
           <Input size="small" disabled value={get(event, "definition.path")} />
         </Col>
         <Col width="auto" marginLeft="8px">
-          <Toggles className="event-picker-preview-toggle" disabled={true} defaultChecked={!!get(event, "definition.path")} />
+          <Toggles className="event-picker-preview-toggle" disabled={true} checked={!!get(event, 'definition.path')} defaultChecked={!!get(event, "definition.path")} />
         </Col>
       </div>
       {get(event, "definition.query") && (
