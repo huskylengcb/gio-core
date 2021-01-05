@@ -163,6 +163,16 @@ const ElementDetail = (props: Props) => {
           </div>
         </DefinitionRule>
       </div>
+      {(!!get(event, 'definition.urlScheme') || get(event, 'platforms[0]') === 'minp') && (
+         <div>
+         <TitleWrapper>所属应用</TitleWrapper>
+         <Input
+          size="small"
+          disabled={true}
+          value={`${get(event, 'definition.tunnelName', '')} |  ${get(event, 'definition.spn', '')}`}
+        />
+       </div>
+      )}
       <div>
         <TitleWrapper>域名</TitleWrapper>
         <Input size="small" disabled value={get(event, "definition.domain")} />
@@ -203,6 +213,7 @@ const ElementDetail = (props: Props) => {
         <TitleWrapper>过去七天数据</TitleWrapper>
         {chart}
       </div>
+      {!(get(event, 'platforms[0]', '').toLowerCase() === 'minp') && (
       <ScreenshotModal
         src={
           get(event, "screenshot.viewport")
@@ -212,7 +223,7 @@ const ElementDetail = (props: Props) => {
             ).slice(0, get(event, "screenshot.viewport").indexOf("?"))}`
             : ""
         }
-      />
+      />)}
     </QuickViewContent>
   );
 };

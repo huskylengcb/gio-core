@@ -117,6 +117,16 @@ const ElementClickDetail = (props: Props) => {
         {/* <div style={{pading: '8px 16px',backgroundColor: '#F7F8FC'}}>现在定义的是页面<span style={{color: '#1248E9'}}>{get(event, 'definition.domain')}{get(event, 'definition.path')}</span>{get(event, 'definition.query') ?`，查询条件为${get(event, 'definition.query')}`: ''}。</div> */}
       </div>
       <div>
+        {(!!get(event, 'definition.urlScheme') || get(event, 'platforms[0]') === 'minp') && (
+          <>
+            <TitleWrapper>所属应用</TitleWrapper>
+            <Input
+              size="small"
+              disabled={true}
+              value={`${get(event, 'definition.tunnelName', '')} |  ${get(event, 'definition.spn', '')}`}
+            />
+          </>
+        )}
         <TitleWrapper>所属页面</TitleWrapper>
         <Input
           size="small"
@@ -174,16 +184,17 @@ const ElementClickDetail = (props: Props) => {
         <TitleWrapper>过去七天数据</TitleWrapper>
         {chart}
       </div>
-      <ScreenshotModal
-        src={
-          get(event, "screenshot.viewport")
-            ? `${document.location.origin}/download?file=${get(
-              event,
-              "screenshot.viewport"
-            ).slice(0, get(event, "screenshot.viewport").indexOf("?"))}`
-            : ""
-        }
-      />
+      {!(get(event, 'platforms[0]', '').toLowerCase() === 'minp') && (
+        <ScreenshotModal
+          src={
+            get(event, "screenshot.viewport")
+              ? `${document.location.origin}/download?file=${get(
+                event,
+                "screenshot.viewport"
+              ).slice(0, get(event, "screenshot.viewport").indexOf("?"))}`
+              : ""
+          }
+        />)}
     </QuickViewContent >
   );
 };
