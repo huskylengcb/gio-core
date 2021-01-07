@@ -18,7 +18,7 @@ import styled from "styled-components";
 import { renderChart } from "./renderMap";
 import ElementClickDetail from "./ElementClickDetail";
 // import Icon from "@gio-design/icon";
-import { InformationFilled } from "@gio-design/icons"
+import { InfoCircleFilled } from "@gio-design/icons"
 import { TitleWrapper, DescripitionWrapper, QuickViewContent, Col, Tag } from './styled'
 const Switch = Toggles;
 // const TitleWrapper = styled.div`
@@ -152,7 +152,7 @@ const ElementDetail = (props: Props) => {
               top: "7px",
             }}
           >
-            <InformationFilled color="#3867F4" size="16px" />
+            <InfoCircleFilled color="#3867F4" size="16px" />
           </div>
           <div style={{ display: "inline-block", paddingLeft: "20px" }}>
             {renderEventDetail(
