@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { InformationFilled } from '@gio-design/icons';
+import { InfoCircleFilled } from '@gio-design/icons';
 import { get } from 'lodash';
 import { isSameWithRegular } from './xpathUtil';
 const Rule = (props: any) => {
@@ -269,7 +269,7 @@ const Rule = (props: any) => {
           top: '7px',
         }}
       >
-        <InformationFilled color="#3867F4" size="16px" />
+        <InfoCircleFilled color="#3867F4" size="16px" />
       </div>
       <div style={{ display: 'inline-block', paddingLeft: '20px' }}>
         <>
