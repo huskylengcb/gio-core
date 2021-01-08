@@ -52,6 +52,12 @@ const DefinitionRule = styled.div`
   position: relative;
   margin-bottom: 10px;
 `;
+
+const BlueSpan = (props: any) => (
+  <span style={{ color: '#1248E9', wordBreak: 'break-all', marginLeft: '3px', marginRight: '3px' }}>
+    {props.children}
+  </span>
+);
 // const Tag = styled.span`
 //   display: inline-block;
 //   padding-right: 8px;
@@ -74,55 +80,37 @@ interface Props {
   children: any;
   timeRange: any;
 }
-const renderEventDetail = (domain: string, path: string, query: string) => {
+const renderEventDetail = (domain: string, path: string, query: string, platform: string) => {
+  const isMinp = platform === 'minp';
+  if (isMinp) {
+    if (!path && !query) {
+      return (<div style={{ wordBreak: 'break-all' }}>现在定义的是 <BlueSpan>小程序所有页面。</BlueSpan> </div>)
+    }
+    if (!path && query) {
+      return (<div style={{ wordBreak: 'break-all' }}>现在定义的是 <BlueSpan >小程序所有页面。</BlueSpan> 查询条件为 <BlueSpan>{query}</BlueSpan></div>)
+    }
+    if (!query && path) {
+      return (<div style={{ wordBreak: 'break-all' }}>现在定义的是页面 <BlueSpan>{path}</BlueSpan> 。</div>)
+    }
+    if (query && path) {
+      return (<div style={{ wordBreak: 'break-all' }}>现在定义的是页面 <BlueSpan>{path}</BlueSpan> ，查询条件为 <BlueSpan>{query}</BlueSpan> 。</div>)
+    }
+
+  }
   if (!path && !query) {
-    return (
-      <div style={{ wordBreak: "break-all" }}>
-        现在定义的是{" "}
-        <span style={{ color: "#1248E9", wordBreak: "break-all" }}>
-          {domain}
-        </span>{" "}
-        下的所有页面。
-      </div>
-    );
+    return (<div style={{ wordBreak: 'break-all' }}>现在定义的是 <BlueSpan>{domain}</BlueSpan> 下的所有页面。</div>)
   }
   if (!path && query) {
-    return (
-      <div style={{ wordBreak: "break-all" }}>
-        现在定义的是{" "}
-        <span style={{ color: "#1248E9", wordBreak: "break-all" }}>
-          {domain}
-        </span>{" "}
-        查询条件为 <span style={{ color: "#1248E9" }}>{query}</span>
-        下的所有页面。
-      </div>
-    );
+    return (<div style={{ wordBreak: 'break-all' }}>现在定义的是 <BlueSpan>{domain}</BlueSpan> 查询条件为 <BlueSpan>{query}</BlueSpan>下的所有页面。</div>)
   }
   if (!query && path) {
-    return (
-      <div style={{ wordBreak: "break-all" }}>
-        现在定义的是{" "}
-        <span style={{ color: "#1248E9", wordBreak: "break-all" }}>
-          {domain}
-          {path}
-        </span>{" "}
-        。
-      </div>
-    );
+    return (<div style={{ wordBreak: 'break-all' }}>现在定义的是 <BlueSpan>{domain}{path}</BlueSpan> 。</div>)
   }
   if (query && path) {
-    return (
-      <div style={{ wordBreak: "break-all" }}>
-        现在定义的是{" "}
-        <span style={{ color: "#1248E9" }}>
-          {domain}
-          {path}
-        </span>{" "}
-        ，查询条件为 <span style={{ color: "#1248E9" }}>{query}</span> 。
-      </div>
-    );
+    return (<div style={{ wordBreak: 'break-all' }}>现在定义的是 <BlueSpan>{domain}{path}</BlueSpan> ，查询条件为 <BlueSpan>{query}</BlueSpan> 。</div>)
   }
-};
+
+}
 const ElementDetail = (props: Props) => {
   const { event, timeRange, cache, setCache } = props;
   const isElemClick = event.docType == "elem";
@@ -158,15 +146,28 @@ const ElementDetail = (props: Props) => {
             {renderEventDetail(
               get(event, "definition.domain"),
               get(event, "definition.path"),
-              get(event, "definition.query")
+              get(event, "definition.query"),
+              get(event, "platforms[0]")
             )}
           </div>
         </DefinitionRule>
       </div>
-      <div>
-        <TitleWrapper>域名</TitleWrapper>
-        <Input size="small" disabled value={get(event, "definition.domain")} />
-      </div>
+      {(!!get(event, 'definition.urlScheme') || get(event, 'platforms[0]') === 'minp') && (
+        <div>
+          <TitleWrapper>所属应用</TitleWrapper>
+          <Input
+            size="small"
+            disabled={true}
+            value={`${get(event, 'definition.tunnelName', '')}  ${get(event, 'definition.tunnelName', '') ? '|' : ''}  ${get(event, 'definition.spn', '')}`}
+          />
+        </div>
+      )}
+      {(get(event, 'platforms[0]') !== 'minp') && (
+        <div>
+          <TitleWrapper>域名</TitleWrapper>
+          <Input size="small" disabled value={get(event, "definition.domain")} />
+        </div>)
+      }
       <div>
         <TitleWrapper>路径</TitleWrapper>
         <Col width="240px">
@@ -203,16 +204,17 @@ const ElementDetail = (props: Props) => {
         <TitleWrapper>过去七天数据</TitleWrapper>
         {chart}
       </div>
-      <ScreenshotModal
-        src={
-          get(event, "screenshot.viewport")
-            ? `${document.location.origin}/download?file=${get(
-              event,
-              "screenshot.viewport"
-            ).slice(0, get(event, "screenshot.viewport").indexOf("?"))}`
-            : ""
-        }
-      />
+      {!(get(event, 'platforms[0]', '').toLowerCase() === 'minp') && (
+        <ScreenshotModal
+          src={
+            get(event, "screenshot.viewport")
+              ? `${document.location.origin}/download?file=${get(
+                event,
+                "screenshot.viewport"
+              ).slice(0, get(event, "screenshot.viewport").indexOf("?"))}`
+              : ""
+          }
+        />)}
     </QuickViewContent>
   );
 };
