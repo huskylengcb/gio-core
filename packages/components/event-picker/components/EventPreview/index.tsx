@@ -22,6 +22,7 @@ interface Props {
   timeRange?: any,
   preparedMetrics?: any[],
   delay?: string | number,
+  chartSourceType: 'chartdata' | 'olap'
 }
 interface State {
   screenshotModalVisible: boolean,
@@ -98,6 +99,7 @@ class Preview extends React.PureComponent<Props, State> {
       cache: this.state.cache,
       setCache: this.setCache,
       deleteCache: this.deleteCache,
+      chartSourceType: this.props.chartSourceType
     };
 
     const previewContent = (

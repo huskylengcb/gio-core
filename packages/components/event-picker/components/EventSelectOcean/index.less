@@ -1,0 +1,139 @@
+.ocean-event-select {
+  &-label-wrapper {
+    padding: 10px 10px 0;
+
+    .gio-label.nowrap {
+      margin-right: 8px;
+      padding: 0 20px 0 5px;
+      font-size: 12px;
+      height: 20px;
+      line-height: 20px;
+
+      svg {
+        margin: 0!important;
+      }
+    }
+  }
+
+  &-loading-wrapper {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    background: rgba(255,255,255,0.5);
+    z-index: 10;
+
+    .gio-spin {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+
+  &-overlay {
+    width: 360px;
+    height: 460px;
+    position: relative;
+
+    .event-select-header {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      .ocean-search-input {
+        width: 276px;
+        height: 36px;
+        i {
+          display: none;
+        }
+      }
+      .btn-refresh {
+        width: 36px;
+        padding: 0;
+        height: 36px;
+        margin-left: 10px;
+        svg {
+          margin-left: 5px;
+        }
+      }
+    }
+
+    .gio-select-core {
+
+      .gio-event-picker-group-option {
+        font-size: 12px;
+        color: #1248E9;
+        padding-left: 10px;
+        border-top: #EBEDF5 solid 1px;
+      }
+
+      &-header {
+        padding: 10px;
+      }
+    
+      .gio-user-picker-fetch-btn {
+        opacity: 0.7;
+        transition: 0.3s opacity ease;
+    
+        &:hover {
+          opacity: 1;;
+        }
+      }
+    
+      .loading-wrapper {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        background: rgba(255, 255, 255, .7);
+    
+        .gio-spin {
+          position: absolute!important;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+        }
+      }
+    }
+
+    .gio-select-list {
+      overflow-y: scroll!important;
+    }
+
+    .gio-select-option.group:hover {
+      background-color: #f2f2f2;
+    }
+
+    .gio-select-option {
+      padding-left: 25px;
+    }
+  }
+
+  &-header {
+    padding: 10px 10px 0;
+    // border-bottom: 1px solid #EBEBEB;
+    .gio-button:hover {
+      box-shadow: none;
+    }
+  }
+
+  &-toolbar {
+    margin-top: 10px;
+
+    &.tab-invisible {
+      .filter-tab-list {
+        // visibility: hidden;
+        display: none;
+      }
+    }
+  }
+
+  &-footer {
+    padding: 5px 10px;
+
+    button {
+      float: right;
+      margin-left: 15px;
+    }
+  }
+}

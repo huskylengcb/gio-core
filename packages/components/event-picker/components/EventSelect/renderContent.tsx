@@ -229,7 +229,7 @@ const renderContent = ({
                 !disabledPreviewOptions ||
                 !(disabledPreviewOptions.includes(hoveringNode && hoveringNode.id))
               ) &&
-              <EventPreview target={{ ...hoveringNode, fromEventPicker: true }} labels={labels} delay={750} />
+              <EventPreview chartSourceType={'chartdata'} target={{ ...hoveringNode, fromEventPicker: true }} labels={labels} delay={750} />
             }
           </div>
         );
@@ -252,7 +252,7 @@ const renderFilterLabel = (
       removable={true}
       onRemove={handleFilterRemove(handleValueChange, filterValues, filter, label)}
     >
-      {target.name}
+      {get(target, 'name')}
     </Label>
   );
 })

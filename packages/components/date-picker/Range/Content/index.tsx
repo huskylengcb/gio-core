@@ -8,6 +8,7 @@ import Gap from '@gio-design/components/lib/gap';
 import Input from '@gio-design/components/lib/input';
 import Icon from '@gio-design/icon';
 import InputLabel from '../InputLabel';
+// import bemClsFactor from '../../../../utils/bemClsFactor';
 import bemClsFactor from '@gio-core/utils/bemClsFactor';
 import ReactDOM from 'react-dom';
 import cn from 'classnames';

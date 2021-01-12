@@ -5,21 +5,24 @@ import MrgedEventDetail from "./MrgedEventDetail";
 import ComplexMetricDetail from "./ComplexMetricDetail";
 import ElementDetail from "./ElementDetail";
 import CustomEventDetail from "./CustomEventDetail";
-import { GioChart } from "giochart";
-// import PureChart from 'modules/core/components/ChartPreview/PureChart';
+import { GioChart, setRequestHost } from "giochart";
+
+setRequestHost('olap', '/v6/olap');
 
 interface PureChartProps {
   payload: any;
   url: string;
   timeRange: string;
   cache: any;
-  setCache: () => void;
+  setCache: (cacheId: string, data: any) => void;
+  chartSourceType: Params['chartSourceType']
 }
 
-const PureChart = (props: PureChartProps) => {
+const renderPureChart = (props: PureChartProps) => {
+
   return (
     <GioChart
-      sourceType={props.url.endsWith("ping") ? "ping" : "chartdata"}
+      sourceType={props.url.endsWith("ping") ? "ping" : props.chartSourceType}
       width={280}
       height={180}
       padding={0}
@@ -40,12 +43,13 @@ interface Params {
   cache: object;
   setCache: (cacheId: string, data: any) => void;
   deleteCache: (cacheId: string) => void;
+  chartSourceType: 'chartdata' | 'olap'
 }
 
 // 预定义指标需要展示的预览内容
 export const prepared = (params: Params) => {
-  const { target, preparedMetrics, cache, setCache } = params;
-  const chart = renderChart("prepared", target, null, cache, setCache);
+  const { target, preparedMetrics, cache, setCache, chartSourceType } = params;
+  const chart = renderChart("prepared", target, null, cache, setCache, chartSourceType);
   const preparedMetricDetail = find(preparedMetrics, { id: target.id });
   const description =
     get(target, "description") ||
@@ -85,7 +89,6 @@ export const simple = (params: Params) => {
     setCache,
     deleteCache,
   } = params;
-  const chart = renderChart("simple", target, timeRange, cache, setCache);
   return (
     <React.Fragment>
       <ElementDetail
@@ -171,7 +174,7 @@ const complex = (params: Params) => {
 
 // 埋点事件需要展示的预览内容
 const dash = (params: Params) => {
-  const { target, timeRange, labels, cache, setCache, deleteCache } = params;
+  const { target, timeRange, labels, cache, setCache, deleteCache, chartSourceType } = params;
   return (
     <React.Fragment>
       <CustomEventDetail
@@ -180,6 +183,7 @@ const dash = (params: Params) => {
         cache={cache}
         setCache={setCache}
         deleteCache={deleteCache}
+        chartSourceType={chartSourceType}
       />
     </React.Fragment>
   );
@@ -191,7 +195,8 @@ export const renderChart = (
   dataSource: any,
   timeRange?: string,
   cache?: object,
-  setCache?: (cacheId: string, data: any) => void
+  setCache?: (cacheId: string, data: any) => void,
+  chartSourceType: Params['chartSourceType'] = 'chartdata'
 ) => {
   let payload: object;
   let url: string;
@@ -227,29 +232,51 @@ export const renderChart = (
     url = `/projects/${window.project.id}/ping`;
   } else if (dataSource.id) {
     payload = generatePayload(type, dataSource, timeRange);
-    url = projectId?`/projects/${projectId}/chartdata`: '/chartdata';
+    if (chartSourceType === 'olap') {
+      url = '/v6/olap'
+    } else {
+      url = projectId ? `/projects/${projectId}/chartdata`: '/chartdata';
+    }
   } else {
     return null;
     // 如果dataSource中没有id，说明现在要展示的是一个没有定义过的元素
     // 此时需要调用的是ping接口
   }
 
+  // return (
+  //   <GioChart
+  //     sourceType={'olap'}
+  //     width={280}
+  //     height={180}
+  //     padding={0}
+  //     gql={testGQL}
+  //     hideDate={true}
+  //     hideTitle={true}
+  //   />
+  // )
+
+
   return (
     <div className="event-preview-chart-wrapper">
-      <PureChart
+      {renderPureChart({
+        payload,
+        url,
+        timeRange,
+        cache,
+        setCache,
+        chartSourceType,
+      })}
+      {/* <PureChart
         payload={payload}
         url={url}
         timeRange={timeRange}
         cache={cache}
         setCache={setCache}
-      />
+        chartSourceType={chartSourceType}
+      /> */}
     </div>
   );
 };
-
-// interface IRender {
-//   [key: string]: (m: Metric, pages: Metric[]) => any
-// }
 
 const render = {
   prepared,

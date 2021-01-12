@@ -91,12 +91,12 @@ export const groupData = (
   keyword: string
 ) => {
   const groupMap = data.reduce((map: any, event: any) => {
-    
+
     (event.groups || []).forEach((groupId: string) => {
       if (!groupList.some(({ id }) => id === groupId )) {
         groupId = 'unknown';
       }
-      
+
       if(!disabledOptions.includes(event.selectKey)) {
         const bucket = map[groupId];
         if (bucket) {
@@ -113,12 +113,12 @@ export const groupData = (
           map[`disable_${groupId}`] = [event];
         }
       }
-      
+
     });
     return map;
   }, {});
   const getSearchOrFilterStatue = () => !!keyword || !!hasFilter
-  
+
   return groupList.reduce((acc: any[], group) => {
     const bucket = groupMap[group.id] || [];
     const disableBucket = groupMap[`disable_${group.id}`] || []
@@ -135,7 +135,7 @@ export const groupData = (
       type: 'fold',
       group
     }
-    
+
     if (!bucket.length && !disableBucket.length && (!isLazyMode || group.id === 'prepared') && getSearchOrFilterStatue()) {
       return acc;
     }
@@ -147,7 +147,7 @@ export const groupData = (
       ) {
       return [...acc, groupOption];
     }
-    
+
     let res = [
       ...acc,
       groupOption,
@@ -175,7 +175,7 @@ export const groupData = (
       )
     }
 
-   
+
     return res
   }, []);
 }
@@ -307,7 +307,8 @@ export const generatePayload = (type: string, dataSource: any, timeRange?: strin
     // 无埋点事件
     const metric = {
       id: dataSource.id,
-      type: 'simple'
+      type: 'simple',
+      math: null
     };
 
     if (dataSource.action) {
@@ -330,13 +331,21 @@ export const generatePayload = (type: string, dataSource: any, timeRange?: strin
       action: dataSource.type === 'number' ? 'none' : 'count',
       aggregator: dataSource.aggregator,
       attribute: dataSource.attribute,
+      math: 'total'
     }];
-  } else {
-    // others
+  } else if (type === 'complex') {
     metrics = [{
       id: dataSource.id,
       type,
-      action: dataSource.type === 'number' ? 'none' : 'count'
+      action: dataSource.type === 'number' ? 'none' : 'count',
+      math: null
+    }];
+  } else {
+    metrics = [{
+      id: dataSource.id,
+      type,
+      action: dataSource.type === 'number' ? 'none' : 'count',
+      math: 'total'
     }];
   }
   return {

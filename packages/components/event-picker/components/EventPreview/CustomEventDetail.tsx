@@ -30,7 +30,7 @@ const CustomEventDetail = (props: any) => {
 
   //const urlCustomEvent = `/v3/projects/${window.project.id}/custom-events/${props.event.id}`;
   //  const $$customEvent = useFetch(urlCustomEvent, null, cache, setCache);
-  const { event, labelList, cache, setCache, deleteCache } = props;
+  const { event, labelList, cache, setCache, deleteCache, chartSourceType } = props;
   const $$customEvent = {
     loading: false,
     data: event
@@ -48,7 +48,7 @@ const CustomEventDetail = (props: any) => {
     const data: { [propName: string]: any; } = { ...$$customEvent.data, attribute: event.attribute };
     const description = data.description;
     const name = isCustomEventWithAttribute ? getMeasurementNameWithAttribute({ ...data, aggregator: event.aggregator }) : get(event, 'name');
-    const chart = renderChart('custom', { ...data, name, aggregator: event.aggregator }, null, cache, setCache);
+    const chart = renderChart('custom', { ...data, name, aggregator: event.aggregator }, null, cache, setCache, chartSourceType);
     //  const checkedLabels = data.labels;
     return (
       <React.Fragment>
