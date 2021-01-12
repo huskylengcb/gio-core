@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./packages",
+    "outDir": "./dist/",
+    "target": "ESNext",
+    "module": "CommonJS",
+    "jsx": "preserve",
+    "allowSyntheticDefaultImports": true
+  }
+}

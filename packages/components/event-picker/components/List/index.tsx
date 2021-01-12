@@ -22,6 +22,7 @@ const List = ({
   setHoveringNode,
   getGroupCollapsed,
   handleGroupChange,
+  isOcean = false, // 大洋分析
   needEventPreview, // 是否需要事件预览，如果是true的话，在列表中会出现跟随型事件预览的组件
 }) => {
   return (
@@ -35,10 +36,10 @@ const List = ({
       disabledOptions={disabledOptions}
       isMultiple={isMultiple}
       allowDuplicate={true}
-      width={370}
+      width={isOcean ? 360 : 370}
       height={400}
       showSearch={false}
-      labelRenderer={renderLabel(handleGroupChange, setHoveringNode, getGroupCollapsed, needEventPreview)}
+      labelRenderer={renderLabel(handleGroupChange, setHoveringNode, getGroupCollapsed, needEventPreview, isOcean)}
       onSelect={onSelect}
       emptyPlaceholder={isLoading ? '' : undefined}
     />
@@ -55,13 +56,21 @@ const renderLabel = (
   setHoveringNode: any,
   getGroupCollapsed: any,
   needEventPreview: boolean,
+  isOcean: boolean,
 ) => (option: any, isGroup?: string) => {
   if (isGroup) {
     const collapsed = getGroupCollapsed(option.id);
-    switch(isGroup) {
+    switch (isGroup) {
       case 'group':
-        return (
-          <div
+        return isOcean ?
+          (<div
+            onClick={handleClick(handleGroupChange)(option.id)}
+            className={classnames('gio-event-picker-group-option', { collapsed })}
+            onMouseEnter={() => { setHoveringNode(null); }}
+          >
+            {option.name}
+          </div>) :
+          (<div
             onClick={handleClick(handleGroupChange)(option.id)}
             className={classnames('gio-event-picker-group-option', { collapsed })}
             onMouseEnter={() => { setHoveringNode(null); }}
@@ -74,13 +83,13 @@ const renderLabel = (
             {option.name} {/*!isNaN(option.count) && `(${option.count})`*/}
             <Icon type='down' />
           </div>
-        )
+          )
       case 'fold':
         return (
           <div
             onClick={handleClick(handleGroupChange)(option.id)}
           >
-            {option.name} 
+            {option.name}
           </div>
         )
     }
