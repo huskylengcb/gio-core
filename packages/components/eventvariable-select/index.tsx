@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
-import List from '@gio-design/components/lib/list';
-import Select from '@gio-design/components/lib/select';
+import List from '@gio-design-old/components/lib/list';
+import Select from '@gio-design-old/components/lib/select';
 import { format } from '@gio-core/utils/date';
 
 interface EventVariablesSelectProps {

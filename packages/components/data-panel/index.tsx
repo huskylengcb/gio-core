@@ -1,10 +1,10 @@
 import React, { useRef, useState, useEffect } from 'react';
 import useWindowSize from 'react-use/lib/useWindowSize';
-import SidePanel, { Props as SidePanelProps } from '@gio-design/components/lib/side-panel';
+import SidePanel, { Props as SidePanelProps } from '@gio-design-old/components/lib/side-panel';
 import Render, { dataTypes } from './render';
 import './style.less';
-import Button from '@gio-design/components/lib/button';
-import Gap from '@gio-design/components/lib/gap';
+import Button from '@gio-design-old/components/lib/button';
+import Gap from '@gio-design-old/components/lib/gap';
 interface Props {
   data: any
   dataType: dataTypes

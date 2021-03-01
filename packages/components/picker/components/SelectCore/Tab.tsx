@@ -3,7 +3,7 @@ import noop from 'lodash/noop';
 import SelectList from '../SelectList/SelectGroup';
 import get from 'lodash/get'
 import isEqual from 'lodash/isEqual';
-import Input from '@gio-design/components/lib/input';
+import Input from '@gio-design-old/components/lib/input';
 import AntTabs from 'antd/lib/tabs'
 import 'antd/lib/tabs/style/index.css'
 

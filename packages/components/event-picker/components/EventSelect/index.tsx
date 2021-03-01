@@ -13,7 +13,7 @@ import {
   aggregators
 } from '../../helper';
 import renderContent from './renderContent';
-import { PropsType as PopoverPropsType } from '@gio-design/components/lib/popover';
+import { PropsType as PopoverPropsType } from '@gio-design-old/components/lib/popover';
 
 import './style.less';
 import { useGroups } from '../../hooks';

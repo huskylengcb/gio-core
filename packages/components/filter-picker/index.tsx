@@ -1,6 +1,6 @@
 import React from 'react';
 import Icon from '@gio-design/icon';
-import Button from '@gio-design/components/lib/button';
+import Button from '@gio-design-old/components/lib/button';
 import DimensionProvider from '@gio-core/components/dimension-provider';
 import FilterDropdown from './FilterDropdown';
 import FilterLabelList from './FilterLabelList';

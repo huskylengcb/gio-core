@@ -269,7 +269,7 @@ const Rule = (props: any) => {
           top: '7px',
         }}
       >
-        <InfoCircleFilled color="#3867F4" size="16px" />
+        {/* <InfoCircleFilled color="#3867F4" size="16px" /> */}
       </div>
       <div style={{ display: 'inline-block', paddingLeft: '20px' }}>
         <>

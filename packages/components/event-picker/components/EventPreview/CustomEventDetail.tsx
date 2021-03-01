@@ -3,7 +3,7 @@ import { useFetch } from '../../hooks';
 // import Loading from 'giodesign/utils/Loading';
 import { get, isEmpty } from 'lodash';
 import CreatorInfo from './CreatorInfo';
-import List from '@gio-design/components/lib/list';
+import List from '@gio-design-old/components/lib/list';
 import { Tag, Header } from './index.styled';
 import Tags from './Tags';
 import FavoriteIcon from './FavoriteIcon';

@@ -2,7 +2,7 @@ import React from 'react';
 import classnames from 'classnames';
 import { get } from 'lodash';
 import Icon from '@gio-design/icon';
-import Popover from '@gio-design/components/lib/popover';
+import Popover from '@gio-design-old/components/lib/popover';
 import FilterDropdown from '../../../filter-picker/FilterDropdown'
 import DimensionProvider from '../../../dimension-provider';
 import FilterLabelList from '../../../filter-picker/FilterLabelList';

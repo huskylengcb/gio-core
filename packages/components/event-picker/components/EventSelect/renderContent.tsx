@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { get } from 'lodash';
-// import Button from '@gio-design/components/lib/button';
+// import Button from '@gio-design-old/components/lib/button';
 import Icon from '@gio-design/icon';
-import Spin from '@gio-design/components/lib/spin';
+import Spin from '@gio-design-old/components/lib/spin';
 import Label from '@gio-core/components/label';
-import Popover from '@gio-design/components/lib/popover';
+import Popover from '@gio-design-old/components/lib/popover';
 import { Props as SelectCoreProps } from '../../../picker/components/SelectCore';
 import FilterTab from '../FilterTab';
 import FilterSelect from '../FilterSelect';
@@ -20,11 +20,11 @@ import {
 import List from '../List';
 import { groupData } from '../../helper';
 import StepPreview from '../StepsPreview';
-// import Input from '@gio-design/components/lib/input';
+// import Input from '@gio-design-old/components/lib/input';
 import classnames from 'classnames';
-import { SearchBar, Input, Button } from '@gio-design-new/components';
+import { SearchBar, Input, Button } from '@gio-design/components';
 import { RefreshOutlined } from '@gio-design/icons'
-import '@gio-design-new/components/es/components/search-bar/style/index.less';
+import '@gio-design/components/es/components/search-bar/style/index.less';
 //const SearchInput = require('components/utils/SearchInput').default;
 
 type handleValueChangeType = (value: { [key: string]: any }) => void;

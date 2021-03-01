@@ -34,7 +34,7 @@ export default class SelectOption extends React.PureComponent<Props> {
 
     return (
       <div
-        className={classnames('gio-core gio-select-option', className, {
+        className={classnames('gio-core gio-select-old-option', className, {
           multiple: isMultiple,
           selected: isSelected,
           indented: showGroupCheckBox && hasGroupIcon,

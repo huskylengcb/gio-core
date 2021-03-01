@@ -1,8 +1,8 @@
 import React, { useCallback, useState, useEffect } from 'react';
 import SelectCore from '../../../picker/components/SelectCore';
 import Metric from '@gio-core/types/Metric';
-import Button from '@gio-design/components/lib/button';
-import Gap from '@gio-design/components/lib/gap';
+import Button from '@gio-design-old/components/lib/button';
+import Gap from '@gio-design-old/components/lib/gap';
 
 import './style.less';
 

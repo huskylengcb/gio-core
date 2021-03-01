@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-// import Button from "@gio-design/components/lib/button";
-// import Input from "@gio-design/components/lib/input";
+// import Button from "@gio-design-old/components/lib/button";
+// import Input from "@gio-design-old/components/lib/input";
 
-import { Input, Button } from "@gio-design-new/components";
+import { Input, Button } from "@gio-design/components";
 import { setRequestHost, GioChart } from "giochart";
 import { format } from "@gio-core/utils/date";
 import Form, { FormComponentProps } from "antd/lib/form";
@@ -12,7 +12,7 @@ import EventVariablesSelect, {
   valueTypeMap,
 } from "@gio-core/components/eventvariable-select";
 import ItemSelect from "@gio-core/components/item-select";
-import Select from "@gio-design/components/lib/select";
+import Select from "@gio-design-old/components/lib/select";
 import styled from "styled-components";
 
 setRequestHost("chartdata", "/chartdata");

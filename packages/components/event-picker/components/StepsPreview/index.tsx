@@ -1,6 +1,6 @@
 import React from 'react';
-import Button from '@gio-design/components/lib/button';
-import Tooltip from '@gio-design/components/lib/tooltip';
+import Button from '@gio-design-old/components/lib/button';
+import Tooltip from '@gio-design-old/components/lib/tooltip';
 import Icon from '@gio-design/icon';
 import { getPercent, getStepId } from './helper';
 import Sortable from './Sortable';

@@ -1,8 +1,8 @@
 import React, { ReactNode } from 'react';
 import { findDOMNode } from 'react-dom';
 import Checkbox from 'antd/lib/checkbox';
-import Select from '@gio-design/components/lib/select';
-import Tooltip from '@gio-design/components/lib/tooltip';
+import Select from '@gio-design-old/components/lib/select';
+import Tooltip from '@gio-design-old/components/lib/tooltip';
 import classnames from 'classnames';
 
 import './style.less';

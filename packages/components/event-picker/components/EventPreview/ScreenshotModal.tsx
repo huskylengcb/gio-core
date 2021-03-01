@@ -1,6 +1,6 @@
 import React from 'react';
-import Modal from '@gio-design/components/lib/modal';
-import Button from '@gio-design/components/lib/button';
+import Modal from '@gio-design-old/components/lib/modal';
+import Button from '@gio-design-old/components/lib/button';
 
 interface Props {
   src: string,

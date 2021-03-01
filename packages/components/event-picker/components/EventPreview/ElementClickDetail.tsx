@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useElementDetail } from "../../hooks";
 // import Loading from 'giodesign/utils/Loading';
-import { Input, Checkbox } from "@gio-design-new/components";
+import { Input, Checkbox } from "@gio-design/components";
 import Switch from "antd/lib/switch";
 import { getElemPage } from "../../helper";
 import { get, isEmpty } from "lodash";

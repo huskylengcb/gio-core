@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react';
 import Dropdown from 'antd/lib/dropdown';
 import Icon from '@gio-design/icon';
-import Button from '@gio-design/components/lib/button';
+import Button from '@gio-design-old/components/lib/button';
 import { get, isEqual, noop } from 'lodash';
 import FilterPanel from '../FilterPanel';
 import Filter, { defaultFilter } from '@gio-core/types/Filter';

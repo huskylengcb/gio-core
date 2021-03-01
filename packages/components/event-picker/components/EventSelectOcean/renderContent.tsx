@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import { get } from 'lodash';
-import Spin from '@gio-design/components/lib/spin';
+import Spin from '@gio-design-old/components/lib/spin';
 import Label from '@gio-core/components/label';
 import { Props as SelectCoreProps } from '../../../picker/components/SelectCore';
 import FilterTab from '../FilterTab';
@@ -15,7 +15,7 @@ import {
 } from '../EventSelect/constants';
 import List from '../List';
 import { groupData } from '../../helper';
-import Input from '@gio-design/components/lib/input';
+import Input from '@gio-design-old/components/lib/input';
 import classnames from 'classnames';
 const SearchInput = Input.Search;
 
