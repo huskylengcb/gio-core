@@ -37,7 +37,7 @@ export default class Group extends React.PureComponent<Props> {
 
     return (
       <div
-        className='gio-core gio-select-option group'
+        className='gio-core gio-select-old-option group'
         style={{ ...style, color: '#222f73' }}
         onClick={this.handleSelect}
       >

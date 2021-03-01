@@ -37,7 +37,7 @@ export default class Group extends React.PureComponent<Props> {
 
     return (
       <div
-        className='gio-core gio-select-option fold'
+        className='gio-core gio-select-old-option fold'
         style={{ ...style}}
         onClick={this.handleSelect}
       >

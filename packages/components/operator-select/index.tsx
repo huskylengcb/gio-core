@@ -1,5 +1,5 @@
 import React from 'react';
-import Select from '@gio-design/components/lib/select';
+import Select from '@gio-design-old/components/lib/select';
 import difference from 'lodash/difference';
 import { Operator, dimensionOP } from '@gio-core/constants/operator';
 

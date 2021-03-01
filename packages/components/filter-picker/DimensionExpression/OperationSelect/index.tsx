@@ -1,5 +1,5 @@
 import React from 'react';
-import Select from '@gio-design/components/lib/select';
+import Select from '@gio-design-old/components/lib/select';
 import { OperationSelects, IntOperationSelects, DateOperationSelects, StringOperationSelections } from './config';
 import './index.less';
 

@@ -3,9 +3,9 @@ import moment from 'moment';
 import { getRangeFromKey, getMomentsFromRange } from '../util/shortcutRange'
 import RangeDatePicker from '../RangeDatePicker';
 import ShortcutButtons from '../ShortcutButtons';
-import Button from '@gio-design/components/lib/button';
-import Gap from '@gio-design/components/lib/gap';
-import Input from '@gio-design/components/lib/input';
+import Button from '@gio-design-old/components/lib/button';
+import Gap from '@gio-design-old/components/lib/gap';
+import Input from '@gio-design-old/components/lib/input';
 import Icon from '@gio-design/icon';
 import InputLabel from '../InputLabel';
 // import bemClsFactor from '../../../../utils/bemClsFactor';

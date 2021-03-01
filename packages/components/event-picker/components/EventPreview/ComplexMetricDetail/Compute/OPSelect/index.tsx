@@ -2,9 +2,9 @@ import React, { useRef } from 'react';
 import { IExpressionOP } from '../../type';
 import Add from '../icon/Add';
 import Subtract from '../icon/Subtract';
-import Dropdown from '@gio-design/components/lib/dropdown';
+import Dropdown from '@gio-design-old/components/lib/dropdown';
 import styled from 'styled-components';
-import Menu from '@gio-design/components/lib/menu';
+import Menu from '@gio-design-old/components/lib/menu';
 import Icon from '@gio-design/icon';
 
 interface Props {

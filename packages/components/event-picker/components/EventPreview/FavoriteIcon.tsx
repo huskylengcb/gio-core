@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Icon from '@gio-design/icon';
-import message from '@gio-design/components/lib/message';
+import message from '@gio-design-old/components/lib/message';
 import objectHash from 'object-hash';
 
 const http = require('@gio-core/utils/http').default;

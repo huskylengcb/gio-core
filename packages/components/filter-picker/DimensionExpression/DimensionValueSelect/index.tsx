@@ -1,10 +1,10 @@
 import React from 'react';
 import ValueSelect from '@gio-core/components/value-select';
 import Metric from '@gio-core/types/Metric';
-import Input from '@gio-design/components/lib/input';
-import Select from '@gio-design/components/lib/select';
-import Gap from '@gio-design/components/lib/gap';
-import DatePicker from '@gio-design/components/lib/date-picker';
+import Input from '@gio-design-old/components/lib/input';
+import Select from '@gio-design-old/components/lib/select';
+import Gap from '@gio-design-old/components/lib/gap';
+import DatePicker from '@gio-design-old/components/lib/date-picker';
 import { debounce, difference, isNil, isEmpty, isEqual } from 'lodash';
 import DateRangePicker from '@gio-core/components/date-picker';
 import styled from 'styled-components';

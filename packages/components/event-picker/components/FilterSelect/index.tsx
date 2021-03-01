@@ -1,9 +1,9 @@
 import React from 'react';
-import Popover from '@gio-design/components/lib/popover';
+import Popover from '@gio-design-old/components/lib/popover';
 import Icon from '@gio-design/icon';
 import Checkbox from 'antd/lib/checkbox';
 import Badge from 'antd/lib/badge';
-import { Button } from '@gio-design-new/components';
+import { Button } from '@gio-design/components';
 import { Filter2Outlined } from '@gio-design/icons'
 const constraintTypes = ['custom', 'merged', 'complex'];
 

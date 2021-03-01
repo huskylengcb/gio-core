@@ -1,8 +1,8 @@
 import React from 'react';
 import './index.less';
 
-import Dropdown from '@gio-design/components/lib/dropdown';
-import Popover from '@gio-design/components/lib/popover';
+import Dropdown from '@gio-design-old/components/lib/dropdown';
+import Popover from '@gio-design-old/components/lib/popover';
 
 interface Props {
     content: React.ReactNode,

@@ -131,9 +131,9 @@ class Preview extends React.PureComponent<Props, State> {
   }
   // 检测预览模块即将出现的位置
   private needToMove = () => {
-    if (!document.getElementById('viewport') || !document.querySelector('.gio-picker.ant-popover-content')) { return false; }
+    if (!document.getElementById('viewport') || !document.querySelector('.gio-picker-old.ant-popover-content')) { return false; }
     const viewPortRect = document.getElementById('viewport').getBoundingClientRect();
-    const pickerRect = document.querySelector('.gio-picker.ant-popover-content').getBoundingClientRect();
+    const pickerRect = document.querySelector('.gio-picker-old.ant-popover-content').getBoundingClientRect();
     if (pickerRect.right + 370 > viewPortRect.width) {
       return true;
     }

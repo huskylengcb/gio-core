@@ -10,7 +10,7 @@ interface Props {
 }
 
 // const Tooltip = require('antd/lib/tooltip');
-import Tooltip from '@gio-design/components/lib/tooltip';
+import Tooltip from '@gio-design-old/components/lib/tooltip';
 
 export default class Range extends React.PureComponent<Props> {
     public handleClick = () => {

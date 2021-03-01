@@ -4,7 +4,7 @@ import CircularIcon from '@gio-core/components/circular-icon';
 import Filter, { defaultFilter } from '@gio-core/types/Filter';
 import FilterExpression, { defaultFilterExpression } from '@gio-core/types/FilterExpression';
 import Dimension from '@gio-core/types/Dimension';
-import Button from '@gio-design/components/lib/button';
+import Button from '@gio-design-old/components/lib/button';
 import Icon from '@gio-design/icon';
 import {
   Operator

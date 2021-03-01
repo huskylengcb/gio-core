@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { useElementDetail } from "../../hooks";
 // import Loading from 'giodesign/utils/Loading';
-import { Input, Toggles } from "@gio-design-new/components";
+import { Input, Toggles } from "@gio-design/components";
 // import Switch from "antd/lib/switch";
-import '@gio-design-new/components/es/components/toggles/style/index.less';
+import '@gio-design/components/es/components/toggles/style/index.less';
 
 import { getElemPage } from "../../helper";
 import { get, isEmpty } from "lodash";
@@ -140,7 +140,7 @@ const ElementDetail = (props: Props) => {
               top: "7px",
             }}
           >
-            <InfoCircleFilled color="#3867F4" size="16px" />
+            {/* <InfoCircleFilled color="#3867F4" size="16px" /> */}
           </div>
           <div style={{ display: "inline-block", paddingLeft: "20px" }}>
             {renderEventDetail(

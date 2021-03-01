@@ -1,14 +1,14 @@
 import React from 'react';
 import { findDOMNode } from 'react-dom';
 import Dropdown from 'antd/lib/dropdown';
-import Popover, { PropsType as PopoverPropsType } from '@gio-design/components/lib/popover';
-import Button from '@gio-design/components/lib/button';
+import Popover, { PropsType as PopoverPropsType } from '@gio-design-old/components/lib/popover';
+import Button from '@gio-design-old/components/lib/button';
 import noop from 'lodash/noop';
 import SelectCore, { Props as SelectCoreProps} from './components/SelectCore';
 import SelectCoreTab, { TabOption, Props as SelectCoreTabProps } from './components/SelectCore/Tab';
 import classnames from 'classnames';
 import Trigger from './components/Trigger';
-import Tooltip from '@gio-design/components/lib/tooltip';
+import Tooltip from '@gio-design-old/components/lib/tooltip';
 
 import './style.less';
 
@@ -116,7 +116,7 @@ class Picker extends React.Component<Props & (SelectCoreProps | SelectCoreTabPro
               onVisibleChange={disabled ? undefined : onVisibleChange}
               overlay={this.renderOverlay()}
               getPopupContainer={getPopupContainer}
-              prefixCls='gio-picker dropdown ant-dropdown'
+              prefixCls='gio-picker-old dropdown ant-dropdown'
             >
               {renderedChilren}
             </Dropdown>
@@ -127,7 +127,7 @@ class Picker extends React.Component<Props & (SelectCoreProps | SelectCoreTabPro
               content={this.renderOverlay()}
               onVisibleChange={disabled ? undefined : onVisibleChange}
               getPopupContainer={getPopupContainer}
-              prefixCls='gio-picker ant-popover'
+              prefixCls='gio-picker-old ant-popover'
               placement={placement}
             >
               {renderedChilren}
@@ -209,7 +209,7 @@ class Picker extends React.Component<Props & (SelectCoreProps | SelectCoreTabPro
     } = this.props;
 
     return  (
-      <div className={classnames('gio-picker__overlay', className)}>
+      <div className={classnames('gio-picker-old__overlay', className)}>
         {
           render ? render({
             ...(selectCoreProps as SelectCoreProps),
@@ -226,7 +226,7 @@ class Picker extends React.Component<Props & (SelectCoreProps | SelectCoreTabPro
   }
 
   private renderSubPanel = () => (
-    <div className='gio-picker__sub-panel' style={this.props.subPanelStyle}>
+    <div className='gio-picker-old__sub-panel' style={this.props.subPanelStyle}>
       {this.props.subPanel}
     </div>
   );

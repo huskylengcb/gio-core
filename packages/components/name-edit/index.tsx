@@ -1,11 +1,11 @@
 import React, { PureComponent } from 'react';
 import { noop } from 'lodash';
 import cn from 'classnames';
-import GIOButton from '@gio-design/components/lib/button';
-import Input from '@gio-design/components/lib/input';
+import GIOButton from '@gio-design-old/components/lib/button';
+import Input from '@gio-design-old/components/lib/input';
 import GIOIcon from '@gio-design/icon';
-import message from '@gio-design/components/lib/message';
-import Gap from '@gio-design/components/lib/gap';
+import message from '@gio-design-old/components/lib/message';
+import Gap from '@gio-design-old/components/lib/gap';
 import bemClsFactor from '@gio-core/utils/bemClsFactor';
 import './index.less';
 

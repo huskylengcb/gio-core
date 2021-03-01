@@ -4,7 +4,7 @@ import './index.less';
 import CompareLabel from './Label';
 import RangeDecorator, { RangeDecoratorProps } from '../Range/RangeDecorator';
 import SingleDatePicker from '../Range/index'
-import Gap from '@gio-design/components/lib/gap';
+import Gap from '@gio-design-old/components/lib/gap';
 import flattenDateRange from '../flattenDate';
 
 export interface CompareDatePickerProps {

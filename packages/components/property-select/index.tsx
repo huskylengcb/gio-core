@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 import { groupBy, get, noop } from 'lodash';
-import Select from '@gio-design/components/lib/select';
+import Select from '@gio-design-old/components/lib/select';
 
 type getGroupIconType = (groupKey: string) => JSX.Element;
 interface PropertySelectProps {
