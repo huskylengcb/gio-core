@@ -26,25 +26,32 @@ $ yarn link "@gio-core/components"
 ...
 import DataBoard from '@gio-core/components/data-board'
 ...
+
+// 取消link
+
+$ cd target-project
+$ yarn unlink "@gio-core/components"
+$ yarn install --force
 ```
+
+## 提交修改
+
+1.新建MR 标明前缀 比如：feat:、 docs:、fix:、等
+2.review
+3.merge
 
 ## 发布
 
-升级版本
+1. 新建MR并修改版本号，说明本次发版内容
 
-```
-lerna version --amend --no-git-tag-version
-```
+example:
+    版本:0.7.8
+    发版内容：
+        1.修改了cp服务资源权限更改导致资源权限方法 [mr链接]
 
-合并版本更新到最新的 commit
-```
-git commit -a --amend --no-edit // gcan!
-```
 
-发布
-```
-lerna publish from-package
-```
+2. MR合并后发布新版本
+
 
 ### 命名规范
 
