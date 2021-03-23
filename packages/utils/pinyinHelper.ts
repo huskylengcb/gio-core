@@ -2,10 +2,10 @@ import pinyinMatch from 'pinyin-match';
 
 export default function isContain(target: string = '', source: string = ''): boolean {
   if (!target) {
-    target = ''
+    target = ' '
   }
   if (!source) {
-    source = ''
+    source = ' '
   }
   return !!pinyinMatch.match(target, source);
 };
