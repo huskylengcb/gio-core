@@ -1412,6 +1412,10 @@
     moment "^2.19.3"
     rc-calendar "9.1.2"
 
+"@gio-design-old/tokens@https://nexus.growingio.com/repository/npm-group/@gio-design/tokens/-/tokens-0.2.21.tgz#3c4889ee28fce7164ecbbff7b9e0d3b5c241442c":
+  version "0.2.21"
+  resolved "https://nexus.growingio.com/repository/npm-group/@gio-design/tokens/-/tokens-0.2.21.tgz#3c4889ee28fce7164ecbbff7b9e0d3b5c241442c"
+
 "@gio-design/components@^0.4.28":
   version "0.4.40"
   resolved "https://repo.growingio.com/repository/npm-group/@gio-design/components/-/components-0.4.40.tgz#9b8b575856576eded435ad63a18c4aab9512c017"
