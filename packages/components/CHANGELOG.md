@@ -1,5 +1,8 @@
 ### 发版记录:
 
+#### version: 0.8.2
+##### change:
+  1. 修改 gio-core中引用@gio-design-old/tokens 路径错误的问题
 
 #### version: 0.8.1
 ##### change:
