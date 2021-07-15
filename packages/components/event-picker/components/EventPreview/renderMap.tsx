@@ -7,7 +7,7 @@ import ElementDetail from "./ElementDetail";
 import CustomEventDetail from "./CustomEventDetail";
 import { GioChart, setRequestHost } from "giochart";
 
-setRequestHost('olap', '/v6/olap');
+setRequestHost("olap", "/v6/olap");
 
 interface PureChartProps {
   payload: any;
@@ -15,18 +15,17 @@ interface PureChartProps {
   timeRange: string;
   cache: any;
   setCache: (cacheId: string, data: any) => void;
-  chartSourceType: Params['chartSourceType']
+  chartSourceType: Params["chartSourceType"];
 }
 
 const renderPureChart = (props: PureChartProps) => {
-
   return (
     <GioChart
       sourceType={props.url.endsWith("ping") ? "ping" : props.chartSourceType}
       width={280}
       height={180}
       padding={0}
-      gql={...props.payload}
+      gql={{ ...props.payload }}
       hideDate={true}
       hideTitle={true}
     />
@@ -43,13 +42,20 @@ interface Params {
   cache: object;
   setCache: (cacheId: string, data: any) => void;
   deleteCache: (cacheId: string) => void;
-  chartSourceType: 'chartdata' | 'olap'
+  chartSourceType: "chartdata" | "olap";
 }
 
 // 预定义指标需要展示的预览内容
 export const prepared = (params: Params) => {
   const { target, preparedMetrics, cache, setCache, chartSourceType } = params;
-  const chart = renderChart("prepared", target, null, cache, setCache, chartSourceType);
+  const chart = renderChart(
+    "prepared",
+    target,
+    null,
+    cache,
+    setCache,
+    chartSourceType
+  );
   const preparedMetricDetail = find(preparedMetrics, { id: target.id });
   const description =
     get(target, "description") ||
@@ -174,7 +180,15 @@ const complex = (params: Params) => {
 
 // 埋点事件需要展示的预览内容
 const dash = (params: Params) => {
-  const { target, timeRange, labels, cache, setCache, deleteCache, chartSourceType } = params;
+  const {
+    target,
+    timeRange,
+    labels,
+    cache,
+    setCache,
+    deleteCache,
+    chartSourceType,
+  } = params;
   return (
     <React.Fragment>
       <CustomEventDetail
@@ -196,11 +210,13 @@ export const renderChart = (
   timeRange?: string,
   cache?: object,
   setCache?: (cacheId: string, data: any) => void,
-  chartSourceType: Params['chartSourceType'] = 'chartdata'
+  chartSourceType: Params["chartSourceType"] = "chartdata"
 ) => {
   let payload: object;
   let url: string;
-  const projectId = window.location.href.match(/\/projects\/[0-9A-Za-z]*/)?.[0]?.replace('/projects/', '')
+  const projectId = window.location.href
+    .match(/\/projects\/[0-9A-Za-z]*/)?.[0]
+    ?.replace("/projects/", "");
   if (dataSource.type === "element") {
     payload = {
       actions: dataSource.actions,
@@ -213,7 +229,7 @@ export const renderChart = (
         contentType: get(dataSource, "attrs.contentType") || undefined,
         index: get(dataSource, "attrs.index") || undefined,
         href: get(dataSource, "attrs.href") || undefined,
-        urlScheme: get(dataSource, 'definition.urlScheme') || undefined,
+        urlScheme: get(dataSource, "definition.urlScheme") || undefined,
       },
       definition: {
         domain: get(dataSource, "definition.domain") || "",
@@ -224,7 +240,7 @@ export const renderChart = (
         contentType: get(dataSource, "definition.contentType") || undefined,
         index: get(dataSource, "definition.index") || undefined,
         href: get(dataSource, "definition.href") || undefined,
-        urlScheme: get(dataSource, 'definition.urlScheme') || undefined,
+        urlScheme: get(dataSource, "definition.urlScheme") || undefined,
       },
       platform: dataSource.platforms[0],
       chartType: "line",
@@ -232,10 +248,10 @@ export const renderChart = (
     url = `/projects/${window.project.id}/ping`;
   } else if (dataSource.id) {
     payload = generatePayload(type, dataSource, timeRange);
-    if (chartSourceType === 'olap') {
-      url = '/v6/olap'
+    if (chartSourceType === "olap") {
+      url = "/v6/olap";
     } else {
-      url = projectId ? `/projects/${projectId}/chartdata`: '/chartdata';
+      url = projectId ? `/projects/${projectId}/chartdata` : "/chartdata";
     }
   } else {
     return null;
@@ -254,7 +270,6 @@ export const renderChart = (
   //     hideTitle={true}
   //   />
   // )
-
 
   return (
     <div className="event-preview-chart-wrapper">
